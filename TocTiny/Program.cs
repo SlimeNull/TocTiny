@@ -46,7 +46,7 @@ namespace TocTiny
         }
         static void SafeWriteLine(string content)
         {
-            if (scanner.IsInputting)
+            if (scanner != null && scanner.IsInputting)
             {
                 scanner.ClearDisplayBuffer();
                 Console.WriteLine(content);

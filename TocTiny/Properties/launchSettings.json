@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TocTiny": {
+      "commandName": "Project",
+      "commandLineArgs": "/NoCmd"
+    }
+  }
+}

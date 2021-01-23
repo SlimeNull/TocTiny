@@ -2,20 +2,17 @@
 using Microsoft.Win32;
 using Null.Library.EventedSocket;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.IO;
-using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using TocTinyClient;
 //using System.Drawing;
 
 namespace TocTiny
@@ -23,17 +20,17 @@ namespace TocTiny
     /// <summary>
     /// MainChat.xaml 的交互逻辑
     /// </summary>
-    public partial class MainChat : Window
+    public partial class MainChat
     {
         public readonly SocketClient SelfClient;
         public readonly Login WindowParent;
-        private byte[] heartPackageData;
-        private byte[] getOnlineInfoPackageData;
+        private readonly byte[] heartPackageData;
+        private readonly byte[] getOnlineInfoPackageData;
 
         private bool forceClose = false;
         private bool keepMain = false;
 
-        private int btimeout = 1000, cinterval = 1000;
+        private readonly int btimeout = 1000, cinterval = 1000;
         private DateTime wroteTime;
 
         private MemoryStream partsBuffer;
@@ -42,7 +39,7 @@ namespace TocTiny
         {
             InitializeComponent();
 
-            this.WindowParent = loginWindow;
+            WindowParent = loginWindow;
             SelfClient = loginWindow.SelfClient;
 
             heartPackageData = Encoding.UTF8.GetBytes(
@@ -69,9 +66,6 @@ namespace TocTiny
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Left = WindowParent.Left + (WindowParent.Width - this.Width) / 2;
-            this.Top = WindowParent.Top + (WindowParent.Height - this.Height) / 2;
-
             SendVerification($"{WindowParent.NickName} entered.");
             new Thread(HeartBeatLoop).Start();         // 开启心跳包发送循环
             new Thread(MemoryCleaningLoop).Start();    // 开启内存清理循环
@@ -82,7 +76,7 @@ namespace TocTiny
             {
                 while (SelfClient.Connected)
                 {
-                    SelfClient.Server.Send(heartPackageData);
+                    SelfClient.SocketToServer.Send(heartPackageData);
                     Thread.Sleep(120000);
                 }
             }
@@ -185,7 +179,7 @@ namespace TocTiny
                 rst = new TextBox()
                 {
                     Text = "图像加载失败",
-                    Foreground = new SolidColorBrush(Color.FromRgb(200,200,200)),
+                    Foreground = new SolidColorBrush(Color.FromRgb(200, 200, 200)),
                     IsReadOnly = true,
                     IsReadOnlyCaretVisible = false,
                     MaxLines = int.MaxValue,
@@ -217,14 +211,13 @@ namespace TocTiny
                         {
                             AppendTextMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Left);
                         }
-                        Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
+                        App.Current.Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     case ConstDef.Verification:
                         AppendAnnouncement(recvPackage.Content);
-                        Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
+                        App.Current.Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     case ConstDef.ImageMessage:
-                        //暂时不处理, 保留
                         if (recvPackage.ClientGuid == WindowParent.ClientGuid)
                         {
                             AppendImageMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Right);
@@ -246,11 +239,11 @@ namespace TocTiny
                         break;
                     case ConstDef.ChangeChannelName:
                         SetCurrentChannelName(recvPackage.Content);
-                        Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
+                        App.Current.Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     case ConstDef.ReportChannelOnline:
                         AppendAnnouncement(recvPackage.Content);
-                        Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
+                        App.Current.Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     default:
                         // ( 在规定之外的消息 ) 以后再弄详细处理
@@ -262,10 +255,6 @@ namespace TocTiny
                     DisposePartsBuffer();
                 }
             }
-        }
-        private void RowDefinition_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
         }
         private bool TrySendPackage(TransPackage package)
         {
@@ -280,7 +269,7 @@ namespace TocTiny
             {
                 if (data.Length <= WindowParent.BufferSize)
                 {
-                    SelfClient.Server.Send(data);
+                    SelfClient.SocketToServer.Send(data);
                     return true;
                 }
                 else
@@ -371,7 +360,7 @@ namespace TocTiny
 
             TrySendPackage(package);
         }
-        private void AppendMsgControl(UIElement control)
+        private void AppendMsgControl(FrameworkElement control)
         {
             //Grid.SetRow(control, ChatMsgContainer.RowDefinitions.Count);
             //ChatMsgContainer.RowDefinitions.Add(new RowDefinition()
@@ -383,7 +372,7 @@ namespace TocTiny
         }
         private void AppendTextMessage(string name, string content, HorizontalAlignment align)
         {
-            this.Dispatcher.Invoke(()=>
+            App.Current.Dispatcher.Invoke(() =>
             {
                 Grid newMsg = GenTextMsgGrid(name, content, align);
                 AppendMsgControl(newMsg);
@@ -391,7 +380,7 @@ namespace TocTiny
         }
         private void AppendImageMessage(string name, string baseImg, HorizontalAlignment align)
         {
-            this.Dispatcher.Invoke(() =>
+            App.Current.Dispatcher.Invoke(() =>
             {
                 Grid newMsg = GenImageMsgGrid(name, baseImg, align);
                 AppendMsgControl(newMsg);
@@ -399,9 +388,10 @@ namespace TocTiny
         }
         private void AppendAnnouncement(string content)
         {
-            this.Dispatcher.Invoke(() =>
+            App.Current.Dispatcher.Invoke(() =>
             {
-                Label newMsg = new Label() {
+                Label newMsg = new Label()
+                {
                     Content = content,
                     HorizontalAlignment = HorizontalAlignment.Center
                 };
@@ -411,12 +401,11 @@ namespace TocTiny
         private void SetCurrentChannelName(string name)
         {
             ChannelName.Content = name;
-            this.Title = $"{name} - TOC Tiny";
         }
 
         private void Image_DragLeave(object sender, DragEventArgs e)
         {
-            
+
         }
         #endregion
 
@@ -437,8 +426,9 @@ namespace TocTiny
             partsBuffer.Dispose();
             partsBuffer = null;
         }
-        public void SelfClient_ReceivedMsg(System.Net.Sockets.Socket socket, byte[] buffer, int size)
+        public void SelfClient_ReceivedMsg(object sender,System.Net.Sockets.Socket socket, byte[] buffer, int size)
         {
+            MainChat sender1 = (MainChat)((SocketClient)sender).Tag;
             try
             {
                 string recvText = Encoding.UTF8.GetString(buffer, 0, size);
@@ -447,7 +437,7 @@ namespace TocTiny
                 foreach (JsonData per in recvJsons)
                 {
                     TransPackage recvPackage = JsonData.ConvertToInstance<TransPackage>(per);
-                    DealPackage(recvPackage);
+                    sender1.DealPackage( recvPackage);
                 }
 
                 return;
@@ -471,7 +461,7 @@ namespace TocTiny
                             foreach (JsonData per in jsons)
                             {
                                 TransPackage perPackage = JsonData.ConvertToInstance<TransPackage>(per);
-                                DealPackage(perPackage);
+                                sender1.DealPackage(perPackage);
                             }
                         }
                     }
@@ -483,17 +473,15 @@ namespace TocTiny
                 //MessageBox.Show("Received wrong data which can't be decoded.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        public void SelfClient_Disconnected(System.Net.Sockets.Socket socket)
+        public void SelfClient_Disconnected(object sender,System.Net.Sockets.Socket socket)
         {
             MessageBox.Show("Disconnected from server.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            Dispatcher.Invoke(() =>
+            App.Current.Dispatcher.Invoke(() =>
             {
-                WindowParent.Show();
-
+                Program.Navigate(new Login());
                 forceClose = true;
                 keepMain = true;
-                this.Close();
             });
         }
         #endregion
@@ -520,7 +508,6 @@ namespace TocTiny
 
             if (!keepMain)
             {
-                WindowParent.Close();
                 Environment.Exit(0);
             }
         }
@@ -574,16 +561,18 @@ namespace TocTiny
             TrySendData(getOnlineInfoPackageData);
         }                    // 
 
-        OpenFileDialog ofd;
+        private OpenFileDialog ofd;
         private void SendPicture_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (ofd == null)
             {
-                ofd = new OpenFileDialog();
-                ofd.Title = "Open a image file for sending";
-                ofd.Filter = "Normal image format|*.jpg;*.jpeg;*.png;*.gif;*.bmp|JPEG|*.jpg;*.jpeg|PNG|*.png|GIF|*.gif|Bitmap|*.bmp|Other|*.*";
-                ofd.CheckFileExists = true;
-                ofd.Multiselect = false;
+                ofd = new OpenFileDialog
+                {
+                    Title = "Open a image file for sending",
+                    Filter = "Normal image format|*.jpg;*.jpeg;*.png;*.gif;*.bmp|JPEG|*.jpg;*.jpeg|PNG|*.png|GIF|*.gif|Bitmap|*.bmp|Other|*.*",
+                    CheckFileExists = true,
+                    Multiselect = false
+                };
             }
             if (ofd.ShowDialog().GetValueOrDefault(false))
             {

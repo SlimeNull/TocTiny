@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CHO.Json;
+using Null.Library;
+using Null.Library.ConsArgsParser;
+using Null.Library.EventedSocket;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,32 +10,24 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using Null.Library;
-using Null.Library.ConsArgsParser;
-using Null.Library.EventedSocket;
-using CHO.Json;
 
 namespace TocTiny
 {
-    class Program
+    internal class Program
     {
-        static string channelName;
+        private static string channelName;
+        private static readonly Dictionary<Socket, MemoryStream> clients = new Dictionary<Socket, MemoryStream>();        // 客户端以及 部分包的缓冲区 DateTime是上一次将内容写入到缓冲区的时间.
+        private static readonly Dictionary<Socket, DateTime> clientBufferWroteTime = new Dictionary<Socket, DateTime>();  //
+        private static readonly List<Socket> clientToRemove = new List<Socket>();
+        private static readonly List<byte[]> lastMessages = new List<byte[]>();
+        private static readonly Dictionary<string, (string, Socket)> clientRecord = new Dictionary<string, (string, Socket)>();         // guid : (name, socket)
+        private static readonly int maxSaveCount = 15;
+        private static int port, bufferSize, backlog, btimeout, cinterval;
+        private static DynamicScanner scanner;
+        private static byte[] heartPackageData;
+        private static bool nocolor, nocmd;
 
-        static readonly Dictionary<Socket, MemoryStream> clients = new Dictionary<Socket, MemoryStream>();        // 客户端以及 部分包的缓冲区 DateTime是上一次将内容写入到缓冲区的时间.
-        static readonly Dictionary<Socket, DateTime> clientBufferWroteTime = new Dictionary<Socket, DateTime>();  //
-        static readonly List<Socket> clientToRemove = new List<Socket>();
-        static readonly List<byte[]> lastMessages = new List<byte[]>();
-        static readonly Dictionary<string, (string, Socket)> clientRecord = new Dictionary<string, (string, Socket)>();         // guid : (name, socket)
-        static int maxSaveCount = 15;
-
-        static int port, bufferSize, backlog, btimeout, cinterval;
-
-        static DynamicScanner scanner;
-
-        static byte[] heartPackageData;
-        static bool nocolor, nocmd;
-
-        class StartupArgs
+        private class StartupArgs
         {
             public string PORT = "2020";           // port 
             public string BUFFER = "1024576";      // buffer
@@ -44,9 +40,10 @@ namespace TocTiny
             public bool NOCOLOR = false;       // string color : 是否开启控制台的消息文本高亮
             public bool NOCMD = false;
         }
-        static void SafeWriteLine(string content)
+
+        private static void SafeWriteLine(string content)
         {
-            if (scanner.IsInputting)
+            if (scanner != null && scanner.IsInputting)
             {
                 scanner.ClearDisplayBuffer();
                 Console.WriteLine(content);
@@ -58,12 +55,14 @@ namespace TocTiny
                 Console.WriteLine(content);
             }
         }
-        static void DisplayHelpAndEnd()
+
+        private static void DisplayHelpAndEnd()
         {
             SafeWriteLine("TOC Tiny : Server program for TOC Tiny\n\n  TocTiny[-Port port][-Buffer bufferSize][-Backlog backlog][/? | / Help]\n\n    port: Port number to be listened.Default value is 2020.\n    bufferSize: Buffer size for receive data. Default value is 1024576(B)\n    backlog    : Maximum length of the pending connections queue.Default value is 50.\n");
             Environment.Exit(0);
         }
-        static void Initialize(string[] args)
+
+        private static void Initialize(string[] args)
         {
             ConsArgs consArgs = new ConsArgs(args);
             if (consArgs.Booleans.Contains("?") || consArgs.Booleans.Contains("HELP"))
@@ -129,14 +128,15 @@ namespace TocTiny
 
             new Thread(MemoryCleaningLoop).Start();                     // 开启内存循环清理线程
         }
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             Initialize(args);
 
             SocketServer server = new SocketServer();
             try
             {
-                server.Start((int)port, (int)backlog, (int)bufferSize);
+                server.Start(port, backlog, bufferSize);
                 SafeWriteLine($"Server started. Port: {port}, Backlog: {backlog}, Buffer: {bufferSize}(B).");
                 server.ClientConnected += Server_ClientConnected;
                 server.ClientDisconnected += Server_ClientDisconnected;

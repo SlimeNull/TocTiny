@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Null.Library
 {
     public class DynamicScanner
     {
-        int startTop, startLeft, endTop, endLeft, currentTop, currentLeft, tempEndTop, tempEndLeft;
-        int inputIndex, historyIndex;
-        bool insertMode = true, inputting = false, cursorVisible;
+        private int startTop, startLeft, endTop, endLeft, currentTop, currentLeft, tempEndTop, tempEndLeft;
+        private int inputIndex, historyIndex;
+        private bool insertMode = true, inputting = false, cursorVisible;
         private readonly object printting = false;                // 用于互斥锁
-        ConsoleKeyInfo readedKey;
+        private ConsoleKeyInfo readedKey;
         private readonly List<List<char>> inputHistory;
         private List<char> inputtingChars;
         private string promptText = string.Empty;
@@ -27,21 +25,15 @@ namespace Null.Library
         {
             inputHistory = new List<List<char>>();
         }
-        public string InputtingString
-        {
-            get
-            {
-                return inputtingChars == null ? string.Empty : new string(inputtingChars.ToArray());
-            }
-        }
+        public string InputtingString => inputtingChars == null ? string.Empty : new string(inputtingChars.ToArray());
 
-        public int StartTop { get => startTop; }
-        public int StartLeft { get => startLeft; }
-        public int EndTop { get => endTop; }
-        public int EndLeft { get => endLeft; }
-        public int CurrentTop { get => currentTop; }
-        public int CurrentLeft { get => currentLeft; }
-        public bool IsInputting { get => inputting; }
+        public int StartTop => startTop;
+        public int StartLeft => startLeft;
+        public int EndTop => endTop;
+        public int EndLeft => endLeft;
+        public int CurrentTop => currentTop;
+        public int CurrentLeft => currentLeft;
+        public bool IsInputting => inputting;
         public string PromptText { get => promptText; set => promptText = value; }
 
         public static bool IsControlKey(ConsoleKey k)
@@ -156,7 +148,7 @@ namespace Null.Library
         }
         private void PrintInputString()
         {
-            lock(printting)
+            lock (printting)
             {
                 cursorVisible = Console.CursorVisible;
                 Console.CursorVisible = false;
@@ -208,7 +200,7 @@ namespace Null.Library
         }
         public void ClearDisplayBuffer()
         {
-            lock(printting)
+            lock (printting)
             {
                 cursorVisible = Console.CursorVisible;
                 Console.CursorVisible = false;
@@ -223,7 +215,7 @@ namespace Null.Library
         }
         public void DisplayTo(int cursorLeft, int cursorTop)
         {
-            lock(printting)
+            lock (printting)
             {
                 cursorVisible = Console.CursorVisible;
                 Console.CursorVisible = false;
@@ -261,7 +253,7 @@ namespace Null.Library
         }
         public void SetInputStart(int cursorLeft, int cursorTop)
         {
-            lock(printting)
+            lock (printting)
             {
                 cursorVisible = Console.CursorVisible;
                 Console.CursorVisible = false;

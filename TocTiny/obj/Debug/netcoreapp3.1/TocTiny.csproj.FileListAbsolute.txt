@@ -37,3 +37,10 @@ F:\Project\Source\Repository\Current\repos\TocTiny\TocTiny\obj\Debug\netcoreapp3
 F:\Project\Source\Repository\Current\repos\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.dll
 F:\Project\Source\Repository\Current\repos\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.pdb
 F:\Project\Source\Repository\Current\repos\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.genruntimeconfig.cache
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTiny\bin\Debug\netcoreapp3.1\TocTiny.exe
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.csprojAssemblyReference.cache
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.AssemblyInfoInputs.cache
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.AssemblyInfo.cs
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.dll
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTiny\obj\Debug\netcoreapp3.1\TocTiny.pdb

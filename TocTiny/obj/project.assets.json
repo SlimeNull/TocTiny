@@ -8,20 +8,25 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\dell\\.nuget\\packages\\": {}
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTiny\\TocTiny.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\lx1587496147\\TocTiny\\TocTiny\\TocTiny.csproj",
       "projectName": "TocTiny",
-      "projectPath": "F:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTiny\\TocTiny.csproj",
-      "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
-      "outputPath": "F:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTiny\\obj\\",
+      "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\lx1587496147\\TocTiny\\TocTiny\\TocTiny.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\lx1587496147\\TocTiny\\TocTiny\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

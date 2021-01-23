@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Null.Library.EventedSocket;
+using System;
 using System.Net;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Null.Library.EventedSocket;
 
 namespace TocTiny
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class Login : Window
+    public partial class Login
     {
         public MainChat ChatWindow;
         private SocketClient selfClient;
@@ -33,25 +20,21 @@ namespace TocTiny
         public string ClientGuid => clientGuid;
         public int BufferSize => bufferSize;
 
-        public SocketClient SelfClient { get => selfClient; }
+        public SocketClient SelfClient => selfClient;
 
         public Login()
         {
             InitializeComponent();
             clientGuid = Guid.NewGuid().ToString();
-            this.MouseDown += Login_MouseDown;
             NickNameBox.Text = Environment.UserName;
             AddressBox.Text = "chonet.xyz";
             PortBox.Text = "2020";
         }
-        private void Login_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
 
-        Thread loginThread;
-        Thread loginWaitThread;
-        struct LoginThreadFuncParam
+        private Thread loginThread;
+        private Thread loginWaitThread;
+
+        private struct LoginThreadFuncParam
         {
             public IPAddress IPAddress;
             public int Port;
@@ -63,14 +46,14 @@ namespace TocTiny
 
             try
             {
-                SelfClient.ConnectTo(new IPEndPoint(param.IPAddress, param.Port), param.BufferSize);
-                SelfClient.ReceivedMsg += ChatWindow.SelfClient_ReceivedMsg;
-                SelfClient.Disconnected += ChatWindow.SelfClient_Disconnected;
-
                 Dispatcher.Invoke(() =>
                 {
-                    ChatWindow.Show();
-                    this.Hide();
+                    MainChat page = new MainChat(this);
+                    selfClient.Tag = page;
+                    SelfClient.ConnectTo(new IPEndPoint(param.IPAddress, param.Port), param.BufferSize);
+                    SelfClient.ReceivedMsg += ChatWindow.SelfClient_ReceivedMsg;
+                    SelfClient.Disconnected += ChatWindow.SelfClient_Disconnected;
+                    Program.Navigate(page);
                 });
             }
             catch

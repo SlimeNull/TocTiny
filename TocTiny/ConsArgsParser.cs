@@ -1,38 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Null.Library.ConsArgsParser
 {
-    class ConsArgs
+    internal class ConsArgs
     {
-        Dictionary<string, string> stringP = new Dictionary<string, string>();
-        List<string> stringL = new List<string>();
-        List<string> booleanP = new List<string>();
+        private readonly Dictionary<string, string> stringP = new Dictionary<string, string>();
+        private readonly List<string> stringL = new List<string>();
+        private readonly List<string> booleanP = new List<string>();
 
-        public Dictionary<string, string> Properties
-        {
-            get
-            {
-                return stringP;
-            }
-        }
-        public List<string> Content
-        {
-            get
-            {
-                return stringL;
-            }
-        }
-        public List<string> Booleans
-        {
-            get
-            {
-                return booleanP;
-            }
-        }
+        public Dictionary<string, string> Properties => stringP;
+        public List<string> Content => stringL;
+        public List<string> Booleans => booleanP;
 
         /// <summary>
         /// 分析命令行参数, 以供更简单的操作
@@ -45,7 +25,7 @@ namespace Null.Library.ConsArgsParser
         {
             bool key = false;                // 状态: 是否识别到了键
             string tempkey = string.Empty;   // 临时存储的键
-            foreach(string i in arguments)
+            foreach (string i in arguments)
             {
                 if (key)    // 如果已经识别到了键, 则代表当前的内容是一个值, 存储它, 并将"key"状态改为false
                 {
@@ -95,15 +75,15 @@ namespace Null.Library.ConsArgsParser
                 {
                     if (info.Name == "Content")
                     {
-                        info.SetValue(result, this.stringL);
+                        info.SetValue(result, stringL);
                     }
                     else if (info.Name == "Properties")
                     {
-                        info.SetValue(result, this.stringP);
+                        info.SetValue(result, stringP);
                     }
                     else if (info.Name == "Booleans")
                     {
-                        info.SetValue(result, this.booleanP);
+                        info.SetValue(result, booleanP);
                     }
                 }
             }

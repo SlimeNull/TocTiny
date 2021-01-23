@@ -18,13 +18,7 @@ namespace CHO.Json
         {
             this.message = message;
         }
-        public override string Message
-        {
-            get
-            {
-                return message;
-            }
-        }
+        public override string Message => message;
     }
 
     /// <summary>
@@ -39,14 +33,8 @@ namespace CHO.Json
             this.message = message;
             this.index = index;
         }
-        public override string Message
-        {
-            get => message;
-        }
-        public int Index
-        {
-            get => index;
-        }
+        public override string Message => message;
+        public int Index => index;
     }
 
     /// <summary>
@@ -61,14 +49,8 @@ namespace CHO.Json
             this.message = message;
             this.index = index;
         }
-        public override string Message
-        {
-            get => message;
-        }
-        public int Index
-        {
-            get => index;
-        }
+        public override string Message => message;
+        public int Index => index;
     }
 
     /// <summary>
@@ -83,14 +65,8 @@ namespace CHO.Json
             this.message = message;
             this.index = index;
         }
-        public override string Message
-        {
-            get => message;
-        }
-        public int Index
-        {
-            get => index;
-        }
+        public override string Message => message;
+        public int Index => index;
     }
 
     /// <summary>
@@ -105,14 +81,8 @@ namespace CHO.Json
             this.message = message;
             this.index = index;
         }
-        public override string Message
-        {
-            get => message;
-        }
-        public int Index
-        {
-            get => index;
-        }
+        public override string Message => message;
+        public int Index => index;
     }
 
     /// <summary>
@@ -127,14 +97,8 @@ namespace CHO.Json
             this.message = message;
             this.index = index;
         }
-        public override string Message
-        {
-            get => message;
-        }
-        public int Index
-        {
-            get => index;
-        }
+        public override string Message => message;
+        public int Index => index;
     }
     /// <summary>
     /// Json数据类型, 表示Json数据中包含数据的类型
@@ -157,12 +121,9 @@ namespace CHO.Json
     public class JsonData
     {
         protected JsonDataType dataType;
-        protected Object content;
+        protected object content;
 
-        public JsonDataType DataType
-        {
-            get => dataType;
-        }
+        public JsonDataType DataType => dataType;
 
         protected JsonData() { }
 
@@ -214,7 +175,7 @@ namespace CHO.Json
             JsonData result = new JsonData
             {
                 dataType = JsonDataType.Integer,
-                content = (int)0
+                content = 0
             };
             return result;
         }
@@ -240,7 +201,7 @@ namespace CHO.Json
             JsonData result = new JsonData
             {
                 dataType = JsonDataType.Double,
-                content = (double)0.0
+                content = 0.0
             };
             return result;
         }
@@ -739,11 +700,11 @@ namespace CHO.Json
         {
             if (dataType == JsonDataType.Array)
             {
-                return ((List<JsonData>)this.content).Count;
+                return ((List<JsonData>)content).Count;
             }
             else if (dataType == JsonDataType.Object)
             {
-                return ((Dictionary<JsonData, JsonData>)this.content).Count;
+                return ((Dictionary<JsonData, JsonData>)content).Count;
             }
             else
             {

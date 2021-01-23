@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Null.Library.Linker
 {
     public class Linker<TA, TB>
     {
-        Dictionary<TA, TB> a2b = new Dictionary<TA, TB>();
-        Dictionary<TB, TA> b2a = new Dictionary<TB, TA>();
+        private readonly Dictionary<TA, TB> a2b = new Dictionary<TA, TB>();
+        private readonly Dictionary<TB, TA> b2a = new Dictionary<TB, TA>();
 
         public void AppendLink(TA a, TB b)
         {
@@ -79,25 +76,13 @@ namespace Null.Library.Linker
         }
         public TB this[TA a]
         {
-            get
-            {
-                return GetTarget(a);
-            }
-            set
-            {
-                SetTarget(a, value);
-            }
+            get => GetTarget(a);
+            set => SetTarget(a, value);
         }
         public TA this[TB b]
         {
-            get
-            {
-                return GetTarget(b);
-            }
-            set
-            {
-                SetTarget(value, b);
-            }
+            get => GetTarget(b);
+            set => SetTarget(value, b);
         }
         public bool ContainsNode(TA a)
         {

@@ -38,6 +38,9 @@
   <PropertyGroup>
     <ApplicationIcon>TocTinyLogo.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>TocTiny.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -60,6 +63,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="FrameHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainChat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +82,9 @@
     <Compile Include="CHO.Json.cs" />
     <Compile Include="ConsArgsParser.cs" />
     <Compile Include="EventedSocket.cs" />
+    <Compile Include="FrameHost.xaml.cs">
+      <DependentUpon>FrameHost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainChat.xaml.cs">
       <DependentUpon>MainChat.xaml</DependentUpon>
     </Compile>
@@ -85,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PackageDef.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

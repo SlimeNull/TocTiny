@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading;
 
 namespace Null.Library.EventedSocket
 {
@@ -14,24 +11,12 @@ namespace Null.Library.EventedSocket
 
     public class SocketServer
     {
-        Socket server;                                               // 用来接受连接, 接收数据, 转发数据的套接字
-        Dictionary<Socket, byte[]> clientBufferPairs;                // 缓冲区
-        int bufferSize;
+        private Socket server;                                               // 用来接受连接, 接收数据, 转发数据的套接字
+        private Dictionary<Socket, byte[]> clientBufferPairs;                // 缓冲区
+        private int bufferSize;
 
-        public bool Running
-        {
-            get
-            {
-                return server.IsBound;
-            }
-        }
-        public int ConnectedCount
-        {
-            get
-            {
-                return clientBufferPairs.Count;
-            }
-        }
+        public bool Running => server.IsBound;
+        public int ConnectedCount => clientBufferPairs.Count;
         public void Start(int port, int backlog, int bufferSize)
         {
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -50,19 +35,25 @@ namespace Null.Library.EventedSocket
         public event SocketDisconnectedHandler ClientDisconnected;
         public event SocketRecvMsgHandler RecvedClientMsg;
 
-        void AcceptAction(IAsyncResult ar)
+        private void AcceptAction(IAsyncResult ar)
         {
             Socket client = server.EndAccept(ar);
-            if (ClientConnected != null) ClientConnected.Invoke(client);
+            if (ClientConnected != null)
+            {
+                ClientConnected.Invoke(client);
+            }
 
             clientBufferPairs[client] = new byte[bufferSize];
-            StateObject state = new StateObject();
-            state.workSocket = client;
+            StateObject state = new StateObject
+            {
+                workSocket = client
+            };
             client.BeginReceive(clientBufferPairs[client], 0, bufferSize, SocketFlags.None, ReceiveAction, state);
 
             server.BeginAccept(AcceptAction, null);
         }
-        void ReceiveAction(IAsyncResult ar)
+
+        private void ReceiveAction(IAsyncResult ar)
         {
             Socket client = ((StateObject)ar.AsyncState).workSocket;
             int size = 0;
@@ -73,7 +64,11 @@ namespace Null.Library.EventedSocket
             catch
             {
                 clientBufferPairs.Remove(client);
-                if (ClientDisconnected != null) ClientDisconnected.Invoke(client);
+                if (ClientDisconnected != null)
+                {
+                    ClientDisconnected.Invoke(client);
+                }
+
                 client.Close();
                 return;
             }
@@ -81,12 +76,19 @@ namespace Null.Library.EventedSocket
             if (size == 0)
             {
                 clientBufferPairs.Remove(client);
-                if (ClientDisconnected != null) ClientDisconnected.Invoke(client);
+                if (ClientDisconnected != null)
+                {
+                    ClientDisconnected.Invoke(client);
+                }
+
                 client.Close();
             }
             else
             {
-                if (RecvedClientMsg != null) RecvedClientMsg.Invoke(client, clientBufferPairs[client], size);
+                if (RecvedClientMsg != null)
+                {
+                    RecvedClientMsg.Invoke(client, clientBufferPairs[client], size);
+                }
 
                 client.BeginReceive(clientBufferPairs[client], 0, 4096, SocketFlags.None, new AsyncCallback(ReceiveAction), ar.AsyncState);
             }
@@ -94,8 +96,8 @@ namespace Null.Library.EventedSocket
     }
     public class SocketClient
     {
-        Socket server;
-        byte[] buffer;
+        private Socket server;
+        private byte[] buffer;
 
         public bool Connected
         {
@@ -111,23 +113,17 @@ namespace Null.Library.EventedSocket
                 }
             }
         }
-        public Socket Server
-        {
-            get
-            {
-                return server;
-            }
-        }
+        public Socket Server => server;
 
         public void ConnectTo(EndPoint address, int bufferSize)
         {
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             server.Connect(address);
-            this.buffer = new byte[bufferSize];
+            buffer = new byte[bufferSize];
 
             try
             {
-                server.BeginReceive(buffer, 0, this.buffer.Length, SocketFlags.None, ReceiveAction, null);
+                server.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveAction, null);
             }
             catch
             {
@@ -141,7 +137,7 @@ namespace Null.Library.EventedSocket
         public event SocketRecvMsgHandler ReceivedMsg;
         public event SocketDisconnectedHandler Disconnected;
 
-        void ReceiveAction(IAsyncResult ar)
+        private void ReceiveAction(IAsyncResult ar)
         {
             int size = 0;
             try
@@ -150,19 +146,30 @@ namespace Null.Library.EventedSocket
             }
             catch
             {
-                if (Disconnected != null) Disconnected.Invoke(server);
+                if (Disconnected != null)
+                {
+                    Disconnected.Invoke(server);
+                }
+
                 server.Close();
                 return;
             }
 
             if (size == 0)
             {
-                if (Disconnected != null) Disconnected.Invoke(server);
+                if (Disconnected != null)
+                {
+                    Disconnected.Invoke(server);
+                }
+
                 server.Close();
             }
             else
             {
-                if (ReceivedMsg != null) ReceivedMsg.Invoke(Server, buffer, size);
+                if (ReceivedMsg != null)
+                {
+                    ReceivedMsg.Invoke(Server, buffer, size);
+                }
 
                 try
                 {

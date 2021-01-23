@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TocTiny"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        MinHeight="65" MinWidth="102.4">
+        d:DesignHeight="650" d:DesignWidth="1024">
     <Grid Grid.Row="1" PreviewMouseDown="Grid_PreviewMouseDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>

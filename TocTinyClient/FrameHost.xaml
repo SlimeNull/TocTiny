@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TocTinyClient"
         mc:Ignorable="d"
-        Title="FrameHost" Height="450" Width="800" Background="White">
+        Title="FrameHost" Height="650" Width="1024" Background="White">
     <Grid>
         <Frame x:Name="Frame" NavigationUIVisibility="Hidden"/>
     </Grid>

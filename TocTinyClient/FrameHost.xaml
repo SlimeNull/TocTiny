@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="FrameHost" Height="650" Width="1024" Background="White">
     <Grid>
+        <Button HorizontalAlignment="Left" Width="9" Height="10" VerticalAlignment="Top" Background="White" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_Click"/>
         <Frame x:Name="Frame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

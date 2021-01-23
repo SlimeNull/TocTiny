@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="TocTinyClient.TocErrorReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TocTinyClient"
+        mc:Ignorable="d"
+        d:DesignHeight="400" d:DesignWidth="600">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock>
+                    <Run Text="非常抱歉，我们的TOC在运行时崩溃了"/>
+                    <LineBreak/>
+                    <Run Text="这个错误很有可能是意料之外的，也有可能是意料之内的"/>
+                    <LineBreak/>
+                    <Run Text="如果你愿意，可以留下你的QQ或者电话号码，我们将在1年内对你的反馈进行修改"/>
+                    <LineBreak/>
+                    <Run Text="当然也可以去Github:https://github.com/lx1587496147/TocTiny"/>
+                    <LineBreak/>
+                    <Run Text="或者你也可以加入我们的qq群:687864919进行维权"/>
+                    <LineBreak/>
+                    <Run Text="我们坚信，只要做出最差劲的客服态度，就能吸引使用者进行维权"/>
+                    <LineBreak/>
+                    <Run Text="相关信息："/><LineBreak/><InlineUIContainer>
+                        <Button Content="展开堆栈追踪" Click="Button_Click_2"/>
+                    </InlineUIContainer><LineBreak/><InlineUIContainer>
+                        <TextBlock x:Name="dzzz" Visibility="Collapsed"/>
+                    </InlineUIContainer>
+                    </TextBlock>
+                <TextBox Text="在此输入反馈，你的反馈将在一年内进行处理" Height="150"/>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Content="重启TOC" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="65" Margin="0,0,10,10" Click="Button_Click"/>
+        <Button Content="关闭TOC" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="65" Margin="0,0,80,10" Click="Button_Click_1"/>
+    </Grid>
+</UserControl>

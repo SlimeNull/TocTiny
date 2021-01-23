@@ -75,3 +75,5 @@ C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTinyClient\obj\Debug
 C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTinyClient\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTinyClient\obj\Debug\Localization\内置简体中文.baml
 C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTinyClient\obj\Debug\Localization\内置美国英语.baml
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTinyClient\obj\Debug\TocErrorReport.g.cs
+C:\Users\Administrator\Source\Repos\lx1587496147\TocTiny\TocTinyClient\obj\Debug\TocErrorReport.baml

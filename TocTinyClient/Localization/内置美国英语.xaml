@@ -2,6 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TocTinyClient.Localization">
     <local:LocalizationItem x:Key="LocalizationName" LocalizationString="American English(internal)"/>
-    <local:LocalizationItem x:Key="ErrorMsg1" LocalizationString="Reserve exception."/>
-    <local:LocalizationItem x:Key="JsonData2ObjectErrrorMsg" LocalizationString="When JsonData of type Object is deserialized to a custom type, it is required that the key of JsonData be of type String."/>
+    <local:LocalizationItem x:Key="AccessDataShouldBeArrayOrObject" LocalizationString="Accessed data is not of Object type."/>
+    <local:LocalizationItem x:Key="JsonData2ObjectErrrorMsg" LocalizationString="When JsonData of Object type is deserialized to a custom type, the key of JsonData must be of String type."/>
+    <local:LocalizationItem x:Key="JsonData2ObjectButDontImplementIListErrorMsg" LocalizationString="When Array-type JsonData is deserialized to a class instance, the class must inherit the IList interface"/>
+    <local:LocalizationItem x:Key="JsonData2UnknowErrorMsg" LocalizationString="Unknown type of JsonData data"/>
+    <local:LocalizationItem x:Key="UnknowJsonDataType" LocalizationString="The data type accessed is unknown"/>
+    <local:LocalizationItem x:Key="UnCorrectTypeAccess" LocalizationString="Accessed data is not of type {0}"/>
+    <local:LocalizationItem x:Key="InvalidJsonData" LocalizationString="The operation is not valid for this Json data"/>
+    <local:LocalizationItem x:Key="DataShouldBeInteger" LocalizationString="Integer data should be used"/>
+    <local:LocalizationItem x:Key="InvalidChar" LocalizationString="Illegal character'{0}'"/>
+    <local:LocalizationItem x:Key="StringDontHaveEndChar" LocalizationString="String No End Symbol"/>
+    <local:LocalizationItem x:Key="UnknowChar" LocalizationString="Unhandled character encountered during serialization"/>
+    <local:LocalizationItem x:Key="DontClose" LocalizationString=" {0} End symbol not found"/>
+    <local:LocalizationItem x:Key="ParallelChild" LocalizationString="A Json cannot have two elements side by side"/>
 </ResourceDictionary>

@@ -3,12 +3,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TocTinyClient.Localization">
     <local:LocalizationItem x:Key="LocalizationName" LocalizationString="简体中文（内置）"/>
-    <local:LocalizationItem x:Key="ErrorMsg1" LocalizationString="保留错误"/>
+    <local:LocalizationItem x:Key="AccessDataShouldBeArrayOrObject" LocalizationString="所访问数据不是Object类型"/>
     <local:LocalizationItem x:Key="JsonData2ObjectErrrorMsg" LocalizationString="Object类型的JsonData在反序列化为自定义类型时, 要求JsonData的键必须是String类型"/>
     <local:LocalizationItem x:Key="JsonData2ObjectButDontImplementIListErrorMsg" LocalizationString="Array类型的JsonData在反序列化为类实例时, 要求类必须继承IList接口"/>
     <local:LocalizationItem x:Key="JsonData2UnknowErrorMsg" LocalizationString="未知类型的JsonData数据"/>
     <local:LocalizationItem x:Key="UnknowJsonDataType" LocalizationString="所访问数据类型未知"/>
     <local:LocalizationItem x:Key="UnCorrectTypeAccess" LocalizationString="所访问数据不是{0}类型"/>
-    <local:LocalizationItem x:Key="ErrorMsg1" LocalizationString="保留错误"/>
-    <local:LocalizationItem x:Key="ErrorMsg1" LocalizationString="保留错误"/>
+    <local:LocalizationItem x:Key="InvalidJsonData" LocalizationString="操作对该Json数据无效"/>
+    <local:LocalizationItem x:Key="DataShouldBeInteger" LocalizationString="应使用Integer数据"/>
+    <local:LocalizationItem x:Key="InvalidChar" LocalizationString="非法字符'{0}'"/>
+    <local:LocalizationItem x:Key="StringDontHaveEndChar" LocalizationString="String无结束符号"/>
+    <local:LocalizationItem x:Key="UnknowChar" LocalizationString="在序列化时遇到了无法处理的字符"/>
+    <local:LocalizationItem x:Key="DontClose" LocalizationString=" {0}没有找到结束符号"/>
+    <local:LocalizationItem x:Key="ParallelChild" LocalizationString="一个Json文本中不能出现两个元素并列的情况"/>
 </ResourceDictionary>

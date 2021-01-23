@@ -663,10 +663,10 @@ namespace CHO.Json
                         }
                         else
                         {
-                            throw new JsonDataTypeException("应使用Integer数据");
+                            throw new JsonDataTypeException(Localization.GetLocalizationString("DataShouldBeInteger"));//"应使用Integer数据"
                         }
                     default:
-                        throw new JsonDataTypeException("操作对该Json数据无效");//"操作对该Json数据无效"
+                        throw new JsonDataTypeException(Localization.GetLocalizationString("InvalidJsonData"));//"操作对该Json数据无效"
                 }
             }
             set
@@ -683,11 +683,11 @@ namespace CHO.Json
                         }
                         else
                         {
-                            throw new JsonDataTypeException("应使用Integer数据");
+                            throw new JsonDataTypeException(Localization.GetLocalizationString("DataShouldBeInteger"));//"应使用Integer数据"
                         }
                         break;
                     default:
-                        throw new JsonDataTypeException("操作对该Json数据无效");//"操作对该Json数据无效"
+                        throw new JsonDataTypeException(Localization.GetLocalizationString("InvalidJsonData"));//"操作对该Json数据无效"
                 }
             }
         }
@@ -708,7 +708,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Array或Object类型");
+                throw new JsonDataTypeException(Localization.GetLocalizationString("AccessDataShouldBeArrayOrObject"));//"所访问数据不是'Array或'Object类型"(已做删改
             }
         }
         /// <summary>
@@ -723,7 +723,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Object类型");
+                throw new JsonDataTypeException(Localization.GetLocalizationString("AccessDataShouldBeArrayOrObject"));//"所访问数据不是Object类型"
             }
         }
 
@@ -739,7 +739,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Object类型");
+                throw new JsonDataTypeException(Localization.GetLocalizationString("AccessDataShouldBeArrayOrObject"));
             }
         }
 
@@ -759,7 +759,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Object类型");
+                throw new JsonDataTypeException(Localization.GetLocalizationString("AccessDataShouldBeArrayOrObject"));
             }
         }
 
@@ -775,7 +775,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Array类型");
+                throw new JsonDataTypeException(Localization.GetLocalizationString("AccessDataShouldBeArrayOrObject"));
             }
         }
 
@@ -794,7 +794,7 @@ namespace CHO.Json
                     (content as List<JsonData>).Remove(basis);
                     break;
                 default:
-                    throw new JsonDataTypeException("操作对该Json数据无效");
+                    throw new JsonDataTypeException(Localization.GetLocalizationString("AccessDataShouldBeArrayOrObject"));
             }
         }
 
@@ -810,7 +810,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Array类型");
+                throw new JsonDataTypeException(Localization.GetLocalizationString("AccessDataShouldBeArrayOrObject"));
             }
         }
 
@@ -827,7 +827,7 @@ namespace CHO.Json
                 case JsonDataType.Array:
                     return (content as List<JsonData>).Contains(basis);
                 default:
-                    throw new JsonDataTypeException("操作对该Json数据无效");
+                    throw new JsonDataTypeException(Localization.GetLocalizationString("AccessDataShouldBeArrayOrObject"));
             }
         }
 
@@ -937,7 +937,7 @@ namespace CHO.Json
                     }
                     else
                     {
-                        throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                        throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                     }
                 }
             }
@@ -1009,11 +1009,11 @@ namespace CHO.Json
                     }
                     else
                     {
-                        throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                        throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                     }
                 }
             }
-            throw new NotClosedParseException("String无结束符号", offset);
+            throw new NotClosedParseException(Localization.GetLocalizationString("StringDontHaveEndChar"), offset);//"String无结束符号"
         }
         protected static JsonData ParseNumber(ref char[] source, ref int offset)
         {
@@ -1035,7 +1035,7 @@ namespace CHO.Json
                     }
                     else
                     {
-                        throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                        throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                     }
                 }
                 else
@@ -1051,7 +1051,7 @@ namespace CHO.Json
                     }
                     else
                     {
-                        throw new ParseCallError("未知错误! 一般情况下,此错误不会被触发", offset);
+                        throw new ParseCallError(Localization.GetLocalizationString("UnknowChar"), offset);//"在序列化时遇到了无法处理的字符"
                     }
                 }
             }
@@ -1109,7 +1109,7 @@ namespace CHO.Json
                     }
                     else
                     {
-                        throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                        throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                     }
                 }
             }
@@ -1122,7 +1122,7 @@ namespace CHO.Json
                 case "null":
                     return CreateNull();
                 default:
-                    throw new JsonDataTypeException(string.Format("未知的关键词'{0}'", content.ToString()));
+                    throw new JsonDataTypeException(Localization.GetLocalizationString("UnknowChar"));//"在序列化时遇到了无法处理的字符"(语义已简化
             }
         }
         protected static JsonData ParseArray(ref char[] source, ref int offset)
@@ -1162,7 +1162,7 @@ namespace CHO.Json
                         }
                         else
                         {
-                            throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                            throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                         }
                         break;
                     case ArrayParseState.NotStart:
@@ -1176,14 +1176,14 @@ namespace CHO.Json
                         }
                         else
                         {
-                            throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                            throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                         }
                         break;
 
                 }
             }
 
-            throw new NotClosedParseException("Array无结束符号", offset);
+            throw new NotClosedParseException(string.Format(Localization.GetLocalizationString("DontClose"),"Array"), offset);
         }
         protected static JsonData ParseObject(ref char[] source, ref int offset)
         {
@@ -1217,7 +1217,7 @@ namespace CHO.Json
                         }
                         else
                         {
-                            throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                            throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                         }
                         break;
                     case ObjectParseState.ValueStart:
@@ -1244,7 +1244,7 @@ namespace CHO.Json
                         }
                         else
                         {
-                            throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                            throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                         }
                         break;
                     case ObjectParseState.NotStart:
@@ -1258,13 +1258,13 @@ namespace CHO.Json
                         }
                         else
                         {
-                            throw new InvalidCharParseException(string.Format("非法字符'{0}'", source[offset]), offset);
+                            throw new InvalidCharParseException(string.Format(Localization.GetLocalizationString("InvalidChar"), source[offset]), offset);
                         }
                         break;
                 }
             }
 
-            throw new NotClosedParseException("Object无结束符号", offset);
+            throw new NotClosedParseException(string.Format(Localization.GetLocalizationString("DontClose"), "Object"), offset);
         }
 
         /// <summary>
@@ -1283,7 +1283,7 @@ namespace CHO.Json
             {
                 if (!IsEmptyChar(source[offset]))
                 {
-                    throw new JsonFormatParseException("一个Json文本中不能出现两个元素并列的情况", offset);
+                    throw new JsonFormatParseException(Localization.GetLocalizationString("ParallelChild"), offset);
                 }
             }
 
@@ -1305,7 +1305,7 @@ namespace CHO.Json
             {
                 if (!IsEmptyChar(source[offset]))
                 {
-                    throw new JsonFormatParseException("一个Json文本中不能出现两个元素并列的情况", offset);
+                    throw new JsonFormatParseException(Localization.GetLocalizationString("ParallelChild"), offset);
                 }
             }
 

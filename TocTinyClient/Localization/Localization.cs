@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Xaml;
 
 namespace TocTinyClient.Localization
 {
-    static class Localization
+    internal static class Localization
     {
         internal static ResourceDictionary resourceDictionary = new ResourceDictionary();
         static Localization()
@@ -35,7 +33,7 @@ namespace TocTinyClient.Localization
                     resourceDictionary = new ResourceDictionary() { Source = new Uri("pack://Application:,,,/Localization/内置美国英语.xaml") };
                     break;
                 case "zh-cn":
-                    resourceDictionary = new ResourceDictionary() { Source= new Uri("pack://Application:,,,/Localization/内置简体中文.xaml") };
+                    resourceDictionary = new ResourceDictionary() { Source = new Uri("pack://Application:,,,/Localization/内置简体中文.xaml") };
                     break;
                 default:
                     throw new ArgumentException(nameof(name));
@@ -50,11 +48,11 @@ namespace TocTinyClient.Localization
         public static string GetLocalizationString(string key)
         {
             if (LocalizationCache.ContainsKey(key)) { return LocalizationCache[key]; }
-            if (resourceDictionary.Keys.Cast<string>().Contains(key)) 
+            if (resourceDictionary.Keys.Cast<string>().Contains(key))
             {
                 string localizationString = ((LocalizationItem)resourceDictionary[key]).LocalizationString;
                 LocalizationCache.Add(key, localizationString);//缓存本地化
-                return localizationString; 
+                return localizationString;
             };
             return $"Fall to get localization string\"{key}\"";
         }

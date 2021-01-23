@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TocTinyClient;
 //using System.Drawing;
 
 namespace TocTiny
@@ -61,11 +62,20 @@ namespace TocTiny
 
             DataObject.AddPastingHandler(InputBox, InputBox_OnPaste);
         }
+        private bool IsLoadedagain = false;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SendVerification($"{WindowParent.NickName} entered.");
-            new Thread(HeartBeatLoop).Start();         // 开启心跳包发送循环
-            new Thread(MemoryCleaningLoop).Start();    // 开启内存清理循环
+            if (IsLoadedagain)
+            {
+                SendVerification($"{WindowParent.NickName} enter again.");
+            }
+            else
+            {
+                SendVerification($"{WindowParent.NickName} entered.");
+                new Thread(HeartBeatLoop).Start();         // 开启心跳包发送循环
+                //new Thread(MemoryCleaningLoop).Start();    // 开启内存清理循环
+            }
+            IsLoadedagain = true;
         }
         private void HeartBeatLoop()
         {
@@ -168,7 +178,12 @@ namespace TocTiny
                 };
 
                 ((Image)rst).DragLeave += Image_DragLeave;
-
+                ((Image)rst).MouseDown += (s, e) =>
+                {
+                    PictureView pv = new PictureView();
+                    pv.Picture.Source = ((Image)rst).Source;
+                    Program.Navigate(pv);
+                };
                 return rst;
             }
             catch

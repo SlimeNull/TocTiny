@@ -516,7 +516,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"),"object"));//"所访问数据不是xxx类型"
+                throw new JsonDataTypeException(string.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "object"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -531,7 +531,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "array"));//"所访问数据不是xxx类型"
+                throw new JsonDataTypeException(string.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "array"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -546,7 +546,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "string"));//"所访问数据不是xxx类型"
+                throw new JsonDataTypeException(string.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "string"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -561,7 +561,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "int"));//"所访问数据不是xxx类型"
+                throw new JsonDataTypeException(string.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "int"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -576,7 +576,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "float"));//"所访问数据不是xxx类型"
+                throw new JsonDataTypeException(string.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "float"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -591,7 +591,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "double"));//"所访问数据不是xxx类型"
+                throw new JsonDataTypeException(string.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "double"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -606,7 +606,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "bool"));//"所访问数据不是xxx类型"
+                throw new JsonDataTypeException(string.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "bool"));//"所访问数据不是xxx类型"
             }
         }
 
@@ -1183,7 +1183,7 @@ namespace CHO.Json
                 }
             }
 
-            throw new NotClosedParseException(string.Format(Localization.GetLocalizationString("DontClose"),"Array"), offset);
+            throw new NotClosedParseException(string.Format(Localization.GetLocalizationString("DontClose"), "Array"), offset);
         }
         protected static JsonData ParseObject(ref char[] source, ref int offset)
         {

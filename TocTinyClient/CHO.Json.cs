@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-
+using TocTinyClient.Localization;
 
 namespace CHO.Json
 {
@@ -400,7 +400,7 @@ namespace CHO.Json
                             }
                             else
                             {
-                                throw new ArgumentOutOfRangeException("Object类型的JsonData在反序列化为自定义类型时, 要求JsonData的键必须是String类型");
+                                throw new ArgumentOutOfRangeException(Localization.GetLocalizationString("JsonData2ObjectErrrorMsg")); //"Object类型的JsonData在反序列化为自定义类型时, 要求JsonData的键必须是String类型"
                             }
                         }
                         return result;
@@ -418,12 +418,12 @@ namespace CHO.Json
                     }
                     else
                     {
-                        throw new ArgumentOutOfRangeException("Array类型的JsonData在反序列化为类实例时, 要求类必须继承IList与IList<T>接口");
+                        throw new ArgumentOutOfRangeException(Localization.GetLocalizationString("JsonData2ObjectButDontImplementIListErrorMsg"));//"Array类型的JsonData在反序列化为类实例时, 要求类必须继承IList与IList<T>接口"
                     }
                 }
                 else
                 {
-                    throw new JsonDataTypeException("未知类型的JsonData数据");
+                    throw new JsonDataTypeException(Localization.GetLocalizationString("JsonData2UnknowErrorMsg"));//"未知类型的JsonData数据"
                 }
             }
         }
@@ -473,7 +473,7 @@ namespace CHO.Json
                 case JsonDataType.Null:
                     return "null";
                 default:
-                    throw new JsonDataTypeException("所访问数据类型未知");
+                    throw new JsonDataTypeException(Localization.GetLocalizationString("UnknowJsonDataType")); //"所访问数据类型未知"
             }
         }
         public static bool TryConvertToInstance<T>(JsonData jsonData, out T result)
@@ -516,7 +516,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Object类型");
+                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"),"object"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -531,7 +531,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Array类型");
+                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "array"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -546,7 +546,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是String类型");
+                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "string"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -561,7 +561,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Integer类型");
+                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "int"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -576,7 +576,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Float类型");
+                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "float"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -591,7 +591,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Double类型");
+                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "double"));//"所访问数据不是xxx类型"
             }
         }
         /// <summary>
@@ -606,7 +606,7 @@ namespace CHO.Json
             }
             else
             {
-                throw new JsonDataTypeException("所访问数据不是Bool类型");
+                throw new JsonDataTypeException(String.Format(Localization.GetLocalizationString("UnCorrectTypeAccess"), "bool"));//"所访问数据不是xxx类型"
             }
         }
 
@@ -666,7 +666,7 @@ namespace CHO.Json
                             throw new JsonDataTypeException("应使用Integer数据");
                         }
                     default:
-                        throw new JsonDataTypeException("操作对该Json数据无效");
+                        throw new JsonDataTypeException("操作对该Json数据无效");//"操作对该Json数据无效"
                 }
             }
             set
@@ -687,7 +687,7 @@ namespace CHO.Json
                         }
                         break;
                     default:
-                        throw new JsonDataTypeException("操作对该Json数据无效");
+                        throw new JsonDataTypeException("操作对该Json数据无效");//"操作对该Json数据无效"
                 }
             }
         }

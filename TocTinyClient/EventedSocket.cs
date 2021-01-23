@@ -5,9 +5,9 @@ using System.Net.Sockets;
 
 namespace Null.Library.EventedSocket
 {
-    public delegate void SocketConnectedHandler(object sender,Socket socket);
-    public delegate void SocketDisconnectedHandler(object sender,Socket socket);
-    public delegate void SocketRecvMsgHandler(object sender,Socket socket, byte[] buffer, int size);
+    public delegate void SocketConnectedHandler(object sender, Socket socket);
+    public delegate void SocketDisconnectedHandler(object sender, Socket socket);
+    public delegate void SocketRecvMsgHandler(object sender, Socket socket, byte[] buffer, int size);
     public class SocketServer
     {
         private Socket server;                                               // 用来接受连接, 接收数据, 转发数据的套接字
@@ -61,7 +61,7 @@ namespace Null.Library.EventedSocket
             Socket client = server.EndAccept(ar);
             if (ClientConnected != null)
             {
-                ClientConnected.Invoke(this,client);
+                ClientConnected.Invoke(this, client);
             }
 
             clientBufferPairs[client] = new byte[bufferSize];
@@ -91,7 +91,7 @@ namespace Null.Library.EventedSocket
                 clientBufferPairs.Remove(client);
                 if (ClientDisconnected != null)
                 {
-                    ClientDisconnected.Invoke(this,client);
+                    ClientDisconnected.Invoke(this, client);
                 }
 
                 client.Close();
@@ -103,7 +103,7 @@ namespace Null.Library.EventedSocket
                 clientBufferPairs.Remove(client);
                 if (ClientDisconnected != null)
                 {
-                    ClientDisconnected.Invoke(this,client);
+                    ClientDisconnected.Invoke(this, client);
                 }
 
                 client.Close();
@@ -112,7 +112,7 @@ namespace Null.Library.EventedSocket
             {
                 if (RecvedClientMsg != null)
                 {
-                    RecvedClientMsg.Invoke(this,client, clientBufferPairs[client], size);
+                    RecvedClientMsg.Invoke(this, client, clientBufferPairs[client], size);
                 }
 
                 client.BeginReceive(clientBufferPairs[client], 0, 4096, SocketFlags.None, new AsyncCallback(ReceiveAction), ar.AsyncState);
@@ -164,7 +164,7 @@ namespace Null.Library.EventedSocket
             {
                 if (Disconnected != null)
                 {
-                    Disconnected.Invoke(this,server);
+                    Disconnected.Invoke(this, server);
                 }
             }
         }
@@ -187,7 +187,7 @@ namespace Null.Library.EventedSocket
             {
                 if (Disconnected != null)
                 {
-                    Disconnected.Invoke(this,server);
+                    Disconnected.Invoke(this, server);
                 }
 
                 server.Close();
@@ -198,7 +198,7 @@ namespace Null.Library.EventedSocket
             {
                 if (Disconnected != null)
                 {
-                    Disconnected.Invoke(this,server);
+                    Disconnected.Invoke(this, server);
                 }
 
                 server.Close();
@@ -207,7 +207,7 @@ namespace Null.Library.EventedSocket
             {
                 if (ReceivedMsg != null)
                 {
-                    ReceivedMsg.Invoke(this,SocketToServer, buffer, size);
+                    ReceivedMsg.Invoke(this, SocketToServer, buffer, size);
                 }
 
                 try
@@ -218,7 +218,7 @@ namespace Null.Library.EventedSocket
                 {
                     if (Disconnected != null)
                     {
-                        Disconnected.Invoke(this,server);
+                        Disconnected.Invoke(this, server);
                     }
                 }
             }

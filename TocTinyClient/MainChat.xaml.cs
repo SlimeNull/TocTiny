@@ -2,9 +2,7 @@
 using Microsoft.Win32;
 using Null.Library.EventedSocket;
 using System;
-using System.Collections;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -12,7 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using TocTinyClient;
 //using System.Drawing;
 
 namespace TocTiny
@@ -426,7 +423,7 @@ namespace TocTiny
             partsBuffer.Dispose();
             partsBuffer = null;
         }
-        public void SelfClient_ReceivedMsg(object sender,System.Net.Sockets.Socket socket, byte[] buffer, int size)
+        public void SelfClient_ReceivedMsg(object sender, System.Net.Sockets.Socket socket, byte[] buffer, int size)
         {
             MainChat sender1 = (MainChat)((SocketClient)sender).Tag;
             try
@@ -437,7 +434,7 @@ namespace TocTiny
                 foreach (JsonData per in recvJsons)
                 {
                     TransPackage recvPackage = JsonData.ConvertToInstance<TransPackage>(per);
-                    sender1.DealPackage( recvPackage);
+                    sender1.DealPackage(recvPackage);
                 }
 
                 return;
@@ -473,7 +470,7 @@ namespace TocTiny
                 //MessageBox.Show("Received wrong data which can't be decoded.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        public void SelfClient_Disconnected(object sender,System.Net.Sockets.Socket socket)
+        public void SelfClient_Disconnected(object sender, System.Net.Sockets.Socket socket)
         {
             MessageBox.Show("Disconnected from server.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 

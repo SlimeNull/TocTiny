@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TocTinyClient.Localization">
+    <local:LocalizationItem x:Key="LocalizationName" LocalizationString="American English(internal)"/>
+    <local:LocalizationItem x:Key="ErrorMsg1" LocalizationString="Reserve exception."/>
+    <local:LocalizationItem x:Key="JsonData2ObjectErrrorMsg" LocalizationString="When JsonData of type Object is deserialized to a custom type, it is required that the key of JsonData be of type String."/>
+</ResourceDictionary>

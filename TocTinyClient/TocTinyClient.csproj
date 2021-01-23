@@ -67,6 +67,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Localization\内置简体中文.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Localization\内置美国英语.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainChat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +93,8 @@
     <Compile Include="FrameHost.xaml.cs">
       <DependentUpon>FrameHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Localization\Localization.cs" />
+    <Compile Include="Localization\LocalizationItem.cs" />
     <Compile Include="MainChat.xaml.cs">
       <DependentUpon>MainChat.xaml</DependentUpon>
     </Compile>

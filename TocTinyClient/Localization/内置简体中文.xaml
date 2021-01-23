@@ -1,0 +1,14 @@
+﻿<ResourceDictionary 
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TocTinyClient.Localization">
+    <local:LocalizationItem x:Key="LocalizationName" LocalizationString="简体中文（内置）"/>
+    <local:LocalizationItem x:Key="ErrorMsg1" LocalizationString="保留错误"/>
+    <local:LocalizationItem x:Key="JsonData2ObjectErrrorMsg" LocalizationString="Object类型的JsonData在反序列化为自定义类型时, 要求JsonData的键必须是String类型"/>
+    <local:LocalizationItem x:Key="JsonData2ObjectButDontImplementIListErrorMsg" LocalizationString="Array类型的JsonData在反序列化为类实例时, 要求类必须继承IList接口"/>
+    <local:LocalizationItem x:Key="JsonData2UnknowErrorMsg" LocalizationString="未知类型的JsonData数据"/>
+    <local:LocalizationItem x:Key="UnknowJsonDataType" LocalizationString="所访问数据类型未知"/>
+    <local:LocalizationItem x:Key="UnCorrectTypeAccess" LocalizationString="所访问数据不是{0}类型"/>
+    <local:LocalizationItem x:Key="ErrorMsg1" LocalizationString="保留错误"/>
+    <local:LocalizationItem x:Key="ErrorMsg1" LocalizationString="保留错误"/>
+</ResourceDictionary>

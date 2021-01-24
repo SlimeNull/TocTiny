@@ -428,7 +428,7 @@ namespace TocTiny
                 Thread.Sleep(cinterval);
                 if (partsBuffer != null && DateTime.Now - wroteTime > TimeSpan.FromMilliseconds(btimeout))
                 {
-                    //DisposePartsBuffer();
+                    DisposePartsBuffer();
                 }
             }
         }

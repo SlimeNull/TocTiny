@@ -95,7 +95,7 @@ namespace Null.Library.EventedSocket
             {
                 if (RecvedClientMsg != null) RecvedClientMsg.Invoke(client, clientBufferPairs[client], size);
 
-                client.BeginReceive(clientBufferPairs[client], 0, 4096, SocketFlags.None, new AsyncCallback(ReceiveAction), ar.AsyncState);
+                client.BeginReceive(clientBufferPairs[client], 0, bufferSize, SocketFlags.None, new AsyncCallback(ReceiveAction), ar.AsyncState);
             }
         }
     }

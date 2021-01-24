@@ -859,15 +859,12 @@ namespace CHO.Json
         /// <param name="basis">检索依据</param>
         public bool Contains(JsonData basis)
         {
-            switch (dataType)
+            return dataType switch
             {
-                case JsonDataType.Object:
-                    return (content as Dictionary<JsonData, JsonData>).ContainsKey(basis);
-                case JsonDataType.Array:
-                    return (content as List<JsonData>).Contains(basis);
-                default:
-                    throw new JsonDataTypeException("操作对该Json数据无效");
-            }
+                JsonDataType.Object => (content as Dictionary<JsonData, JsonData>).ContainsKey(basis),
+                JsonDataType.Array => (content as List<JsonData>).Contains(basis),
+                _ => throw new JsonDataTypeException("操作对该Json数据无效"),
+            };
         }
 
         //private readonly static char[] EmptyChars = " \n\r\t\0".ToCharArray();
@@ -939,8 +936,18 @@ namespace CHO.Json
             ValueStart,
             ValueEnd
         }
+        private static readonly System.Threading.ThreadLocal<int> CallCount=new System.Threading.ThreadLocal<int>();
         protected static JsonData ParseData(ref char[] source, ref int offset)
         {
+            if (!CallCount.IsValueCreated) 
+            {
+                CallCount.Value = 0;
+            }
+            if (CallCount.Value > 50)
+            {
+                throw new CHO.Json.ParseCallError("套娃超过上限:(",offset);
+            }
+            CallCount.Value ++;
             for (; offset < source.Length; offset++)
             {
                 if (IsEmptyChar(source[offset]))
@@ -980,6 +987,7 @@ namespace CHO.Json
                     }
                 }
             }
+            CallCount.Value --;
             return CreateNull();
         }
         protected static JsonData ParseString(ref char[] source, ref int offset)
@@ -1152,17 +1160,13 @@ namespace CHO.Json
                     }
                 }
             }
-            switch (content.ToString())
+            return (content.ToString()) switch
             {
-                case "true":
-                    return Create(true);
-                case "false":
-                    return Create(false);
-                case "null":
-                    return CreateNull();
-                default:
-                    throw new JsonDataTypeException(string.Format("未知的关键词'{0}'", content.ToString()));
-            }
+                "true" => Create(true),
+                "false" => Create(false),
+                "null" => CreateNull(),
+                _ => throw new JsonDataTypeException(string.Format("未知的关键词'{0}'", content.ToString())),
+            };
         }
         protected static JsonData ParseArray(ref char[] source, ref int offset)
         {
@@ -1450,7 +1454,7 @@ namespace CHO.Json
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public new bool Equals(object obj)
         {
             if (GetType() == obj.GetType())
             {
@@ -1532,27 +1536,6 @@ namespace CHO.Json
                 }
             }
             return false;
-        }
-        /// <summary>
-        /// 获取JsonData实例所包含数据的HashCode
-        /// </summary>
-        /// <returns>int类型的HashCode值</returns>
-        public override int GetHashCode()
-        {
-            switch (dataType)
-            {
-                case JsonDataType.Object:
-                    return (content as Dictionary<JsonData, JsonData>).GetHashCode();
-                case JsonDataType.Array:
-                    return (content as List<JsonData>).GetHashCode();
-                case JsonDataType.String:
-                    return ((string)content).GetHashCode();
-                case JsonDataType.Double:
-                    return ((double)content).GetHashCode();
-                case JsonDataType.Boolean:
-                    return ((bool)content).GetHashCode();
-            }
-            return content.GetHashCode();
         }
     }
 }

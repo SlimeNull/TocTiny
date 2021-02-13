@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>TocTiny.Server</RootNamespace>
+    <AssemblyName>TocTinyServer</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CHO.Json\CHO.Json.csproj" />
+    <ProjectReference Include="..\EventedSocket\EventedSocket.csproj" />
+    <ProjectReference Include="..\TocTinyPublic\TocTinyPublic.csproj" />
+    <ProjectReference Include="..\TocTinyServerCore\TocTinyServerCore.csproj" />
+  </ItemGroup>
+
+</Project>

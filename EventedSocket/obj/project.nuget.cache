@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "7OyKPNT94KMy9iTtqPxtTOTa69ng2k+dGSvcg7MBH6TtiRJDdjvmf1lnaPpiaX8aEZ03H2IMrBX888ks/GER7A==",
+  "success": true,
+  "projectFilePath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Null\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Null\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,9 @@
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\bin\Debug\netstandard2.0\EventedSocket.deps.json
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\bin\Debug\netstandard2.0\EventedSocket.dll
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\bin\Debug\netstandard2.0\EventedSocket.pdb
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\obj\Debug\netstandard2.0\EventedSocket.csprojAssemblyReference.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\obj\Debug\netstandard2.0\EventedSocket.AssemblyInfoInputs.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\obj\Debug\netstandard2.0\EventedSocket.AssemblyInfo.cs
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\obj\Debug\netstandard2.0\EventedSocket.csproj.CoreCompileInputs.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\obj\Debug\netstandard2.0\EventedSocket.dll
+D:\Project\Source\Repository\Current\repos\TocTiny\EventedSocket\obj\Debug\netstandard2.0\EventedSocket.pdb

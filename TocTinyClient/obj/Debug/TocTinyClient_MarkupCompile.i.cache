@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-F:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\
-TocTinyClient
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\
+TocTiny.Client
 none
 false
 DEBUG;TRACE
-F:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\App.xaml
-2677368385
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\App.xaml
+2-900922016
 
-11240839669
-141737414579
-MainChat.xaml;Login.xaml;
+10-658159489
+125-233030258
+View\MainChat.xaml;View\Login.xaml;
 
-False
+True
 

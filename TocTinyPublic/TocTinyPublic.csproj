@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>TocTiny.Public</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CHO.Json\CHO.Json.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Library\" />
+  </ItemGroup>
+
+</Project>

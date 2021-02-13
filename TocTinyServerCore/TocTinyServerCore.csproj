@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CHO.Json\CHO.Json.csproj" />
+    <ProjectReference Include="..\EventedSocket\EventedSocket.csproj" />
+    <ProjectReference Include="..\TocTinyPublic\TocTinyPublic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Library\" />
+  </ItemGroup>
+
+</Project>

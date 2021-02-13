@@ -1,0 +1,16 @@
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\TocTinyServerCore.deps.json
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\TocTinyServerCore.dll
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\TocTinyServerCore.pdb
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\CHO.Json.dll
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\EventedSocket.dll
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\TocTinyPublic.dll
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\CHO.Json.pdb
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\EventedSocket.pdb
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\bin\Debug\netstandard2.1\TocTinyPublic.pdb
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\obj\Debug\netstandard2.1\TocTinyServerCore.csprojAssemblyReference.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\obj\Debug\netstandard2.1\TocTinyServerCore.AssemblyInfoInputs.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\obj\Debug\netstandard2.1\TocTinyServerCore.AssemblyInfo.cs
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\obj\Debug\netstandard2.1\TocTinyServerCore.csproj.CoreCompileInputs.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\obj\Debug\netstandard2.1\TocTinyServerCore.csproj.CopyComplete
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\obj\Debug\netstandard2.1\TocTinyServerCore.dll
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServerCore\obj\Debug\netstandard2.1\TocTinyServerCore.pdb

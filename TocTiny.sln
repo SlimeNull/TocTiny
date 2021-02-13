@@ -3,9 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TocTiny", "TocTiny\TocTiny.csproj", "{5F0FCC42-0ED6-4FDD-A9FD-83A31B4AD946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TocTinyServer", "TocTinyServer\TocTinyServer.csproj", "{5F0FCC42-0ED6-4FDD-A9FD-83A31B4AD946}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TocTinyClient", "TocTinyClient\TocTinyClient.csproj", "{9BBDF972-0E9A-4AB1-A386-17DDF328F46C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TocTinyPublic", "TocTinyPublic\TocTinyPublic.csproj", "{B86664AA-C921-4EA5-B110-D4A9E3D565F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TocTinyServerCore", "TocTinyServerCore\TocTinyServerCore.csproj", "{86356356-9B7D-4B7F-B00E-7D903435A9B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHO.Json", "CHO.Json\CHO.Json.csproj", "{1BBB4D8C-905A-43A1-82E3-5B023E3E2F8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventedSocket", "EventedSocket\EventedSocket.csproj", "{A2B50D24-FEB8-4DCD-A7AB-EFD68228BCF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TocTinyClientCore", "TocTinyClientCore\TocTinyClientCore.csproj", "{C99A4330-A7AC-4353-ACD0-012CCF15A882}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +31,26 @@ Global
 		{9BBDF972-0E9A-4AB1-A386-17DDF328F46C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BBDF972-0E9A-4AB1-A386-17DDF328F46C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BBDF972-0E9A-4AB1-A386-17DDF328F46C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B86664AA-C921-4EA5-B110-D4A9E3D565F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B86664AA-C921-4EA5-B110-D4A9E3D565F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B86664AA-C921-4EA5-B110-D4A9E3D565F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B86664AA-C921-4EA5-B110-D4A9E3D565F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86356356-9B7D-4B7F-B00E-7D903435A9B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86356356-9B7D-4B7F-B00E-7D903435A9B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86356356-9B7D-4B7F-B00E-7D903435A9B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86356356-9B7D-4B7F-B00E-7D903435A9B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BBB4D8C-905A-43A1-82E3-5B023E3E2F8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBB4D8C-905A-43A1-82E3-5B023E3E2F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BBB4D8C-905A-43A1-82E3-5B023E3E2F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BBB4D8C-905A-43A1-82E3-5B023E3E2F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2B50D24-FEB8-4DCD-A7AB-EFD68228BCF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B50D24-FEB8-4DCD-A7AB-EFD68228BCF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2B50D24-FEB8-4DCD-A7AB-EFD68228BCF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2B50D24-FEB8-4DCD-A7AB-EFD68228BCF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C99A4330-A7AC-4353-ACD0-012CCF15A882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99A4330-A7AC-4353-ACD0-012CCF15A882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99A4330-A7AC-4353-ACD0-012CCF15A882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99A4330-A7AC-4353-ACD0-012CCF15A882}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,136 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETStandard,Version=v2.1": {
+      "CHO.Json/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/CHO.Json.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CHO.Json.dll": {}
+        }
+      },
+      "EventedSocket/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/EventedSocket.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EventedSocket.dll": {}
+        }
+      },
+      "TocTinyPublic/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "CHO.Json": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TocTinyPublic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TocTinyPublic.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CHO.Json/1.0.0": {
+      "type": "project",
+      "path": "../CHO.Json/CHO.Json.csproj",
+      "msbuildProject": "../CHO.Json/CHO.Json.csproj"
+    },
+    "EventedSocket/1.0.0": {
+      "type": "project",
+      "path": "../EventedSocket/EventedSocket.csproj",
+      "msbuildProject": "../EventedSocket/EventedSocket.csproj"
+    },
+    "TocTinyPublic/1.0.0": {
+      "type": "project",
+      "path": "../TocTinyPublic/TocTinyPublic.csproj",
+      "msbuildProject": "../TocTinyPublic/TocTinyPublic.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETStandard,Version=v2.1": [
+      "CHO.Json >= 1.0.0",
+      "EventedSocket >= 1.0.0",
+      "TocTinyPublic >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Null\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServerCore\\TocTinyServerCore.csproj",
+      "projectName": "TocTinyServerCore",
+      "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServerCore\\TocTinyServerCore.csproj",
+      "packagesPath": "C:\\Users\\Null\\.nuget\\packages\\",
+      "outputPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServerCore\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Null\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netstandard2.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "projectReferences": {
+            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj": {
+              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj"
+            },
+            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj": {
+              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj"
+            },
+            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyPublic\\TocTinyPublic.csproj": {
+              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyPublic\\TocTinyPublic.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netstandard2.1": {
+        "targetAlias": "netstandard2.1",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "NETStandard.Library": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

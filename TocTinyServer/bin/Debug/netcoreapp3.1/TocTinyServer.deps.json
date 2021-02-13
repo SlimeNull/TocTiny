@@ -1,0 +1,76 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "TocTinyServer/1.0.0": {
+        "dependencies": {
+          "CHO.Json": "1.0.0",
+          "TocTinyPublic": "1.0.0",
+          "TocTinyServerCore": "1.0.0"
+        },
+        "runtime": {
+          "TocTinyServer.dll": {}
+        }
+      },
+      "CHO.Json/1.0.0": {
+        "runtime": {
+          "CHO.Json.dll": {}
+        }
+      },
+      "EventedSocket/1.0.0": {
+        "runtime": {
+          "EventedSocket.dll": {}
+        }
+      },
+      "TocTinyPublic/1.0.0": {
+        "dependencies": {
+          "CHO.Json": "1.0.0"
+        },
+        "runtime": {
+          "TocTinyPublic.dll": {}
+        }
+      },
+      "TocTinyServerCore/1.0.0": {
+        "dependencies": {
+          "CHO.Json": "1.0.0",
+          "EventedSocket": "1.0.0",
+          "TocTinyPublic": "1.0.0"
+        },
+        "runtime": {
+          "TocTinyServerCore.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TocTinyServer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CHO.Json/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EventedSocket/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TocTinyPublic/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TocTinyServerCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

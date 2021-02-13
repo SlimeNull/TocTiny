@@ -6,15 +6,30 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9BBDF972-0E9A-4AB1-A386-17DDF328F46C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TocTinyClient</RootNamespace>
+    <RootNamespace>TocTiny.Client</RootNamespace>
     <AssemblyName>TocTinyClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>TocTinyLogo.ico</ApplicationIcon>
+    <ApplicationIcon>Resource\TocTinyLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -60,11 +75,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainChat.xaml">
+    <Page Include="View\MainChat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Login.xaml">
+    <Page Include="View\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -72,19 +87,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CHO.Json.cs" />
-    <Compile Include="ConsArgsParser.cs" />
-    <Compile Include="EventedSocket.cs" />
-    <Compile Include="MainChat.xaml.cs">
+    <Compile Include="Library\ConsArgsParser.cs" />
+    <Compile Include="ViewExFunc\LoginEx.cs" />
+    <Compile Include="ViewExFunc\MainChatEx.cs" />
+    <Compile Include="View\MainChat.xaml.cs">
       <DependentUpon>MainChat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Login.xaml.cs">
+    <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PackageDef.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -111,7 +125,35 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="TocTinyLogo.ico" />
+    <Resource Include="Resource\TocTinyLogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CHO.Json\CHO.Json.csproj">
+      <Project>{1bbb4d8c-905a-43a1-82e3-5b023e3e2f8a}</Project>
+      <Name>CHO.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventedSocket\EventedSocket.csproj">
+      <Project>{a2b50d24-feb8-4dcd-a7ab-efd68228bcf4}</Project>
+      <Name>EventedSocket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TocTinyClientCore\TocTinyClientCore.csproj">
+      <Project>{c99a4330-a7ac-4353-acd0-012ccf15a882}</Project>
+      <Name>TocTinyClientCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TocTinyPublic\TocTinyPublic.csproj">
+      <Project>{b86664aa-c921-4ea5-b110-d4a9e3d565f6}</Project>
+      <Name>TocTinyPublic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

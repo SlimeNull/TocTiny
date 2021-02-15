@@ -19,7 +19,7 @@ using TocTiny.Public;
 using TocTiny.Core;
 using TocTiny.Client.ViewExFunc;
 
-namespace TocTiny
+namespace TocTiny.View
 {
     public partial class MainChat : Window
     {

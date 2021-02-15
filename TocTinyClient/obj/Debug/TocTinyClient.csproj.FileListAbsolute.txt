@@ -55,8 +55,6 @@ F:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTi
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient.exe
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient.pdb
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient.csprojAssemblyReference.cache
-D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\View\MainChat.g.cs
-D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\View\Login.g.cs
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\App.g.cs
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient_MarkupCompile.cache
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient_MarkupCompile.lref
@@ -84,11 +82,13 @@ D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\bin\Debug\CHO.J
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\bin\Debug\TocTinyClientCore.pdb
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\bin\Debug\TocTinyPublic.pdb
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\bin\Debug\EventedSocket.pdb
-D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\App.baml
-D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\View\MainChat.baml
-D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\View\Login.baml
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient.g.resources
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTiny.Client.Properties.Resources.resources
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient.csproj.GenerateResource.cache
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient.csproj.CoreCompileInputs.cache
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\TocTinyClient.csproj.CopyComplete
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\View\MainChat.g.cs
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\View\Login.g.cs
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\View\MainChat.baml
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\obj\Debug\View\Login.baml

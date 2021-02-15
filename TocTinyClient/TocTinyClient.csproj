@@ -90,6 +90,11 @@
     <Compile Include="Library\ConsArgsParser.cs" />
     <Compile Include="ViewExFunc\LoginEx.cs" />
     <Compile Include="ViewExFunc\MainChatEx.cs" />
+    <Compile Include="ViewExFunc\ViewEx.cs" />
+    <Compile Include="ViewModel\ChatMainConverter.cs" />
+    <Compile Include="ViewModel\ChatMainViewModel.cs" />
+    <Compile Include="ViewModel\LoginConverter.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="View\MainChat.xaml.cs">
       <DependentUpon>MainChat.xaml</DependentUpon>
     </Compile>

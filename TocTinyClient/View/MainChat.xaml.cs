@@ -18,13 +18,14 @@ using System.Windows.Shapes;
 using TocTiny.Public;
 using TocTiny.Core;
 using TocTiny.Client.ViewExFunc;
+using System.Windows.Media.Animation;
 
 namespace TocTiny.View
 {
     public partial class MainChat : Window
     {
         public readonly Login WindowParent;
-        public TocTinyClient ClientSelf { get => WindowParent.ClientSelf; }
+        public TocTinyClient ClientSelf;
 
         private bool forceClose = false;
         private bool keepMain = false;
@@ -33,8 +34,26 @@ namespace TocTiny.View
         {
             InitializeComponent();
 
-            loginWindow.MouseDown += (sender, e) => DragMove();   // 拖动移动
+            WindowParent = loginWindow;
+            ClientSelf = loginWindow.ClientSelf;
+            loginWindow.MouseLeftButtonDown += (sender, e) => DragMove();   // 拖动移动
+
+            ClientSelf.PackageReceived += ClientSelf_PackageReceived;
+            ClientSelf.Disconnected += ClientSelf_Disconnected;
         }
+
+        private void ClientSelf_Disconnected(object sender, EventArgs e)
+        {
+            MessageBox.Show("Connection lost.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            WindowParent.Show();
+            CloseSelf();
+        }
+
+        private void ClientSelf_PackageReceived(object sender, PackageReceivedEventArgs e)
+        {
+            DealPackage(e.Package);
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Left = WindowParent.Left + (WindowParent.Width - this.Width) / 2;
@@ -53,13 +72,9 @@ namespace TocTiny.View
                 {
                     case ConstDef.NormalMessage:
                         if (recvPackage.ClientGuid == ClientSelf.ClientGuid)
-                        {
                             AppendTextMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Right);
-                        }
                         else
-                        {
                             AppendTextMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Left);
-                        }
                         Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     case ConstDef.Verification:
@@ -69,23 +84,15 @@ namespace TocTiny.View
                     case ConstDef.ImageMessage:
                         //暂时不处理, 保留
                         if (recvPackage.ClientGuid == WindowParent.ClientSelf.ClientGuid)
-                        {
                             AppendImageMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Right);
-                        }
                         else
-                        {
                             AppendImageMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Left);
-                        }
                         break;
                     case ConstDef.DrawAttention:
                         if (recvPackage.ClientGuid == WindowParent.ClientSelf.ClientGuid)
-                        {
                             AppendAnnouncement($"Your try to draw others' attention.");
-                        }
                         else
-                        {
                             AppendAnnouncement($"{recvPackage.Name} try to draw your attention.");
-                        }
                         break;
                     case ConstDef.ChangeChannelName:
                         SetCurrentChannelName(recvPackage.Content);
@@ -202,7 +209,7 @@ namespace TocTiny.View
 
             if (!keepMain)
             {
-                WindowParent.Close();
+                Application.Current.Shutdown();
                 Environment.Exit(0);
             }
         }
@@ -250,17 +257,15 @@ namespace TocTiny.View
             ClientSelf.TryRequestOnlineInfo();
         }                    // 
 
-        OpenFileDialog ofd;
+        OpenFileDialog ofd = new OpenFileDialog()
+        {
+            Title = "Open a image file for sending",
+            Filter = "Normal image format|*.jpg;*.jpeg;*.png;*.gif;*.bmp|JPEG|*.jpg;*.jpeg|PNG|*.png|GIF|*.gif|Bitmap|*.bmp|Other|*.*",
+            CheckFileExists = true,
+            Multiselect = false,
+        };
         private void SendPicture_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (ofd == null)
-            {
-                ofd = new OpenFileDialog();
-                ofd.Title = "Open a image file for sending";
-                ofd.Filter = "Normal image format|*.jpg;*.jpeg;*.png;*.gif;*.bmp|JPEG|*.jpg;*.jpeg|PNG|*.png|GIF|*.gif|Bitmap|*.bmp|Other|*.*";
-                ofd.CheckFileExists = true;
-                ofd.Multiselect = false;
-            }
             if (ofd.ShowDialog().GetValueOrDefault(false))
             {
                 System.Drawing.Image imgForSending = null;
@@ -268,6 +273,7 @@ namespace TocTiny.View
                 {
                     imgForSending = System.Drawing.Image.FromFile(ofd.FileName);
                     SendImage(imgForSending);
+                    imgForSending.Dispose();
                 }
                 finally
                 {
@@ -281,9 +287,11 @@ namespace TocTiny.View
         }                   // 发送图片 按钮按下    (打开文件框)
         private void InputBox_DragEnter(object sender, DragEventArgs e)
         {
+            var data = e.Data;
             if (e.Data.GetDataPresent(DataFormats.Bitmap) || e.Data.GetDataPresent(DataFormats.FileDrop) || e.Data.GetDataPresent(DataFormats.StringFormat))
             {
                 e.Effects = DragDropEffects.Copy;
+                e.Handled = true;
             }
         }                             // 拖拽进入输入框事件
         private void InputBox_Drop(object sender, DragEventArgs e)
@@ -304,10 +312,11 @@ namespace TocTiny.View
                 {
                     img = System.Drawing.Image.FromFile(files[0]);
                     SendImage(img);
+                    img.Dispose();
                 }
                 catch
                 {
-                    MessageBox.Show("Not.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Not a valid image file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }                                  // 输入框拖拽结束事件
@@ -320,5 +329,34 @@ namespace TocTiny.View
         }                  // 输入框粘贴事件
 
         #endregion
+
+        public void CloseSelf()
+        {
+            forceClose = true;
+            keepMain = true;
+            AppShutdownAnimation((s, e) => this.Close());
+        }
+        public void CloseAll()
+        {
+            forceClose = true;
+            keepMain = false;
+            AppShutdownAnimation((s, e) => Application.Current.Shutdown());
+        }
+        private void AppStartupAnimation(EventHandler callback)
+        {
+            Duration duration = new Duration(TimeSpan.FromMilliseconds(100));
+            DoubleAnimation opacityAnimation = new DoubleAnimation(0.0, 1.0, duration);
+            opacityAnimation.Completed += callback;
+
+            this.BeginAnimation(OpacityProperty, opacityAnimation);
+        }
+        private void AppShutdownAnimation(EventHandler callback)
+        {
+            Duration duration = new Duration(TimeSpan.FromMilliseconds(100));
+            DoubleAnimation opacityAnimation = new DoubleAnimation(1.0, 0.0, duration, FillBehavior.HoldEnd);
+            opacityAnimation.Completed += callback;
+
+            this.BeginAnimation(OpacityProperty, opacityAnimation);
+        }
     }
 }

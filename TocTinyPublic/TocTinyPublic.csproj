@@ -7,10 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CHO.Json\CHO.Json.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Library\" />
+    <ProjectReference Include="..\EventedSocket\EventedSocket.csproj" />
   </ItemGroup>
 
 </Project>

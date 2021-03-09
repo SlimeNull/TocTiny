@@ -156,6 +156,9 @@
             "projectReferences": {
               "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj": {
                 "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj"
+              },
+              "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj": {
+                "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj"
               }
             }
           }

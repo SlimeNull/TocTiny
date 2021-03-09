@@ -17,11 +17,10 @@ namespace TocTiny
 {
     class Program
     {
-        static ExecuteArgs Initialize()
+        static ExecuteArgs Initialize(string[] args)
         {
             scanner = new DynamicScanner();
 
-            string[] args = Environment.GetCommandLineArgs();
             ConsArgs consArgs = new ConsArgs(args);
             StartupArgs startupArgs = consArgs.ToObject<StartupArgs>();
             return startupArgs.DeepParse();
@@ -32,7 +31,7 @@ namespace TocTiny
             App.SafeWriteLine(scanner, string.Join('\n',
                 "TOC Tiny : TOC Tiny 的服务端程序",
                 "",
-                "  TocTiny [-Port 端口] [-Buffer 缓冲区大小] [-Backlog 监听数量] /[? | Help]",
+                "  TocTiny [-Port 端口] [-Backlog 监听数量] /[? | Help]",
                 "",
                 "    port       : 将要被监听的端口号.",
                 "    bufferSize : 接收消息的缓冲区大小. 默认是1024576B(1MB)",
@@ -44,23 +43,37 @@ namespace TocTiny
         }
 
 
-        static void Main()
+        static void Main(string[] cargs)
         {
-            ExecuteArgs args = Initialize();
+            ExecuteArgs args = Initialize(cargs);
 
             TocTinyServer tocTinyServer = new TocTinyServer()
             {
                 CleanInverval = 2000
             };
 
+            Console.WriteLine($"Server started at port {args.Port}");
+
             tocTinyServer.PackageReceived += TocTinyServer_PackageReceived;
+            tocTinyServer.ClientConnected += TocTinyServer_ClientConnected;
+            tocTinyServer.ClientDisconnected += TocTinyServer_ClientDisconnected;
             tocTinyServer.StartServer();
 
             while (true)
                 Console.ReadKey(true);
         }
 
-        private static void TocTinyServer_PackageReceived(object sender, PackageReceivedEventArgs args)
+        private static void TocTinyServer_ClientDisconnected(object sender, ClientDisconnectedArgs args)
+        {
+            Console.WriteLine($"{args.Client.RemoteEndPoint} disconnected.");
+        }
+
+        private static void TocTinyServer_ClientConnected(object sender, ClientConnectedArgs args)
+        {
+            Console.WriteLine($"{args.Client.RemoteEndPoint} connected.");
+        }
+
+        private static void TocTinyServer_PackageReceived(object sender, PackageReceivedArgs args)
         {
             switch(args.Package.PackageType)
             {

@@ -29,7 +29,8 @@
       },
       "TocTinyPublic/1.0.0": {
         "dependencies": {
-          "CHO.Json": "1.0.0"
+          "CHO.Json": "1.0.0",
+          "EventedSocket": "1.0.0"
         },
         "runtime": {
           "TocTinyPublic.dll": {}

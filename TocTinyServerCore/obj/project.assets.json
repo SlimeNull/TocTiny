@@ -26,7 +26,8 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "CHO.Json": "1.0.0"
+          "CHO.Json": "1.0.0",
+          "EventedSocket": "1.0.0"
         },
         "compile": {
           "bin/placeholder/TocTinyPublic.dll": {}

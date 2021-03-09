@@ -16,7 +16,7 @@ namespace TocTiny.Client.ViewExFunc
     public static class MainChatEx
     {
         #region UI Core
-        public static Grid GenBaseMsgGrid(string name, UIElement content, HorizontalAlignment align)
+        public static Grid GenBasicMsgGrid(string name, UIElement content, HorizontalAlignment align)
         {
             Grid rstGrid = new Grid()
             {
@@ -52,13 +52,13 @@ namespace TocTiny.Client.ViewExFunc
         public static Grid GenTextMsgGrid(string name, string content, HorizontalAlignment align)
         {
             UIElement contentBox = GenTextMsgContent(content, align);
-            Grid msgBox = GenBaseMsgGrid(name, contentBox, align);
+            Grid msgBox = GenBasicMsgGrid(name, contentBox, align);
             return msgBox;
         }
         public static Grid GenImageMsgGrid(string name, string baseImage, HorizontalAlignment align)
         {
             UIElement contentBox = GenImageMsgContent(baseImage, align);
-            Grid msgBox = GenBaseMsgGrid(name, contentBox, align);
+            Grid msgBox = GenBasicMsgGrid(name, contentBox, align);
             return msgBox;
         }
         public static UIElement GenTextMsgContent(string content, HorizontalAlignment align)
@@ -87,8 +87,12 @@ namespace TocTiny.Client.ViewExFunc
                 MemoryStream stream = new MemoryStream(imgData);
                 BitmapImage imgSrc = new BitmapImage();
                 imgSrc.BeginInit();
+                imgSrc.CacheOption = BitmapCacheOption.OnLoad;
                 imgSrc.StreamSource = stream;
                 imgSrc.EndInit();
+                imgSrc.Freeze();
+
+                stream.Dispose();
 
                 rst = new Image()
                 {
@@ -98,8 +102,6 @@ namespace TocTiny.Client.ViewExFunc
                     Stretch = Stretch.Uniform,
                     HorizontalAlignment = align,
                 };
-
-                //((Image)rst).DragLeave += Image_DragLeave;
 
                 return rst;
             }

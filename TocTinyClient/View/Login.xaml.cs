@@ -34,15 +34,14 @@ namespace TocTiny.View
         {
             InitializeComponent();
 
-            Opacity = 0;
-
             clientSelf = new TocTinyClient();
 
+            Opacity = 0;
             this.Loaded += (sender, e) => AppStartup();
             Whole.MouseLeftButtonDown += (sender, e) => DragMove();
             CancelButton.PreviewMouseUp += (sender, e) => AppShutdown();
 
-            ConnectButton.Click += Connect_Click;
+            ConnectButton.Click += ConnectButton_Click;
         }
 
         Thread connectThread;
@@ -63,16 +62,26 @@ namespace TocTiny.View
                     goto ExitConnection;
                 }
 
-                clientSelf.ConnectTo(new IPEndPoint(addresses[0], port), 1048576);                       // 缓冲区大小: 1mb
+                clientSelf.ConnectTo(new IPEndPoint(addresses[0], port));                       // 缓冲区大小: 1mb
                 ViewModel.AcceptButtonContent = "Connect";
+
+                Dispatcher.Invoke(() =>
+                {
+                    if (chatWindow != null)
+                        chatWindow.Close();
+
+                    this.Hide();
+                    chatWindow = new MainChat(this);
+                    chatWindow.Show();
+                });
             }
             catch (ThreadAbortException)
             {
                 // nothing to do.
             }
-            catch
+            catch (Exception e)
             {
-                Dispatcher.Invoke(() => ViewEx.ErrorMsg("Connection failed."));
+                Dispatcher.Invoke(() => ViewEx.ErrorMsg($"Connection failed. {e.Message}"));
             }
 
             ExitConnection:
@@ -88,6 +97,7 @@ namespace TocTiny.View
                 if (connectThread.IsAlive)
                 {
                     connectThread.Abort();
+                    connectThread = null;
                     ViewModel.AcceptButtonContent = "Connect";
                     Dispatcher.Invoke(() => ViewEx.ErrorMsg("Connection timeout."));
                 }
@@ -95,17 +105,22 @@ namespace TocTiny.View
             catch { }
             finally
             {
+
                 ViewModel.AcceptButtonContent = "Connect";
             }
         }
-        private void Connect_Click(object sender, RoutedEventArgs e)
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
             if (waitThread != null && waitThread.IsAlive)
+            {
                 waitThread.Abort();
+                waitThread = null;
+            }
 
             if (connectThread != null && connectThread.IsAlive)
             {
                 connectThread.Abort();
+                connectThread = null;
                 ViewModel.AcceptButtonContent = "Connect";
             }
             else
@@ -122,25 +137,17 @@ namespace TocTiny.View
 
         private void AppStartup()
         {
-            DoubleAnimation opacityAnimation = new DoubleAnimation()
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
-                From = 0,
-                To = 1,
-            };
+            Duration duration = new Duration(TimeSpan.FromMilliseconds(100));
+            DoubleAnimation opacityAnimation = new DoubleAnimation(0.0, 1.0, duration);
 
             this.BeginAnimation(OpacityProperty, opacityAnimation);
         }
         private void AppShutdown()
         {
-            //Environment.Exit(0);
-            Application.Current.Shutdown();
-            return;
-            Duration duration = new Duration(TimeSpan.FromMilliseconds(200));
-            DoubleAnimation opacityAnimation = new DoubleAnimation(1, 0, duration, FillBehavior.HoldEnd);
+            Duration duration = new Duration(TimeSpan.FromMilliseconds(100));
+            DoubleAnimation opacityAnimation = new DoubleAnimation(1.0, 0.0, duration, FillBehavior.HoldEnd);
             opacityAnimation.Completed += (sender, e) => Application.Current.Shutdown();
             
-            this.ShowInTaskbar = false;
             this.BeginAnimation(OpacityProperty, opacityAnimation);
         }
     }

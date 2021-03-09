@@ -10,3 +10,5 @@ D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyPublic\obj\Debug\netst
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyPublic\bin\Debug\netstandard2.0\CHO.Json.dll
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyPublic\bin\Debug\netstandard2.0\CHO.Json.pdb
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyPublic\obj\Debug\netstandard2.0\TocTinyPublic.csproj.CopyComplete
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyPublic\bin\Debug\netstandard2.0\EventedSocket.dll
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyPublic\bin\Debug\netstandard2.0\EventedSocket.pdb

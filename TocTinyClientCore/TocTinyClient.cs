@@ -60,7 +60,7 @@ namespace TocTiny.Core
             socketClient = new SocketClient();
             partBuffer = new MemoryStream();
 
-            socketClient.ReceivedMsg += SocketClient_ReceivedMsg;
+            socketClient.ReceivedData += SocketClient_ReceivedMsg;
             socketClient.Disconnected += SocketClient_Disconnected;
         }
 
@@ -72,19 +72,22 @@ namespace TocTiny.Core
             }
         }
 
-        public void ConnectTo(IPEndPoint point, int bufferSize)
+        public void ConnectTo(IPEndPoint point)
         {
-            socketClient.ConnectTo(point, bufferSize);
+            socketClient.ConnectTo(point);
         }
-        private void SocketClient_Disconnected(Socket socket)
+        private void SocketClient_Disconnected(object sender, SocketDisconnectedArgs args)
         {
             if (Disconnected != null)
                 Disconnected.Invoke(this, EventArgs.Empty);
 
             bufferCleanner.Stop();
         }
-        private void SocketClient_ReceivedMsg(Socket socket, byte[] buffer, int size)
+        private void SocketClient_ReceivedMsg(object sender, SocketReceivedDataArgs args)
         {
+            byte[] buffer = args.Buffer;
+            int size = args.Size;
+
             if (TryGetPackages(buffer, size, out TransPackage[] packages))
             {
                 DealPackages(packages, buffer, size);
@@ -128,7 +131,7 @@ namespace TocTiny.Core
                     PackageReceived.Invoke(this, args);
 
                     if (args.Postback)
-                        ExFunc.SafeAsyncSendData(Server, buffer, 0, size);
+                        EventedSocket.BeginSendData(Server, buffer, 0, size);
                 }
             }
         }
@@ -185,7 +188,7 @@ namespace TocTiny.Core
                 Content = base64,
                 ClientGuid = clientGuid,
 
-                PackageType = ConstDef.NormalMessage
+                PackageType = ConstDef.ImageMessage
             });
         }
         public void DrawAttention()
@@ -229,7 +232,7 @@ namespace TocTiny.Core
         }
         public void SendPackage(TransPackage package)
         {
-            ExFunc.AsyncSendData(socketClient.Server, 
+            EventedSocket.BeginSendData(socketClient.Server, 
                 Encoding.UTF8.GetBytes(
                     JsonData.ConvertToText(
                         JsonData.Create(package))));

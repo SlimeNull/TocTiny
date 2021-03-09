@@ -21,12 +21,14 @@ namespace TocTiny
 
         SocketServer socketServer;
 
-        int port, bufferSize, backlog, historyMaxCount;    // port, bufferSize, backlog, history max count; 启动信息
+        int port, backlog, historyMaxCount;    // port, bufferSize, backlog, history max count; 启动信息
         TimeSpan btimeout;
 
         public double BufferTimeout { get => btimeout.TotalMilliseconds; set { btimeout = TimeSpan.FromMilliseconds(value); } }
         public double CleanInverval { get => bufferCleanner.Interval; set { bufferCleanner.Interval = value; } }
         public int HistoryMaxCount { get => historyMaxCount; set { historyMaxCount = value; } }
+        public int Port { get => port; set => port = value; }
+        public int Backlog { get => backlog; set => backlog = value; }
 
         readonly Dictionary<Socket, ClientData> clients;                // 客户端
         readonly Dictionary<string, (string, Socket)> clientRecords;    // guid : (name, socket)
@@ -46,8 +48,6 @@ namespace TocTiny
         {
             port = 2020;                     // 默认端口
             backlog = 50;                    // 默认监听数
-            bufferSize = 1 << 10 << 10;      // 默认缓冲区大小 1 byte << 10 << 10 = 1MB
-
 
             socketServer = new SocketServer();
 
@@ -67,15 +67,19 @@ namespace TocTiny
         {
             socketServer.ClientConnected += ClientConnectedController;
             socketServer.ClientDisconnected += ClientDisconnectedController;
-            socketServer.RecvedClientMsg += RecvedClientMsgController;
+            socketServer.ReceivedClientData += RecvedClientMsgController;
 
-            socketServer.Start(port, backlog, bufferSize);
+            socketServer.Start(port, backlog);
             bufferCleanner.Start();
         }
 
         #region 主要的3个事件 {连接 接收 断开}
-        private void RecvedClientMsgController(Socket socket, byte[] buffer, int size)
+        private void RecvedClientMsgController(object sender, SocketReceivedDataArgs e)
         {
+            Socket socket = e.Socket;
+            byte[] buffer = e.Buffer;
+            int size = e.Size;
+
             if (TryGetPackages(buffer, size, out TransPackage[] packages))
             {
                 DealPackages(socket, packages, buffer, size);
@@ -86,17 +90,19 @@ namespace TocTiny
                 DealPartData(socket, buffer, size);
             }
         }
-        private void ClientDisconnectedController(Socket socket)
+        private void ClientDisconnectedController(object sender, SocketDisconnectedArgs e)
         {
+            Socket socket = e.Socket;
             if (ClientDisconnected != null)
-                ClientDisconnected.BeginInvoke(this, new ClientDisconnectedEventArgs(socket), (_) => { }, null);
+                ClientDisconnected.Invoke(this, new ClientDisconnectedArgs(socket));
 
             SafeRemoveClient(socket);
         }
-        private void ClientConnectedController(Socket socket)
+        private void ClientConnectedController(object sender, SocketConnectedArgs e)
         {
+            Socket socket = e.Socket;
             if (ClientConnected != null)
-                ClientConnected.BeginInvoke(this, new ClientConnectedEventArgs(socket), (_) => { }, null);
+                ClientConnected.Invoke(this, new ClientConnectedArgs(socket));
 
             SafeAddClient(socket);
             SafeSendHistoryData(socket);
@@ -131,12 +137,12 @@ namespace TocTiny
             {
                 foreach (TransPackage package in packages)
                 {
-                    PackageReceivedEventArgs args = new PackageReceivedEventArgs(sender, package);
+                    PackageReceivedArgs args = new PackageReceivedArgs(sender, package);
                     PackageReceived.Invoke(sender, args);
                     if (args.Boardcast)
-                        SafeBoardcastData(buffer, 0, size);
+                        EventedSocket.TryBeginBoardcastData(clients.Keys, buffer, 0, size);
                     if (args.Postback)
-                        SafeSendData(sender, buffer, 0, size);
+                        EventedSocket.TryBeginSendData(sender, buffer, 0, size);
                     if (args.Record)
                         SafeAddHistoryData(buffer, size);
                 }
@@ -215,7 +221,7 @@ namespace TocTiny
             {
                 for (int i = 0; i < lastMessages.Count; i++)
                 {
-                    SafeSendData(socket, lastMessages[i]);
+                    EventedSocket.TryBeginSendData(socket, lastMessages[i]);
                 }
             }
         }
@@ -257,20 +263,9 @@ namespace TocTiny
         {
             lock(clients)
             {
-                foreach(Socket i in clients.Keys)
-                {
-                    SafeSendData(i, data, offset, size);
-                }
+                EventedSocket.TryBeginBoardcastData(clients.Keys, data, offset, size);
             }
         }
-        public static void SafeSendData(Socket socket, byte[] data)
-        {
-            SafeSendData(socket, data, 0, data.Length);
-        }
-        public static void SafeSendData(Socket socket, byte[] data, int offset, int size)
-        {
-            socket.BeginSend(data, offset, size, SocketFlags.None, (_) => { }, null);
-        }         // 异步发送数据
         #endregion
 
         public void StopServer()
@@ -279,11 +274,11 @@ namespace TocTiny
             bufferCleanner.Stop();
         }
 
-        public event PackageReceivedHandler PackageReceived;
-        public event ClientConnectedHandler ClientConnected;
-        public event ClientDisconnectedHandler ClientDisconnected;
+        public event EventHandler<PackageReceivedArgs> PackageReceived;
+        public event EventHandler<ClientConnectedArgs> ClientConnected;
+        public event EventHandler<ClientDisconnectedArgs> ClientDisconnected;
     }
-    public class PackageReceivedEventArgs : EventArgs
+    public class PackageReceivedArgs : EventArgs
     {
         public Socket Sender;
         public TransPackage Package;
@@ -292,35 +287,31 @@ namespace TocTiny
         public bool Postback = false;
         public bool Record = false;
 
-        public PackageReceivedEventArgs() { }
-        public PackageReceivedEventArgs(Socket sender, TransPackage package)
+        public PackageReceivedArgs() { }
+        public PackageReceivedArgs(Socket sender, TransPackage package)
         {
             this.Sender = sender;
             this.Package = package;
         }
     }
-    public class ClientConnectedEventArgs : EventArgs
+    public class ClientConnectedArgs : EventArgs
     {
         public Socket Client;
 
-        public ClientConnectedEventArgs() { }
-        public ClientConnectedEventArgs(Socket client)
+        public ClientConnectedArgs() { }
+        public ClientConnectedArgs(Socket client)
         {
             this.Client = client;
         }
     }
-    public class ClientDisconnectedEventArgs : EventArgs
+    public class ClientDisconnectedArgs : EventArgs
     {
         public Socket Client;
 
-        public ClientDisconnectedEventArgs() { }
-        public ClientDisconnectedEventArgs(Socket client)
+        public ClientDisconnectedArgs() { }
+        public ClientDisconnectedArgs(Socket client)
         {
             this.Client = client;
         }
     }
-
-    public delegate void PackageReceivedHandler(object sender, PackageReceivedEventArgs args);
-    public delegate void ClientConnectedHandler(object sender, ClientConnectedEventArgs args);
-    public delegate void ClientDisconnectedHandler(object sender, ClientDisconnectedEventArgs args);
 }

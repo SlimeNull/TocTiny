@@ -10,6 +10,7 @@
       "TocTinyPublic/1.0.0": {
         "dependencies": {
           "CHO.Json": "1.0.0",
+          "EventedSocket": "1.0.0",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
@@ -25,6 +26,11 @@
       "CHO.Json/1.0.0": {
         "runtime": {
           "CHO.Json.dll": {}
+        }
+      },
+      "EventedSocket/1.0.0": {
+        "runtime": {
+          "EventedSocket.dll": {}
         }
       }
     }
@@ -50,6 +56,11 @@
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
     "CHO.Json/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EventedSocket/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

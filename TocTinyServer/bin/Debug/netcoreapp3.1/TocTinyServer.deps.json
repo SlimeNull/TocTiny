@@ -10,11 +10,20 @@
         "dependencies": {
           "CHO.Json": "1.0.0",
           "EventedSocket": "1.0.0",
+          "Null.ArgsParser": "1.0.7",
           "TocTinyPublic": "1.0.0",
           "TocTinyServerCore": "1.0.0"
         },
         "runtime": {
           "TocTinyServer.dll": {}
+        }
+      },
+      "Null.ArgsParser/1.0.7": {
+        "runtime": {
+          "lib/netstandard2.0/Null.ArgsParser.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CHO.Json/1.0.0": {
@@ -53,6 +62,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Null.ArgsParser/1.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xbNNR3SJ1pHp9G6O+fmpSXujhC9l0XCg8J0X48Va1oS4FGWbASol+jP7zcepqOQ0vt00EUlf/ftWjnr3S4HT9A==",
+      "path": "null.argsparser/1.0.7",
+      "hashPath": "null.argsparser.1.0.7.nupkg.sha512"
     },
     "CHO.Json/1.0.0": {
       "type": "project",

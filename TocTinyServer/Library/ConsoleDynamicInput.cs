@@ -34,6 +34,10 @@ namespace Null.Library
                 return inputtingChars == null ? string.Empty : new string(inputtingChars.ToArray());
             }
         }
+        public char[] InputtingChars
+        {
+            get => inputtingChars == null ? Array.Empty<char>() : inputtingChars.ToArray();
+        }
 
         public int StartTop { get => startTop; }
         public int StartLeft { get => startLeft; }
@@ -64,7 +68,7 @@ namespace Null.Library
             startLeft = Console.CursorLeft;
             inputIndex = 0;
 
-            if (inputHistory.Count == 0 || inputHistory[inputHistory.Count - 1].Count != 0)
+            if (inputHistory.Count == 0 || inputHistory[^1].Count != 0)
             {
                 historyIndex = inputHistory.Count;
                 inputHistory.Add(new List<char>());

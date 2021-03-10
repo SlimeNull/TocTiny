@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using CHO.Json;
-using Null.Library.EventedSocket;
+using NullLib.EventedSocket;
 using TocTiny;
 using TocTiny.Public;
 
@@ -18,10 +18,21 @@ namespace TocTiny.Core
 {
     public class TocTinyClient
     {
-        SocketClient socketClient;
+        private SocketClient socketClient;
 
-        TimeSpan btimeout = TimeSpan.FromSeconds(2);
-        double BufferTimeout
+        private TimeSpan btimeout = TimeSpan.FromSeconds(2);
+
+        private string userName;
+        private string clientGuid;
+        private Timer bufferCleaner;
+        private DateTime lastRecv;
+        private MemoryStream partBuffer;
+
+        public string UserName { get => userName; set => userName = value; }
+        public string ClientGuid { get => clientGuid; }
+        public SocketClient SocketClient { get => socketClient; }
+        public Socket Server { get => socketClient.BaseSocket; }
+        public double BufferTimeout
         {
             get => btimeout.TotalMilliseconds;
             set
@@ -29,33 +40,22 @@ namespace TocTiny.Core
                 btimeout = TimeSpan.FromMilliseconds(value);
             }
         }
-        double CleanInterval
+        public double CleanInterval
         {
-            get => bufferCleanner.Interval;
+            get => bufferCleaner.Interval;
             set
             {
-                bufferCleanner.Interval = value;
+                bufferCleaner.Interval = value;
             }
         }
-
-        string userName;
-        string clientGuid;
-        Timer bufferCleanner;
-        DateTime lastRecv;
-        MemoryStream partBuffer;
-
-        public string UserName { get => userName; set => userName = value; }
-        public string ClientGuid { get => clientGuid; }
-        public SocketClient SocketClient { get => socketClient; }
-        public Socket Server { get => socketClient.Server; }
 
         public TocTinyClient()
         {
             userName = Environment.UserName;
             clientGuid = Guid.NewGuid().ToString();
             lastRecv = DateTime.Now;
-            bufferCleanner = new Timer();
-            bufferCleanner.Elapsed += CleanAction;
+            bufferCleaner = new Timer();
+            bufferCleaner.Elapsed += CleanAction;
 
             socketClient = new SocketClient();
             partBuffer = new MemoryStream();
@@ -64,6 +64,11 @@ namespace TocTiny.Core
             socketClient.Disconnected += SocketClient_Disconnected;
         }
 
+        /// <summary>
+        /// 清理 PartBuffer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CleanAction(object sender, ElapsedEventArgs e)
         {
             if (partBuffer.Length > 0 && DateTime.Now - lastRecv > btimeout)
@@ -71,18 +76,30 @@ namespace TocTiny.Core
                 partBuffer.SetLength(0);
             }
         }
-
+        /// <summary>
+        /// 连接到服务端
+        /// </summary>
+        /// <param name="point"></param>
         public void ConnectTo(IPEndPoint point)
         {
             socketClient.ConnectTo(point);
+            bufferCleaner.Start();
         }
+        /// <summary>
+        /// 断开连接时, 引发事件, 并停止 BufferCleaner 线程
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void SocketClient_Disconnected(object sender, SocketDisconnectedArgs args)
         {
-            if (Disconnected != null)
-                Disconnected.Invoke(this, EventArgs.Empty);
-
-            bufferCleanner.Stop();
+            OnConnectionLost(Server);                 // 客户端断开连接, 引发Disconnected事件并停止BufferCleaner.
+            bufferCleaner.Stop();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void SocketClient_ReceivedMsg(object sender, SocketReceivedDataArgs args)
         {
             byte[] buffer = args.Buffer;
@@ -127,10 +144,8 @@ namespace TocTiny.Core
             {
                 foreach (TransPackage package in packages)
                 {
-                    PackageReceivedEventArgs args = new PackageReceivedEventArgs(package);
-                    PackageReceived.Invoke(this, args);
-
-                    if (args.Postback)
+                    OnPackageReceived(package, out bool postback);
+                    if (postback)                              // OnPackageReceived 返回的 bool 值表示是否Postback
                         EventedSocket.BeginSendData(Server, buffer, 0, size);
                 }
             }
@@ -154,15 +169,25 @@ namespace TocTiny.Core
         {
             partBuffer.Write(data, 0, size);
         }
+        /// <summary>
+        /// 更新 PartBuffer 的写入时间标识 (lastRecv)
+        /// </summary>
         private void UpdatePartBuffer()
         {
             lastRecv = DateTime.Now;
         }
+        /// <summary>
+        /// 清空 PartBuffer
+        /// </summary>
         private void ClearPartBuffer()
         {
             partBuffer.SetLength(0);
         }
 
+        /// <summary>
+        /// 发送文本
+        /// </summary>
+        /// <param name="text"></param>
         public void SendText(string text)
         {
             SendPackage(new TransPackage()
@@ -174,6 +199,11 @@ namespace TocTiny.Core
                 PackageType = ConstDef.NormalMessage
             });
         }
+
+        /// <summary>
+        /// 发送图片
+        /// </summary>
+        /// <param name="image"></param>
         public void SendImage(Image image)
         {
             MemoryStream tempStream = new MemoryStream();
@@ -191,6 +221,10 @@ namespace TocTiny.Core
                 PackageType = ConstDef.ImageMessage
             });
         }
+
+        /// <summary>
+        /// 吸引注意力
+        /// </summary>
         public void DrawAttention()
         {
             SendPackage(new TransPackage()
@@ -202,6 +236,10 @@ namespace TocTiny.Core
                 PackageType = ConstDef.DrawAttention
             });
         }
+
+        /// <summary>
+        /// 请求在线信息
+        /// </summary>
         public void RequestOnlineInfo()
         {
             SendPackage(new TransPackage()
@@ -232,7 +270,7 @@ namespace TocTiny.Core
         }
         public void SendPackage(TransPackage package)
         {
-            EventedSocket.BeginSendData(socketClient.Server, 
+            EventedSocket.BeginSendData(socketClient.BaseSocket, 
                 Encoding.UTF8.GetBytes(
                     JsonData.ConvertToText(
                         JsonData.Create(package))));
@@ -244,9 +282,31 @@ namespace TocTiny.Core
 
 
         public event EventHandler<PackageReceivedEventArgs> PackageReceived;
-        public event EventHandler Disconnected;
+        public event EventHandler<ClientDisconnectedEventArgs> ConnectionLost;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns>是否Postback</returns>
+        private void OnPackageReceived(TransPackage package, out bool postback)
+        {
+            postback = false;
+
+            if (PackageReceived != null)
+            {
+                PackageReceivedEventArgs e = new PackageReceivedEventArgs(package);
+                PackageReceived.Invoke(this, e);
+                postback = e.Postback;
+            }
+        }
+        private void OnConnectionLost(Socket client)
+        {
+            if (ConnectionLost != null)
+                ConnectionLost.Invoke(this, new ClientDisconnectedEventArgs(client));
+        }
     }
-    public class PackageReceivedEventArgs
+    public class PackageReceivedEventArgs : EventArgs
     {
         public TransPackage Package;
         
@@ -256,6 +316,16 @@ namespace TocTiny.Core
         public PackageReceivedEventArgs(TransPackage package)
         {
             this.Package = package;
+        }
+    }
+    public class ClientDisconnectedEventArgs : EventArgs
+    {
+        public Socket Client;
+        
+        public ClientDisconnectedEventArgs() { }
+        public ClientDisconnectedEventArgs(Socket client)
+        {
+            this.Client = client;
         }
     }
 }

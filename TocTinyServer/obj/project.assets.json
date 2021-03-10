@@ -2,6 +2,24 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "Null.ArgsParser/1.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Null.ArgsParser.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Null.ArgsParser.dll": {}
+        }
+      },
+      "NullLib.EventedSocket/1.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NullLib.EventedSocket.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NullLib.EventedSocket.dll": {}
+        }
+      },
       "CHO.Json/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -12,22 +30,11 @@
           "bin/placeholder/CHO.Json.dll": {}
         }
       },
-      "EventedSocket/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/EventedSocket.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/EventedSocket.dll": {}
-        }
-      },
       "TocTinyPublic/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "CHO.Json": "1.0.0",
-          "EventedSocket": "1.0.0"
+          "CHO.Json": "1.0.0"
         },
         "compile": {
           "bin/placeholder/TocTinyPublic.dll": {}
@@ -41,7 +48,7 @@
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "CHO.Json": "1.0.0",
-          "EventedSocket": "1.0.0",
+          "NullLib.EventedSocket": "1.0.1",
           "TocTinyPublic": "1.0.0"
         },
         "compile": {
@@ -54,15 +61,34 @@
     }
   },
   "libraries": {
+    "Null.ArgsParser/1.0.7": {
+      "sha512": "xbNNR3SJ1pHp9G6O+fmpSXujhC9l0XCg8J0X48Va1oS4FGWbASol+jP7zcepqOQ0vt00EUlf/ftWjnr3S4HT9A==",
+      "type": "package",
+      "path": "null.argsparser/1.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Null.ArgsParser.dll",
+        "null.argsparser.1.0.7.nupkg.sha512",
+        "null.argsparser.nuspec"
+      ]
+    },
+    "NullLib.EventedSocket/1.0.1": {
+      "sha512": "i+jUSSFoJMqQqxAvnAKOB3LZzbofCxC/GQ9NOsXOzF87FjgodtXcxxSa6lpAGu94x8i9S3TXXiP2IpUj18UPgQ==",
+      "type": "package",
+      "path": "nulllib.eventedsocket/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NullLib.EventedSocket.dll",
+        "nulllib.eventedsocket.1.0.1.nupkg.sha512",
+        "nulllib.eventedsocket.nuspec"
+      ]
+    },
     "CHO.Json/1.0.0": {
       "type": "project",
       "path": "../CHO.Json/CHO.Json.csproj",
       "msbuildProject": "../CHO.Json/CHO.Json.csproj"
-    },
-    "EventedSocket/1.0.0": {
-      "type": "project",
-      "path": "../EventedSocket/EventedSocket.csproj",
-      "msbuildProject": "../EventedSocket/EventedSocket.csproj"
     },
     "TocTinyPublic/1.0.0": {
       "type": "project",
@@ -78,7 +104,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "CHO.Json >= 1.0.0",
-      "EventedSocket >= 1.0.0",
+      "Null.ArgsParser >= 1.0.7",
+      "NullLib.EventedSocket >= 1.0.1",
       "TocTinyPublic >= 1.0.0",
       "TocTinyServerCore >= 1.0.0"
     ]
@@ -118,9 +145,6 @@
             "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj": {
               "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj"
             },
-            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj": {
-              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj"
-            },
             "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyPublic\\TocTinyPublic.csproj": {
               "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyPublic\\TocTinyPublic.csproj"
             },
@@ -139,6 +163,16 @@
     "frameworks": {
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
+        "dependencies": {
+          "Null.ArgsParser": {
+            "target": "Package",
+            "version": "[1.0.7, )"
+          },
+          "NullLib.EventedSocket": {
+            "target": "Package",
+            "version": "[1.0.1, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

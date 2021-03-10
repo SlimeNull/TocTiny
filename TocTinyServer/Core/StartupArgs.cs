@@ -7,10 +7,10 @@ namespace TocTiny.Server.Core
 {
     public class StartupArgs
     {
-        public string PORT = "0";           // port 
-        public string BACKLOG = "0";          // backlog
-        public string BUFFERTIMEOUT = "0";
-        public string CLEANINTERVAL = "0";
+        public string Port = "0";           // port 
+        public string Backlog = "0";          // backlog
+        public string BufferTimeout = "0";
+        public string CleanInterval = "0";
 
         public string P = "0";
         public string B = "0";
@@ -19,21 +19,21 @@ namespace TocTiny.Server.Core
 
         public string NAME = string.Empty;
 
-        public bool NOCMD = false;
+        public bool NoCmd = false;
 
         public bool NC;
 
 
-        public bool HELP = false;
+        public bool Help = false;
         public bool H = false;
 
         public ExecuteArgs DeepParse(bool checkHelp = true)
         {
             bool argsIntegerCorrect =
-                int.TryParse(PORT, out int Port) &
-                int.TryParse(BACKLOG, out int Backlog) &
-                int.TryParse(BUFFERTIMEOUT, out int BufferTimeout) &
-                int.TryParse(CLEANINTERVAL, out int CleanInterval) &
+                int.TryParse(this.Port, out int Port) &
+                int.TryParse(this.Backlog, out int Backlog) &
+                int.TryParse(this.BufferTimeout, out int BufferTimeout) &
+                int.TryParse(this.CleanInterval, out int CleanInterval) &
                 int.TryParse(P, out int Int_P) &
                 int.TryParse(B, out int Int_B) &
                 int.TryParse(BT, out int Int_BT) &
@@ -42,7 +42,7 @@ namespace TocTiny.Server.Core
                 BacklogUndefined = Backlog == 0 && Int_B == 0,
                 BufferTimeoutUndefined = BufferTimeout == 0 && Int_BT == 0,
                 CleanIntervalUndefined = CleanInterval == 0 && Int_CI == 0,
-                NoCmd = NOCMD || NC;
+                NoCmd = this.NoCmd || NC;
 
             if (!argsIntegerCorrect)
                 ExFunc.ErrorExit("参数需要整数, 但指定了非整数值", -1);

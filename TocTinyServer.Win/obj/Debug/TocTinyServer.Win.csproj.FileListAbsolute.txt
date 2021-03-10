@@ -1,0 +1,7 @@
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer.Win\bin\Debug\TocTinyServer.Win.exe.config
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer.Win\bin\Debug\TocTinyServer.Win.exe
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer.Win\bin\Debug\TocTinyServer.Win.pdb
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer.Win\obj\Debug\TocTinyServer.Win.csprojAssemblyReference.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer.Win\obj\Debug\TocTinyServer.Win.csproj.CoreCompileInputs.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer.Win\obj\Debug\TocTinyServer.Win.exe
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer.Win\obj\Debug\TocTinyServer.Win.pdb

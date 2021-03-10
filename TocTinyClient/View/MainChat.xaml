@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TocTiny" Closing="Window_Closing"
         mc:Ignorable="d" Loaded="Window_Loaded" Background="#F5F6F7"
-        Title="MainChat" Height="650" Width="1024">
+        Title="MainChat" Height="650" Width="1024" MinWidth="420" MinHeight="520">
     <Grid Grid.Row="1" PreviewMouseDown="Grid_PreviewMouseDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -30,16 +30,16 @@
                     <Setter Property="HorizontalAlignment" Value="Left"/>
                     <Setter Property="Margin" Value="0"/>
                     <EventSetter Event="SelectionChanged" Handler="Sticker_Selected"/>
-                </Style>
+                </Style> 
             </Grid.Resources>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListView Grid.Column="0"  Margin="0,0,0,0">
+            <ListView Grid.Column="0"  Margin="0,0,0,0" BorderThickness="1, 1, 0, 1">
                 <ListViewItem Visibility="Collapsed"/>
                 <ListViewItem Content="(❁'◡`❁)"/>
                 <ListViewItem Content="╰(*°▽°*)╯"/>
@@ -47,7 +47,7 @@
                 <ListViewItem Content="φ(゜▽゜*)♪"/>
                 <ListViewItem Content="(oﾟvﾟ)ノ"/>
             </ListView>
-            <ListView Grid.Column="1" BorderThickness="0,1,1,1">
+            <ListView Grid.Column="1" BorderThickness="1,1,0,1">
                 <ListViewItem Visibility="Collapsed"/>
                 <ListViewItem Content="(づ￣ 3￣)づ"/>
                 <ListViewItem Content="||o(*°▽°*)o|Ю"/>
@@ -55,7 +55,7 @@
                 <ListViewItem Content="o(〃＾▽＾〃)o"/>
                 <ListViewItem Content="(っ °Д °;)っ"/>
             </ListView>
-            <ListView Grid.Column="2" BorderThickness="0,1,1,1">
+            <ListView Grid.Column="2" BorderThickness="1,1,0,1">
                 <ListViewItem Visibility="Collapsed"/>
                 <ListViewItem Content="≧ ﹏ ≦"/>
                 <ListViewItem Content="(;'༎ຶД༎ຶ`)"/>
@@ -63,7 +63,7 @@
                 <ListViewItem Content="╥﹏╥..."/>
                 <ListViewItem Content="〒▽〒"/>
             </ListView>
-            <ListView Grid.Column="3" BorderThickness="0,1,1,1">
+            <ListView Grid.Column="3" BorderThickness="1,1,0,1">
                 <ListViewItem Visibility="Collapsed"/>
                 <ListViewItem Content="(╬▔皿▔)╯"/>
                 <ListViewItem Content="ヽ（≧□≦）ノ"/>
@@ -71,7 +71,7 @@
                 <ListViewItem Content="(ノ｀Д)ノ"/>
                 <ListViewItem Content="(╬ﾟдﾟ)"/>
             </ListView>
-            <ListView Grid.Column="4" BorderThickness="0,1,1,1">
+            <ListView Grid.Column="4" BorderThickness="1,1,1,1">
                 <ListViewItem Visibility="Collapsed"/>
                 <ListViewItem Content="ε=( o｀ω′)ノ"/>
                 <ListViewItem Content="(=ﾟωﾟ)="/>

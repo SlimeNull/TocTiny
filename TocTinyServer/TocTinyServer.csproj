@@ -8,8 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Null.ArgsParser" Version="1.0.7" />
+    <PackageReference Include="NullLib.EventedSocket" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CHO.Json\CHO.Json.csproj" />
-    <ProjectReference Include="..\EventedSocket\EventedSocket.csproj" />
     <ProjectReference Include="..\TocTinyPublic\TocTinyPublic.csproj" />
     <ProjectReference Include="..\TocTinyServerCore\TocTinyServerCore.csproj" />
   </ItemGroup>

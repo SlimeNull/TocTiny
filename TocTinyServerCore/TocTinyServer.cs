@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Timers;
 using TocTiny.Public;
-using Null.Library.EventedSocket;
+using NullLib.EventedSocket;
 using CHO.Json;
 
 namespace TocTiny
@@ -31,14 +31,13 @@ namespace TocTiny
         public int Backlog { get => backlog; set => backlog = value; }
 
         readonly Dictionary<Socket, ClientData> clients;                // 客户端
-        readonly Dictionary<string, (string, Socket)> clientRecords;    // guid : (name, socket)
 
-        readonly List<Socket> clientToRemove;                           // 要被删去的服务端
+        //readonly Dictionary<string, (string, Socket)> clientRecords;    // guid : (name, socket)
+        //readonly List<Socket> clientToRemove;                           // 要被删去的服务端
+        //readonly byte[] heartPackageData;
+
+
         readonly List<byte[]> lastMessages;                             // 保存最近的几条消息
-
-
-        readonly byte[] heartPackageData;
-
         readonly Timer bufferCleanner;
 
 
@@ -52,9 +51,9 @@ namespace TocTiny
             socketServer = new SocketServer();
 
             clients = new Dictionary<Socket, ClientData>();
-            clientToRemove = new List<Socket>();
             lastMessages = new List<byte[]>();
-            clientRecords = new Dictionary<string, (string, Socket)>();
+            //clientToRemove = new List<Socket>();
+            //clientRecords = new Dictionary<string, (string, Socket)>();
 
             bufferCleanner = new Timer()
             {
@@ -92,20 +91,18 @@ namespace TocTiny
         }
         private void ClientDisconnectedController(object sender, SocketDisconnectedArgs e)
         {
-            Socket socket = e.Socket;
-            if (ClientDisconnected != null)
-                ClientDisconnected.Invoke(this, new ClientDisconnectedArgs(socket));
+            Socket client = e.Socket;
+            OnClientDisconnected(client);
 
-            SafeRemoveClient(socket);
+            SafeRemoveClient(client);
         }
         private void ClientConnectedController(object sender, SocketConnectedArgs e)
         {
-            Socket socket = e.Socket;
-            if (ClientConnected != null)
-                ClientConnected.Invoke(this, new ClientConnectedArgs(socket));
+            Socket client = e.Socket;
+            OnClientConnected(client);
 
-            SafeAddClient(socket);
-            SafeSendHistoryData(socket);
+            SafeAddClient(client);
+            SafeSendHistoryData(client);
         }
         #endregion
 
@@ -133,19 +130,15 @@ namespace TocTiny
         }
         private void DealPackages(Socket sender, TransPackage[] packages, byte[] buffer, int size)
         {
-            if (PackageReceived != null)
+            foreach (TransPackage package in packages)
             {
-                foreach (TransPackage package in packages)
-                {
-                    PackageReceivedArgs args = new PackageReceivedArgs(sender, package);
-                    PackageReceived.Invoke(sender, args);
-                    if (args.Boardcast)
-                        EventedSocket.TryBeginBoardcastData(clients.Keys, buffer, 0, size);
-                    if (args.Postback)
-                        EventedSocket.TryBeginSendData(sender, buffer, 0, size);
-                    if (args.Record)
-                        SafeAddHistoryData(buffer, size);
-                }
+                OnPackageReceived(sender, package, out bool boardcast, out bool postback, out bool record);
+                if (boardcast)
+                    EventedSocket.TryBeginBoardcastData(clients.Keys, buffer, 0, size);
+                if (postback)
+                    EventedSocket.TryBeginSendData(sender, buffer, 0, size);
+                if (record)
+                    SafeAddHistoryData(buffer, size);
             }
         }
         private bool DealPartData(Socket sender, byte[] part, int size)
@@ -277,6 +270,36 @@ namespace TocTiny
         public event EventHandler<PackageReceivedArgs> PackageReceived;
         public event EventHandler<ClientConnectedArgs> ClientConnected;
         public event EventHandler<ClientDisconnectedArgs> ClientDisconnected;
+
+        private void OnPackageReceived(Socket sender, TransPackage package, out bool boardcast, out bool postback, out bool record)
+        {
+            boardcast = false;
+            postback = false;
+            record = false;
+
+            if (PackageReceived != null)
+            {
+                PackageReceivedArgs e = new PackageReceivedArgs(sender, package);
+                PackageReceived.Invoke(this, e);
+                boardcast = e.Boardcast;
+                postback = e.Postback;
+                record = e.Record;
+            }
+        }
+        private void OnClientConnected(Socket client)
+        {
+            if (ClientConnected != null)
+            {
+                ClientConnected.Invoke(this, new ClientConnectedArgs(client));
+            }
+        }
+        private void OnClientDisconnected(Socket client)
+        {
+            if (ClientDisconnected != null)
+            {
+                ClientDisconnected.Invoke(this, new ClientDisconnectedArgs(client));
+            }
+        }
     }
     public class PackageReceivedArgs : EventArgs
     {

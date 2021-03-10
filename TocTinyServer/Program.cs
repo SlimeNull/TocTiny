@@ -7,11 +7,11 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using Null.Library;
-using Null.Library.ConsArgsParser;
-using Null.Library.EventedSocket;
+using NullLib.EventedSocket;
 using TocTiny.Public;
 using CHO.Json;
 using TocTiny.Server.Core;
+using Null.ArgsParser;
 
 namespace TocTiny
 {
@@ -21,12 +21,21 @@ namespace TocTiny
         {
             scanner = new DynamicScanner();
 
-            ConsArgs consArgs = new ConsArgs(args);
-            StartupArgs startupArgs = consArgs.ToObject<StartupArgs>();
+            Arguments nargs = new Arguments(
+                new FieldArgument("Port"),
+                new FieldArgument("Backlog"),
+                new FieldArgument("BufferTimeout"),
+                new FieldArgument("CleanInterval"),
+                new SwitchArgument("NoCmd"),
+                new SwitchArgument("Help"),
+                new SwitchArgument("H"));
+            nargs.Parse(args);
+            StartupArgs startupArgs = nargs.ToObject<StartupArgs>();
             return startupArgs.DeepParse();
         }
+        static TocTinyServer tocTinyServer;
         static DynamicScanner scanner;
-        static void DisplayHelpAndEnd()
+        static void DisplayHelpAndExit()
         {
             App.SafeWriteLine(scanner, string.Join('\n',
                 "TOC Tiny : TOC Tiny 的服务端程序",
@@ -42,12 +51,14 @@ namespace TocTiny
             Environment.Exit(0);
         }
 
+        static int onlineCount = 0;
+
 
         static void Main(string[] cargs)
         {
             ExecuteArgs args = Initialize(cargs);
 
-            TocTinyServer tocTinyServer = new TocTinyServer()
+            tocTinyServer = new TocTinyServer()
             {
                 CleanInverval = 2000
             };
@@ -66,11 +77,15 @@ namespace TocTiny
         private static void TocTinyServer_ClientDisconnected(object sender, ClientDisconnectedArgs args)
         {
             Console.WriteLine($"{args.Client.RemoteEndPoint} disconnected.");
+
+            onlineCount--;
         }
 
         private static void TocTinyServer_ClientConnected(object sender, ClientConnectedArgs args)
         {
             Console.WriteLine($"{args.Client.RemoteEndPoint} connected.");
+
+            onlineCount++;
         }
 
         private static void TocTinyServer_PackageReceived(object sender, PackageReceivedArgs args)
@@ -92,10 +107,16 @@ namespace TocTiny
                 case ConstDef.HeartPackage:
                     return;
                 case ConstDef.ChangeChannelName:
-                    // to do: 返回错误
+                    //to do: deal this message
                     return;
                 case ConstDef.ReportChannelOnline:
-                    // to do: 处理消息
+                    EventedSocket.TryBeginSendData(args.Sender, Encoding.UTF8.GetBytes(JsonData.ConvertToText(JsonData.Create(new TransPackage()
+                    {
+                        Name = "Server",
+                        Content = $"Online: {onlineCount}; Your IP Address: {((IPEndPoint)args.Sender.RemoteEndPoint).Address};",
+                        ClientGuid = "Server",
+                        PackageType = ConstDef.ReportChannelOnline
+                    }))));
                     return;
             }
         }

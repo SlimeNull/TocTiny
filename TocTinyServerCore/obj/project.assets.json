@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.1": {
+      "NullLib.EventedSocket/1.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NullLib.EventedSocket.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NullLib.EventedSocket.dll": {}
+        }
+      },
       "CHO.Json/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -12,22 +21,11 @@
           "bin/placeholder/CHO.Json.dll": {}
         }
       },
-      "EventedSocket/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/EventedSocket.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/EventedSocket.dll": {}
-        }
-      },
       "TocTinyPublic/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "CHO.Json": "1.0.0",
-          "EventedSocket": "1.0.0"
+          "CHO.Json": "1.0.0"
         },
         "compile": {
           "bin/placeholder/TocTinyPublic.dll": {}
@@ -39,15 +37,22 @@
     }
   },
   "libraries": {
+    "NullLib.EventedSocket/1.0.1": {
+      "sha512": "i+jUSSFoJMqQqxAvnAKOB3LZzbofCxC/GQ9NOsXOzF87FjgodtXcxxSa6lpAGu94x8i9S3TXXiP2IpUj18UPgQ==",
+      "type": "package",
+      "path": "nulllib.eventedsocket/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NullLib.EventedSocket.dll",
+        "nulllib.eventedsocket.1.0.1.nupkg.sha512",
+        "nulllib.eventedsocket.nuspec"
+      ]
+    },
     "CHO.Json/1.0.0": {
       "type": "project",
       "path": "../CHO.Json/CHO.Json.csproj",
       "msbuildProject": "../CHO.Json/CHO.Json.csproj"
-    },
-    "EventedSocket/1.0.0": {
-      "type": "project",
-      "path": "../EventedSocket/EventedSocket.csproj",
-      "msbuildProject": "../EventedSocket/EventedSocket.csproj"
     },
     "TocTinyPublic/1.0.0": {
       "type": "project",
@@ -58,7 +63,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
       "CHO.Json >= 1.0.0",
-      "EventedSocket >= 1.0.0",
+      "NullLib.EventedSocket >= 1.0.1",
       "TocTinyPublic >= 1.0.0"
     ]
   },
@@ -97,9 +102,6 @@
             "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj": {
               "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj"
             },
-            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj": {
-              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj"
-            },
             "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyPublic\\TocTinyPublic.csproj": {
               "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyPublic\\TocTinyPublic.csproj"
             }
@@ -115,6 +117,12 @@
     "frameworks": {
       "netstandard2.1": {
         "targetAlias": "netstandard2.1",
+        "dependencies": {
+          "NullLib.EventedSocket": {
+            "target": "Package",
+            "version": "[1.0.1, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

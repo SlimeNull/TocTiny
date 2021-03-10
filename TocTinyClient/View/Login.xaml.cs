@@ -62,6 +62,7 @@ namespace TocTiny.View
                     goto ExitConnection;
                 }
 
+                clientSelf.UserName = ViewModel.Nickname;
                 clientSelf.ConnectTo(new IPEndPoint(addresses[0], port));                       // 缓冲区大小: 1mb
                 ViewModel.AcceptButtonContent = "Connect";
 

@@ -35,16 +35,6 @@
         "runtime": {
           "bin/placeholder/CHO.Json.dll": {}
         }
-      },
-      "EventedSocket/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "compile": {
-          "bin/placeholder/EventedSocket.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/EventedSocket.dll": {}
-        }
       }
     }
   },
@@ -197,17 +187,11 @@
       "type": "project",
       "path": "../CHO.Json/CHO.Json.csproj",
       "msbuildProject": "../CHO.Json/CHO.Json.csproj"
-    },
-    "EventedSocket/1.0.0": {
-      "type": "project",
-      "path": "../EventedSocket/EventedSocket.csproj",
-      "msbuildProject": "../EventedSocket/EventedSocket.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "CHO.Json >= 1.0.0",
-      "EventedSocket >= 1.0.0",
       "NETStandard.Library >= 2.0.3"
     ]
   },
@@ -245,9 +229,6 @@
           "projectReferences": {
             "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj": {
               "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj"
-            },
-            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj": {
-              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\EventedSocket\\EventedSocket.csproj"
             }
           }
         }

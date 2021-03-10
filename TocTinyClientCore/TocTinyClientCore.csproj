@@ -34,6 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NullLib.EventedSocket, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NullLib.EventedSocket.1.0.1\lib\netstandard2.0\NullLib.EventedSocket.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -52,14 +55,13 @@
       <Project>{1bbb4d8c-905a-43a1-82e3-5b023e3e2f8a}</Project>
       <Name>CHO.Json</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EventedSocket\EventedSocket.csproj">
-      <Project>{a2b50d24-feb8-4dcd-a7ab-efd68228bcf4}</Project>
-      <Name>EventedSocket</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TocTinyPublic\TocTinyPublic.csproj">
       <Project>{b86664aa-c921-4ea5-b110-d4a9e3d565f6}</Project>
       <Name>TocTinyPublic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

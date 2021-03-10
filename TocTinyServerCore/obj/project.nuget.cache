@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "K10nkVBH3Us6CXJ12knc58m10DGeCOkswxwWvwDFOu2n60/CJo+9FkoRsY96qP5NG8IWxwx9Q/b6218BMfLs9Q==",
+  "dgSpecHash": "CJbOQwBVc2sSJJdfIwwECa5hpIQ9wQkOUKYkONLaYylhbCT1BGDCoRBXc3x/0VOdej8UFHnlxe/9Pv/YH8Fv3Q==",
   "success": true,
   "projectFilePath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServerCore\\TocTinyServerCore.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Null\\.nuget\\packages\\nulllib.eventedsocket\\1.0.1\\nulllib.eventedsocket.1.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

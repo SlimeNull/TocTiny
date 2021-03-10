@@ -39,7 +39,7 @@ namespace TocTiny.View
             loginWindow.MouseLeftButtonDown += (sender, e) => DragMove();   // 拖动移动
 
             ClientSelf.PackageReceived += ClientSelf_PackageReceived;
-            ClientSelf.Disconnected += ClientSelf_Disconnected;
+            ClientSelf.ConnectionLost += ClientSelf_Disconnected;
         }
 
         private void ClientSelf_Disconnected(object sender, EventArgs e)
@@ -82,7 +82,6 @@ namespace TocTiny.View
                         Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     case ConstDef.ImageMessage:
-                        //暂时不处理, 保留
                         if (recvPackage.ClientGuid == WindowParent.ClientSelf.ClientGuid)
                             AppendImageMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Right);
                         else
@@ -176,10 +175,9 @@ namespace TocTiny.View
             ChannelName.Content = name;
             this.Title = $"{name} - TOC Tiny";
         }
-
-        private void Image_DragLeave(object sender, DragEventArgs e)
+        private void ChatPanelSrcollToEnd()
         {
-
+            
         }
         #endregion
 

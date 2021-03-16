@@ -57,9 +57,14 @@ namespace TocTiny.Core
             bufferCleaner = new Timer();
             bufferCleaner.Elapsed += CleanAction;
 
-            selfClient = new EventedClient();
             partBuffer = new MemoryStream();
 
+            InitializeClient();
+        }
+
+        private void InitializeClient()
+        {
+            selfClient = new EventedClient();
             selfClient.DataReceived += SocketClient_ReceivedMsg;
             selfClient.Disconnected += SocketClient_Disconnected;
         }
@@ -303,6 +308,8 @@ namespace TocTiny.Core
         }
         private void OnConnectionLost(Socket client)
         {
+            InitializeClient();
+
             if (ConnectionLost != null)
                 ConnectionLost.Invoke(this, new ClientDisconnectedEventArgs(client));
         }

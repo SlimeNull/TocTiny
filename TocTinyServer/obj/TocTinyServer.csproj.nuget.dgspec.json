@@ -315,13 +315,13 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Null.ArgsParser": {
+            "NullLib.ArgsParser": {
               "target": "Package",
-              "version": "[1.0.7, )"
+              "version": "[1.0.9, )"
             },
             "NullLib.DynamicScanner": {
               "target": "Package",
-              "version": "[1.0.1, )"
+              "version": "[1.0.3, )"
             }
           },
           "imports": [

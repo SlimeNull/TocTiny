@@ -4,7 +4,6 @@ D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\net
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\netcoreapp3.1\TocTinyServer.runtimeconfig.dev.json
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\netcoreapp3.1\TocTinyServer.dll
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\netcoreapp3.1\TocTinyServer.pdb
-D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\netcoreapp3.1\Null.ArgsParser.dll
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\netcoreapp3.1\NullLib.DynamicScanner.dll
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\netcoreapp3.1\CHO.Json.dll
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\netcoreapp3.1\NullLib.EventedSocket.dll
@@ -22,3 +21,4 @@ D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\obj\Release\net
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\obj\Release\netcoreapp3.1\TocTinyServer.dll
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\obj\Release\netcoreapp3.1\TocTinyServer.pdb
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\obj\Release\netcoreapp3.1\TocTinyServer.genruntimeconfig.cache
+D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyServer\bin\Release\netcoreapp3.1\NullLib.ArgsParser.dll

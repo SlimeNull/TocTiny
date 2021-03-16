@@ -11,30 +11,33 @@ using NullLib.DynamicScanner;
 using CHO.Json;
 using TocTiny.Public;
 using TocTiny.Server.Core;
-using Null.ArgsParser;
+using NullLib.ArgsParser;
 
 namespace TocTiny
 {
     class Program
     {
+        static int onlineCount = 0;
         static ExecuteArgs Initialize(string[] args)
         {
             Arguments nargs = new Arguments(
-                new FieldArgument("Port"),
-                new FieldArgument("Backlog"),
-                new FieldArgument("BufferTimeout"),
-                new FieldArgument("CleanInterval"),
-                new SwitchArgument("NoCmd"),
-                new SwitchArgument("Help"),
-                new SwitchArgument("H"));
+                new FieldArgument("Port") { Alias = "P" },
+                new FieldArgument("Backlog") { Alias = "B" },
+                new FieldArgument("BufferTimeout") { Alias = "BT" },
+                new FieldArgument("CleanInterval") { Alias = "CI" },
+                new SwitchArgument("NoCmd") { Alias = "NC" },
+                new SwitchArgument("Help") { Alias = "H" });
             nargs.Parse(args);
             StartupArgs startupArgs = nargs.ToObject<StartupArgs>();
-            return startupArgs.DeepParse();
+            ExecuteArgs exeArgs = startupArgs.DeepParse();
+            if (exeArgs.Help)
+                DisplayHelpAndExit();
+            return exeArgs;
         }
         static TocTinyServer tocTinyServer;
         static void DisplayHelpAndExit()
         {
-            App.SafeWriteLine(string.Join("\n",
+            SafePrintText(string.Join("\n",
                 "TOC Tiny : TOC Tiny 的服务端程序",
                 "",
                 "  TocTiny [-Port 端口] [-Backlog 监听数量] /[? | Help]",
@@ -47,20 +50,39 @@ namespace TocTiny
 
             Environment.Exit(0);
         }
-
-        static int onlineCount = 0;
-
+        static void SafePrintText(object obj, bool newline = true)
+        {
+            if (DynamicScanner.IsInputting)
+            {
+                DynamicScanner.ClearDisplayBuffer();
+                Console.SetCursorPosition(DynamicScanner.StartLeft, DynamicScanner.StartTop);
+                Console.Write(obj);
+                if (newline)
+                    Console.WriteLine();
+                DynamicScanner.SetInputStart(Console.CursorLeft, Console.CursorTop, false);
+            }
+            else
+            {
+                Console.Write(obj);
+                if (newline)
+                    Console.WriteLine();
+            }
+        }
 
         static void Main(string[] cargs)
         {
+            Console.WriteLine("Null: TOC Tiny. Copyright 2021 Null, All rights reserved.\n");
             ExecuteArgs args = Initialize(cargs);
 
             tocTinyServer = new TocTinyServer(args.Port)
             {
-                CleanInverval = 2000
+                BufferTimeout = args.BufferTimeout,
+                CleanInverval = args.CleanInterval,
+                Backlog = args.Backlog,
+                HistoryMaxCount = 20,
             };
 
-            Console.WriteLine($"Server started at port {args.Port}");
+            SafePrintText($"Server started at port {args.Port}", true);
 
             tocTinyServer.PackageReceived += TocTinyServer_PackageReceived;
             tocTinyServer.ClientConnected += TocTinyServer_ClientConnected;
@@ -72,45 +94,43 @@ namespace TocTiny
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Binding failed. Please check if the port {args.Port} was listened by another application.");
+                SafePrintText($"Binding failed. Please check if the port {args.Port} was listened by another application.", true);
                 return;
             }
 
             while (true)
-                Console.ReadKey(true);
+                DynamicScanner.ReadLine();
         }
 
         private static void TocTinyServer_ClientDisconnected(object sender, ClientDisconnectedArgs args)
         {
-            Console.WriteLine($"Client: {args.Client.BaseSocket.RemoteEndPoint} disconnected.");
-
+            SafePrintText($"Client: {args.Client.BaseSocket.RemoteEndPoint} disconnected.", true);
             onlineCount--;
         }
 
         private static void TocTinyServer_ClientConnected(object sender, ClientConnectedArgs args)
         {
-            Console.WriteLine($"Client: {args.Client.BaseSocket.RemoteEndPoint} connected.");
-
+            SafePrintText($"Client: {args.Client.BaseSocket.RemoteEndPoint} connected.", true);
             onlineCount++;
         }
 
         private static void TocTinyServer_PackageReceived(object sender, PackageReceivedArgs args)
         {
-            switch(args.Package.PackageType)
+            switch (args.Package.PackageType)
             {
                 case ConstDef.NormalMessage:
-                    Console.WriteLine($"{args.Package.Name}: {args.Package.Content}");
+                    SafePrintText($"{args.Package.Name}: {args.Package.Content}", true);
                     args.Boardcast = true;
                     return;
                 case ConstDef.Verification:
                     args.Boardcast = true;
                     return;
                 case ConstDef.ImageMessage:
-                    Console.WriteLine($"{args.Package.Name}- Image (of size:{args.Package.Content.Length} base64 chars)");
+                    SafePrintText($"{args.Package.Name}- Image (of size:{args.Package.Content.Length} base64 chars)", true);
                     args.Boardcast = true;
                     return;
                 case ConstDef.DrawAttention:
-                    Console.WriteLine($"{args.Package.Name}- Attention");
+                    SafePrintText($"{args.Package.Name}- Attention", true);
                     args.Boardcast = true;
                     return;
                 case ConstDef.HeartPackage:

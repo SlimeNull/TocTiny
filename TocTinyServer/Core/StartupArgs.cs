@@ -20,14 +20,12 @@ namespace TocTiny.Server.Core
         public string NAME = string.Empty;
 
         public bool NoCmd = false;
-
         public bool NC;
-
 
         public bool Help = false;
         public bool H = false;
 
-        public ExecuteArgs DeepParse(bool checkHelp = true)
+        public ExecuteArgs DeepParse()
         {
             bool argsIntegerCorrect =
                 int.TryParse(this.Port, out int Port) &
@@ -42,7 +40,8 @@ namespace TocTiny.Server.Core
                 BacklogUndefined = Backlog == 0 && Int_B == 0,
                 BufferTimeoutUndefined = BufferTimeout == 0 && Int_BT == 0,
                 CleanIntervalUndefined = CleanInterval == 0 && Int_CI == 0,
-                NoCmd = this.NoCmd || NC;
+                NoCmd = this.NoCmd || NC,
+                Help = this.Help || H;
 
             if (!argsIntegerCorrect)
                 ExFunc.ErrorExit("参数需要整数, 但指定了非整数值", -1);
@@ -62,7 +61,8 @@ namespace TocTiny.Server.Core
                 Backlog = Backlog + Int_B,
                 BufferTimeout = BufferTimeout + Int_BT,
                 CleanInterval = CleanInterval + Int_CI,
-                NoCommand = NoCmd
+                NoCommand = NoCmd,
+                Help = Help
             };
         }
     }

@@ -2,16 +2,16 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Null.ArgsParser/1.0.7": {
+      "NullLib.ArgsParser/1.0.9": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Null.ArgsParser.dll": {}
+          "lib/netstandard2.0/NullLib.ArgsParser.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Null.ArgsParser.dll": {}
+          "lib/netstandard2.0/NullLib.ArgsParser.dll": {}
         }
       },
-      "NullLib.DynamicScanner/1.0.1": {
+      "NullLib.DynamicScanner/1.0.3": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/NullLib.DynamicScanner.dll": {}
@@ -71,27 +71,27 @@
     }
   },
   "libraries": {
-    "Null.ArgsParser/1.0.7": {
-      "sha512": "xbNNR3SJ1pHp9G6O+fmpSXujhC9l0XCg8J0X48Va1oS4FGWbASol+jP7zcepqOQ0vt00EUlf/ftWjnr3S4HT9A==",
+    "NullLib.ArgsParser/1.0.9": {
+      "sha512": "SeRRZMqbdiRI7UGIMeBRVCqgUJdEdX3vhO5kgfC4rKQsiqBd5IuEjsAj8YKfeyhD4qyrw2aS8UGfr6HGp6rcXw==",
       "type": "package",
-      "path": "null.argsparser/1.0.7",
+      "path": "nulllib.argsparser/1.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netstandard2.0/Null.ArgsParser.dll",
-        "null.argsparser.1.0.7.nupkg.sha512",
-        "null.argsparser.nuspec"
+        "lib/netstandard2.0/NullLib.ArgsParser.dll",
+        "nulllib.argsparser.1.0.9.nupkg.sha512",
+        "nulllib.argsparser.nuspec"
       ]
     },
-    "NullLib.DynamicScanner/1.0.1": {
-      "sha512": "7Pi4z36j0xQp3CcR7pgdvJj48BvnDaMWrnCroT1HbQjdCDacgEoXyeAlGRNCChTDm0QZ0ZiA5vmYNUb5oKEi9g==",
+    "NullLib.DynamicScanner/1.0.3": {
+      "sha512": "GT21Pj9dAXYkCxi+xVHY1l5pi9jPgzl7sF/t67LLIuj2F27zi9qMRoIgFxEBwL2bXkaJS26GmkNZCh7J3KXlyQ==",
       "type": "package",
-      "path": "nulllib.dynamicscanner/1.0.1",
+      "path": "nulllib.dynamicscanner/1.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/NullLib.DynamicScanner.dll",
-        "nulllib.dynamicscanner.1.0.1.nupkg.sha512",
+        "nulllib.dynamicscanner.1.0.3.nupkg.sha512",
         "nulllib.dynamicscanner.nuspec"
       ]
     },
@@ -119,8 +119,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "CHO.Json >= 1.0.0",
-      "Null.ArgsParser >= 1.0.7",
-      "NullLib.DynamicScanner >= 1.0.1",
+      "NullLib.ArgsParser >= 1.0.9",
+      "NullLib.DynamicScanner >= 1.0.3",
       "NullLib.EventedSocket >= 1.0.4",
       "TocTinyPublic >= 1.0.0",
       "TocTinyServerCore >= 1.0.0"
@@ -183,13 +183,13 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
-          "Null.ArgsParser": {
+          "NullLib.ArgsParser": {
             "target": "Package",
-            "version": "[1.0.7, )"
+            "version": "[1.0.9, )"
           },
           "NullLib.DynamicScanner": {
             "target": "Package",
-            "version": "[1.0.1, )"
+            "version": "[1.0.3, )"
           }
         },
         "imports": [

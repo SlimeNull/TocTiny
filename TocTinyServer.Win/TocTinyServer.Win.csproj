@@ -34,11 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Null.ArgsParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Null.ArgsParser.1.0.7\lib\netstandard2.0\Null.ArgsParser.dll</HintPath>
+    <Reference Include="NullLib.ArgsParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NullLib.ArgsParser.1.0.9\lib\netstandard2.0\NullLib.ArgsParser.dll</HintPath>
     </Reference>
-    <Reference Include="NullLib.DynamicScanner, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NullLib.DynamicScanner.1.0.1\lib\netstandard2.0\NullLib.DynamicScanner.dll</HintPath>
+    <Reference Include="NullLib.DynamicScanner, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NullLib.DynamicScanner.1.0.3\lib\netstandard2.0\NullLib.DynamicScanner.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\App.cs" />
     <Compile Include="Core\ExecuteArgs.cs" />
     <Compile Include="Core\StartupArgs.cs" />
     <Compile Include="Program.cs" />

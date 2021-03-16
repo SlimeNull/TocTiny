@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Null.ArgsParser" Version="1.0.7" />
-    <PackageReference Include="NullLib.DynamicScanner" Version="1.0.1" />
+    <PackageReference Include="NullLib.ArgsParser" Version="1.0.9" />
+    <PackageReference Include="NullLib.DynamicScanner" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

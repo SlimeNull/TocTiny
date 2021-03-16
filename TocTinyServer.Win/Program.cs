@@ -6,12 +6,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using NullLib.EventedSocket;
-using NullLib.DynamicScanner;
 using CHO.Json;
 using TocTiny.Public;
 using TocTiny.Server.Core;
-using Null.ArgsParser;
+using NullLib.ArgsParser;
+using NullLib.EventedSocket;
+using NullLib.DynamicScanner;
 
 namespace TocTiny
 {
@@ -34,16 +34,6 @@ namespace TocTiny
         static TocTinyServer tocTinyServer;
         static void DisplayHelpAndExit()
         {
-            App.SafeWriteLine(string.Join("\n",
-                "TOC Tiny : TOC Tiny 的服务端程序",
-                "",
-                "  TocTiny [-Port 端口] [-Backlog 监听数量] /[? | Help]",
-                "",
-                "    port       : 将要被监听的端口号.",
-                "    bufferSize : 接收消息的缓冲区大小. 默认是1024576B(1MB)",
-                "    backlog    : 等待连接的队列大小. 默认是50.",
-                "    ",
-                ""));
 
             Environment.Exit(0);
         }

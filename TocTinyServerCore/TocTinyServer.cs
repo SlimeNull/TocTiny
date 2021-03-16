@@ -14,7 +14,7 @@ namespace TocTiny
 {
     public class TocTinyServer
     {
-        class ClientData
+        struct ClientData
         {
             public MemoryStream Buffer;
             public DateTime LastSend;
@@ -28,15 +28,10 @@ namespace TocTiny
         public double BufferTimeout { get => btimeout.TotalMilliseconds; set { btimeout = TimeSpan.FromMilliseconds(value); } }
         public double CleanInverval { get => bufferCleanner.Interval; set { bufferCleanner.Interval = value; } }
         public int HistoryMaxCount { get => historyMaxCount; set { historyMaxCount = value; } }
-        public int Port { get => port; }
         public int Backlog { get => backlog; set => backlog = value; }
+        public int Port { get => port; }
 
         readonly Dictionary<EventedClient, ClientData> clients;                // 客户端
-
-        //readonly Dictionary<string, (string, Socket)> clientRecords;    // guid : (name, socket)
-        //readonly List<Socket> clientToRemove;                           // 要被删去的服务端
-        //readonly byte[] heartPackageData;
-
 
         readonly List<byte[]> lastMessages;                             // 保存最近的几条消息
         readonly Timer bufferCleanner;
@@ -53,8 +48,6 @@ namespace TocTiny
 
             clients = new Dictionary<EventedClient, ClientData>();
             lastMessages = new List<byte[]>();
-            //clientToRemove = new List<Socket>();
-            //clientRecords = new Dictionary<string, (string, Socket)>();
 
             bufferCleanner = new Timer()
             {
@@ -103,8 +96,11 @@ namespace TocTiny
             client.Disconnected += ClientDisconnectedController;
             client.StartReceiveData();
 
-
             SafeAddClient(client);
+
+            if (clients.Count >= Backlog)
+                clientListener.StopAcceptClient();
+
             SafeSendHistoryData(client);
 
             OnClientConnected(client);
@@ -171,7 +167,7 @@ namespace TocTiny
         /// <summary>
         /// 将数据写入到缓冲区
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="cdata"></param>
         /// <param name="data"></param>
         /// <param name="size"></param>
         /// <returns>是否是第一次写入缓冲区</returns>

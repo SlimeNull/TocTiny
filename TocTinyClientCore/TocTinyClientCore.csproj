@@ -34,9 +34,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NullLib.EventedSocket, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NullLib.EventedSocket.1.0.1\lib\netstandard2.0\NullLib.EventedSocket.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -59,9 +56,10 @@
       <Project>{b86664aa-c921-4ea5-b110-d4a9e3d565f6}</Project>
       <Name>TocTinyPublic</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="C:\Users\Null\source\repos\NullLib.EventedSocket\NullLib.EventedSocket\NullLib.EventedSocket.csproj">
+      <Project>{77101869-4bf5-4ebf-8dbb-09ef41766910}</Project>
+      <Name>NullLib.EventedSocket</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

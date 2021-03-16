@@ -8,6 +8,7 @@ using System.Timers;
 using TocTiny.Public;
 using NullLib.EventedSocket;
 using CHO.Json;
+using System.Net;
 
 namespace TocTiny
 {
@@ -19,7 +20,7 @@ namespace TocTiny
             public DateTime LastSend;
         }
 
-        SocketServer socketServer;
+        EventedListener clientListener;
 
         int port, backlog, historyMaxCount;    // port, bufferSize, backlog, history max count; 启动信息
         TimeSpan btimeout;
@@ -27,10 +28,10 @@ namespace TocTiny
         public double BufferTimeout { get => btimeout.TotalMilliseconds; set { btimeout = TimeSpan.FromMilliseconds(value); } }
         public double CleanInverval { get => bufferCleanner.Interval; set { bufferCleanner.Interval = value; } }
         public int HistoryMaxCount { get => historyMaxCount; set { historyMaxCount = value; } }
-        public int Port { get => port; set => port = value; }
+        public int Port { get => port; }
         public int Backlog { get => backlog; set => backlog = value; }
 
-        readonly Dictionary<Socket, ClientData> clients;                // 客户端
+        readonly Dictionary<EventedClient, ClientData> clients;                // 客户端
 
         //readonly Dictionary<string, (string, Socket)> clientRecords;    // guid : (name, socket)
         //readonly List<Socket> clientToRemove;                           // 要被删去的服务端
@@ -43,14 +44,14 @@ namespace TocTiny
 
         //-------------------------------------------------------------------------------------------------------------------------------------------//
 
-        public TocTinyServer()
+        public TocTinyServer(int port)
         {
-            port = 2020;                     // 默认端口
+            this.port = port;                     // 默认端口
             backlog = 50;                    // 默认监听数
 
-            socketServer = new SocketServer();
+            clientListener = new EventedListener(IPAddress.Any, port);
 
-            clients = new Dictionary<Socket, ClientData>();
+            clients = new Dictionary<EventedClient, ClientData>();
             lastMessages = new List<byte[]>();
             //clientToRemove = new List<Socket>();
             //clientRecords = new Dictionary<string, (string, Socket)>();
@@ -64,45 +65,49 @@ namespace TocTiny
 
         public void StartServer()
         {
-            socketServer.ClientConnected += ClientConnectedController;
-            socketServer.ClientDisconnected += ClientDisconnectedController;
-            socketServer.ReceivedClientData += RecvedClientMsgController;
+            clientListener.ClientConnected += ClientConnectedController;
 
-            socketServer.Start(port, backlog);
+            clientListener.Start();
+            clientListener.StartAcceptClient();
             bufferCleanner.Start();
         }
 
         #region 主要的3个事件 {连接 接收 断开}
-        private void RecvedClientMsgController(object sender, SocketReceivedDataArgs e)
+        private void RecvedClientMsgController(object sender, ClientDataReceivedEventArgs e)
         {
-            Socket socket = e.Socket;
+            EventedClient client = e.Client;
             byte[] buffer = e.Buffer;
             int size = e.Size;
 
             if (TryGetPackages(buffer, size, out TransPackage[] packages))
             {
-                DealPackages(socket, packages, buffer, size);
-                ClearPartBuffer(clients[socket]);
+                DealPackages(client, packages, buffer, size);
+                ClearPartBuffer(clients[client]);
             }
             else
             {
-                DealPartData(socket, buffer, size);
+                DealPartData(client, buffer, size);
             }
         }
-        private void ClientDisconnectedController(object sender, SocketDisconnectedArgs e)
+        private void ClientDisconnectedController(object sender, ClientDisconnectedEventArgs e)
         {
-            Socket client = e.Socket;
-            OnClientDisconnected(client);
-
+            EventedClient client = e.Client;
             SafeRemoveClient(client);
+
+            OnClientDisconnected(client);
         }
-        private void ClientConnectedController(object sender, SocketConnectedArgs e)
+        private void ClientConnectedController(object sender, ClientConnectedEventArgs e)
         {
-            Socket client = e.Socket;
-            OnClientConnected(client);
+            EventedClient client = e.Client;
+            client.DataReceived += RecvedClientMsgController;
+            client.Disconnected += ClientDisconnectedController;
+            client.StartReceiveData();
+
 
             SafeAddClient(client);
             SafeSendHistoryData(client);
+
+            OnClientConnected(client);
         }
         #endregion
 
@@ -128,20 +133,21 @@ namespace TocTiny
                 return false;
             }
         }
-        private void DealPackages(Socket sender, TransPackage[] packages, byte[] buffer, int size)
+        private void DealPackages(EventedClient sender, TransPackage[] packages, byte[] buffer, int size)
         {
             foreach (TransPackage package in packages)
             {
                 OnPackageReceived(sender, package, out bool boardcast, out bool postback, out bool record);
                 if (boardcast)
-                    EventedSocket.TryBeginBoardcastData(clients.Keys, buffer, 0, size);
+                    foreach (var i in clients.Keys)
+                        i.SendData(buffer, 0, size);
                 if (postback)
-                    EventedSocket.TryBeginSendData(sender, buffer, 0, size);
+                    sender.SendData(buffer, 0, size);
                 if (record)
                     SafeAddHistoryData(buffer, size);
             }
         }
-        private bool DealPartData(Socket sender, byte[] part, int size)
+        private bool DealPartData(EventedClient sender, byte[] part, int size)
         {
             if (clients.TryGetValue(sender, out ClientData cdata))
             {
@@ -208,30 +214,30 @@ namespace TocTiny
                     lastMessages.RemoveAt(0);
             }
         }
-        private void SafeSendHistoryData(Socket socket)
+        private void SafeSendHistoryData(EventedClient socket)
         {
             lock (lastMessages)
             {
                 for (int i = 0; i < lastMessages.Count; i++)
                 {
-                    EventedSocket.TryBeginSendData(socket, lastMessages[i]);
+                    socket.SendData(lastMessages[i]);
                 }
             }
         }
         #endregion
 
         #region 客户端的管理函数
-        private bool SafeAddClient(Socket socket)
+        private void SafeAddClient(EventedClient socket)
         {
             lock (clients)
             {
-                return clients.TryAdd(socket, new ClientData()
+                clients[socket] = new ClientData()
                 {
                     Buffer = new MemoryStream()
-                });
+                };
             }
         }
-        private bool SafeRemoveClient(Socket socket)
+        private bool SafeRemoveClient(EventedClient socket)
         {
             lock (clients)
             {
@@ -256,14 +262,15 @@ namespace TocTiny
         {
             lock(clients)
             {
-                EventedSocket.TryBeginBoardcastData(clients.Keys, data, offset, size);
+                foreach (var i in clients.Keys)
+                    i.SendData(data, offset, size);
             }
         }
         #endregion
 
         public void StopServer()
         {
-            socketServer.Stop();
+            clientListener.Stop();
             bufferCleanner.Stop();
         }
 
@@ -271,7 +278,7 @@ namespace TocTiny
         public event EventHandler<ClientConnectedArgs> ClientConnected;
         public event EventHandler<ClientDisconnectedArgs> ClientDisconnected;
 
-        private void OnPackageReceived(Socket sender, TransPackage package, out bool boardcast, out bool postback, out bool record)
+        private void OnPackageReceived(EventedClient sender, TransPackage package, out bool boardcast, out bool postback, out bool record)
         {
             boardcast = false;
             postback = false;
@@ -286,14 +293,14 @@ namespace TocTiny
                 record = e.Record;
             }
         }
-        private void OnClientConnected(Socket client)
+        private void OnClientConnected(EventedClient client)
         {
             if (ClientConnected != null)
             {
                 ClientConnected.Invoke(this, new ClientConnectedArgs(client));
             }
         }
-        private void OnClientDisconnected(Socket client)
+        private void OnClientDisconnected(EventedClient client)
         {
             if (ClientDisconnected != null)
             {
@@ -303,7 +310,7 @@ namespace TocTiny
     }
     public class PackageReceivedArgs : EventArgs
     {
-        public Socket Sender;
+        public EventedClient Sender;
         public TransPackage Package;
 
         public bool Boardcast = false;
@@ -311,7 +318,7 @@ namespace TocTiny
         public bool Record = false;
 
         public PackageReceivedArgs() { }
-        public PackageReceivedArgs(Socket sender, TransPackage package)
+        public PackageReceivedArgs(EventedClient sender, TransPackage package)
         {
             this.Sender = sender;
             this.Package = package;
@@ -319,20 +326,20 @@ namespace TocTiny
     }
     public class ClientConnectedArgs : EventArgs
     {
-        public Socket Client;
+        public EventedClient Client;
 
         public ClientConnectedArgs() { }
-        public ClientConnectedArgs(Socket client)
+        public ClientConnectedArgs(EventedClient client)
         {
             this.Client = client;
         }
     }
     public class ClientDisconnectedArgs : EventArgs
     {
-        public Socket Client;
+        public EventedClient Client;
 
         public ClientDisconnectedArgs() { }
-        public ClientDisconnectedArgs(Socket client)
+        public ClientDisconnectedArgs(EventedClient client)
         {
             this.Client = client;
         }

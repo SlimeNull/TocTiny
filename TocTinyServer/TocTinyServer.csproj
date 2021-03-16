@@ -9,13 +9,14 @@
 
   <ItemGroup>
     <PackageReference Include="Null.ArgsParser" Version="1.0.7" />
-    <PackageReference Include="NullLib.EventedSocket" Version="1.0.1" />
+    <PackageReference Include="NullLib.DynamicScanner" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CHO.Json\CHO.Json.csproj" />
     <ProjectReference Include="..\TocTinyPublic\TocTinyPublic.csproj" />
     <ProjectReference Include="..\TocTinyServerCore\TocTinyServerCore.csproj" />
+    <ProjectReference Include="C:\Users\Null\source\repos\NullLib.EventedSocket\NullLib.EventedSocket\NullLib.EventedSocket.csproj" />
   </ItemGroup>
 
 </Project>

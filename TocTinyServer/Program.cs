@@ -6,10 +6,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using Null.Library;
 using NullLib.EventedSocket;
-using TocTiny.Public;
+using NullLib.DynamicScanner;
 using CHO.Json;
+using TocTiny.Public;
 using TocTiny.Server.Core;
 using Null.ArgsParser;
 
@@ -19,8 +19,6 @@ namespace TocTiny
     {
         static ExecuteArgs Initialize(string[] args)
         {
-            scanner = new DynamicScanner();
-
             Arguments nargs = new Arguments(
                 new FieldArgument("Port"),
                 new FieldArgument("Backlog"),
@@ -34,10 +32,9 @@ namespace TocTiny
             return startupArgs.DeepParse();
         }
         static TocTinyServer tocTinyServer;
-        static DynamicScanner scanner;
         static void DisplayHelpAndExit()
         {
-            App.SafeWriteLine(scanner, string.Join('\n',
+            App.SafeWriteLine(string.Join("\n",
                 "TOC Tiny : TOC Tiny 的服务端程序",
                 "",
                 "  TocTiny [-Port 端口] [-Backlog 监听数量] /[? | Help]",
@@ -58,7 +55,7 @@ namespace TocTiny
         {
             ExecuteArgs args = Initialize(cargs);
 
-            tocTinyServer = new TocTinyServer()
+            tocTinyServer = new TocTinyServer(args.Port)
             {
                 CleanInverval = 2000
             };
@@ -68,7 +65,16 @@ namespace TocTiny
             tocTinyServer.PackageReceived += TocTinyServer_PackageReceived;
             tocTinyServer.ClientConnected += TocTinyServer_ClientConnected;
             tocTinyServer.ClientDisconnected += TocTinyServer_ClientDisconnected;
-            tocTinyServer.StartServer();
+
+            try
+            {
+                tocTinyServer.StartServer();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Binding failed. Please check if the port {args.Port} was listened by another application.");
+                return;
+            }
 
             while (true)
                 Console.ReadKey(true);
@@ -76,14 +82,14 @@ namespace TocTiny
 
         private static void TocTinyServer_ClientDisconnected(object sender, ClientDisconnectedArgs args)
         {
-            Console.WriteLine($"{args.Client.RemoteEndPoint} disconnected.");
+            Console.WriteLine($"Client: {args.Client.BaseSocket.RemoteEndPoint} disconnected.");
 
             onlineCount--;
         }
 
         private static void TocTinyServer_ClientConnected(object sender, ClientConnectedArgs args)
         {
-            Console.WriteLine($"{args.Client.RemoteEndPoint} connected.");
+            Console.WriteLine($"Client: {args.Client.BaseSocket.RemoteEndPoint} connected.");
 
             onlineCount++;
         }
@@ -93,15 +99,18 @@ namespace TocTiny
             switch(args.Package.PackageType)
             {
                 case ConstDef.NormalMessage:
+                    Console.WriteLine($"{args.Package.Name}: {args.Package.Content}");
                     args.Boardcast = true;
                     return;
                 case ConstDef.Verification:
                     args.Boardcast = true;
                     return;
                 case ConstDef.ImageMessage:
+                    Console.WriteLine($"{args.Package.Name}- Image (of size:{args.Package.Content.Length} base64 chars)");
                     args.Boardcast = true;
                     return;
                 case ConstDef.DrawAttention:
+                    Console.WriteLine($"{args.Package.Name}- Attention");
                     args.Boardcast = true;
                     return;
                 case ConstDef.HeartPackage:
@@ -110,10 +119,10 @@ namespace TocTiny
                     //to do: deal this message
                     return;
                 case ConstDef.ReportChannelOnline:
-                    EventedSocket.TryBeginSendData(args.Sender, Encoding.UTF8.GetBytes(JsonData.ConvertToText(JsonData.Create(new TransPackage()
+                    args.Sender.SendData(Encoding.UTF8.GetBytes(JsonData.ConvertToText(JsonData.Create(new TransPackage()
                     {
                         Name = "Server",
-                        Content = $"Online: {onlineCount}; Your IP Address: {((IPEndPoint)args.Sender.RemoteEndPoint).Address};",
+                        Content = $"Online: {onlineCount}; Your IP Address: {((IPEndPoint)args.Sender.BaseSocket.RemoteEndPoint).Address};",
                         ClientGuid = "Server",
                         PackageType = ConstDef.ReportChannelOnline
                     }))));

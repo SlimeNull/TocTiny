@@ -31,6 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{A44ACB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TocTinyServer.Win", "TocTinyServer.Win\TocTinyServer.Win.csproj", "{90694B3D-AD53-4D42-997E-C48E3110FBD7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LibraryTemp", "LibraryTemp", "{BC7F8953-9248-43C1-80ED-705CB895203A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NullLib.EventedSocket", "C:\Users\Null\source\repos\NullLib.EventedSocket\NullLib.EventedSocket\NullLib.EventedSocket.csproj", "{77101869-4BF5-4EBF-8DBB-09EF41766910}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,10 @@ Global
 		{90694B3D-AD53-4D42-997E-C48E3110FBD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90694B3D-AD53-4D42-997E-C48E3110FBD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90694B3D-AD53-4D42-997E-C48E3110FBD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77101869-4BF5-4EBF-8DBB-09EF41766910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77101869-4BF5-4EBF-8DBB-09EF41766910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77101869-4BF5-4EBF-8DBB-09EF41766910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77101869-4BF5-4EBF-8DBB-09EF41766910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +90,7 @@ Global
 		{CDA4C380-D654-4320-A433-1B9AABA855F5} = {ED436AAC-9DF7-47B2-8500-E4E9D5A809ED}
 		{A44ACBC7-84B2-4355-943A-7CA2E9FBBEE4} = {ED436AAC-9DF7-47B2-8500-E4E9D5A809ED}
 		{90694B3D-AD53-4D42-997E-C48E3110FBD7} = {C24D1103-00B2-4197-B6F4-2170F6D3A18A}
+		{77101869-4BF5-4EBF-8DBB-09EF41766910} = {BC7F8953-9248-43C1-80ED-705CB895203A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {158DAF8C-80A2-4620-A0A5-A05C59ED4DAA}

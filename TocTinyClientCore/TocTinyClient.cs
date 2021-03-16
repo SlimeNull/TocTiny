@@ -18,7 +18,7 @@ namespace TocTiny.Core
 {
     public class TocTinyClient
     {
-        private SocketClient socketClient;
+        private EventedClient selfClient;
 
         private TimeSpan btimeout = TimeSpan.FromSeconds(2);
 
@@ -30,8 +30,8 @@ namespace TocTiny.Core
 
         public string UserName { get => userName; set => userName = value; }
         public string ClientGuid { get => clientGuid; }
-        public SocketClient SocketClient { get => socketClient; }
-        public Socket Server { get => socketClient.BaseSocket; }
+        public EventedClient SocketClient { get => selfClient; }
+        public Socket Server { get => selfClient.BaseSocket; }
         public double BufferTimeout
         {
             get => btimeout.TotalMilliseconds;
@@ -57,11 +57,11 @@ namespace TocTiny.Core
             bufferCleaner = new Timer();
             bufferCleaner.Elapsed += CleanAction;
 
-            socketClient = new SocketClient();
+            selfClient = new EventedClient();
             partBuffer = new MemoryStream();
 
-            socketClient.ReceivedData += SocketClient_ReceivedMsg;
-            socketClient.Disconnected += SocketClient_Disconnected;
+            selfClient.DataReceived += SocketClient_ReceivedMsg;
+            selfClient.Disconnected += SocketClient_Disconnected;
         }
 
         /// <summary>
@@ -82,7 +82,8 @@ namespace TocTiny.Core
         /// <param name="point"></param>
         public void ConnectTo(IPEndPoint point)
         {
-            socketClient.ConnectTo(point);
+            selfClient.Connect(point.Address, point.Port);
+            selfClient.StartReceiveData();
             bufferCleaner.Start();
         }
         /// <summary>
@@ -90,7 +91,7 @@ namespace TocTiny.Core
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void SocketClient_Disconnected(object sender, SocketDisconnectedArgs args)
+        private void SocketClient_Disconnected(object sender, NullLib.EventedSocket.ClientDisconnectedEventArgs args)
         {
             OnConnectionLost(Server);                 // 客户端断开连接, 引发Disconnected事件并停止BufferCleaner.
             bufferCleaner.Stop();
@@ -100,7 +101,7 @@ namespace TocTiny.Core
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void SocketClient_ReceivedMsg(object sender, SocketReceivedDataArgs args)
+        private void SocketClient_ReceivedMsg(object sender, ClientDataReceivedEventArgs args)
         {
             byte[] buffer = args.Buffer;
             int size = args.Size;
@@ -146,7 +147,7 @@ namespace TocTiny.Core
                 {
                     OnPackageReceived(package, out bool postback);
                     if (postback)                              // OnPackageReceived 返回的 bool 值表示是否Postback
-                        EventedSocket.BeginSendData(Server, buffer, 0, size);
+                        selfClient.BeginSendData(buffer, 0, size);
                 }
             }
         }
@@ -270,7 +271,7 @@ namespace TocTiny.Core
         }
         public void SendPackage(TransPackage package)
         {
-            EventedSocket.BeginSendData(socketClient.BaseSocket, 
+            selfClient.BeginSendData(
                 Encoding.UTF8.GetBytes(
                     JsonData.ConvertToText(
                         JsonData.Create(package))));

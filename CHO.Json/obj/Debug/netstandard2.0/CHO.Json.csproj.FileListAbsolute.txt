@@ -1,9 +1,9 @@
 D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\bin\Debug\netstandard2.0\CHO.Json.deps.json
 D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\bin\Debug\netstandard2.0\CHO.Json.dll
 D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\bin\Debug\netstandard2.0\CHO.Json.pdb
-D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\obj\Debug\netstandard2.0\CHO.Json.csprojAssemblyReference.cache
 D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\obj\Debug\netstandard2.0\CHO.Json.AssemblyInfoInputs.cache
 D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\obj\Debug\netstandard2.0\CHO.Json.AssemblyInfo.cs
 D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\obj\Debug\netstandard2.0\CHO.Json.csproj.CoreCompileInputs.cache
 D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\obj\Debug\netstandard2.0\CHO.Json.dll
 D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\obj\Debug\netstandard2.0\CHO.Json.pdb
+D:\Project\Source\Repository\Current\repos\TocTiny\CHO.Json\obj\Debug\netstandard2.0\CHO.Json.csprojAssemblyReference.cache

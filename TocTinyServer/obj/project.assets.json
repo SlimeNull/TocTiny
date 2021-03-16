@@ -11,13 +11,13 @@
           "lib/netstandard2.0/Null.ArgsParser.dll": {}
         }
       },
-      "NullLib.EventedSocket/1.0.1": {
+      "NullLib.DynamicScanner/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/NullLib.EventedSocket.dll": {}
+          "lib/netstandard2.0/NullLib.DynamicScanner.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/NullLib.EventedSocket.dll": {}
+          "lib/netstandard2.0/NullLib.DynamicScanner.dll": {}
         }
       },
       "CHO.Json/1.0.0": {
@@ -28,6 +28,16 @@
         },
         "runtime": {
           "bin/placeholder/CHO.Json.dll": {}
+        }
+      },
+      "NullLib.EventedSocket/1.0.4": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/NullLib.EventedSocket.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NullLib.EventedSocket.dll": {}
         }
       },
       "TocTinyPublic/1.0.0": {
@@ -45,10 +55,10 @@
       },
       "TocTinyServerCore/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.1",
+        "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "CHO.Json": "1.0.0",
-          "NullLib.EventedSocket": "1.0.1",
+          "NullLib.EventedSocket": "1.0.4",
           "TocTinyPublic": "1.0.0"
         },
         "compile": {
@@ -73,22 +83,27 @@
         "null.argsparser.nuspec"
       ]
     },
-    "NullLib.EventedSocket/1.0.1": {
-      "sha512": "i+jUSSFoJMqQqxAvnAKOB3LZzbofCxC/GQ9NOsXOzF87FjgodtXcxxSa6lpAGu94x8i9S3TXXiP2IpUj18UPgQ==",
+    "NullLib.DynamicScanner/1.0.1": {
+      "sha512": "7Pi4z36j0xQp3CcR7pgdvJj48BvnDaMWrnCroT1HbQjdCDacgEoXyeAlGRNCChTDm0QZ0ZiA5vmYNUb5oKEi9g==",
       "type": "package",
-      "path": "nulllib.eventedsocket/1.0.1",
+      "path": "nulllib.dynamicscanner/1.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netstandard2.0/NullLib.EventedSocket.dll",
-        "nulllib.eventedsocket.1.0.1.nupkg.sha512",
-        "nulllib.eventedsocket.nuspec"
+        "lib/netstandard2.0/NullLib.DynamicScanner.dll",
+        "nulllib.dynamicscanner.1.0.1.nupkg.sha512",
+        "nulllib.dynamicscanner.nuspec"
       ]
     },
     "CHO.Json/1.0.0": {
       "type": "project",
       "path": "../CHO.Json/CHO.Json.csproj",
       "msbuildProject": "../CHO.Json/CHO.Json.csproj"
+    },
+    "NullLib.EventedSocket/1.0.4": {
+      "type": "project",
+      "path": "C:\\Users\\Null\\source\\repos\\NullLib.EventedSocket\\NullLib.EventedSocket\\NullLib.EventedSocket.csproj",
+      "msbuildProject": "C:\\Users\\Null\\source\\repos\\NullLib.EventedSocket\\NullLib.EventedSocket\\NullLib.EventedSocket.csproj"
     },
     "TocTinyPublic/1.0.0": {
       "type": "project",
@@ -105,7 +120,8 @@
     ".NETCoreApp,Version=v3.1": [
       "CHO.Json >= 1.0.0",
       "Null.ArgsParser >= 1.0.7",
-      "NullLib.EventedSocket >= 1.0.1",
+      "NullLib.DynamicScanner >= 1.0.1",
+      "NullLib.EventedSocket >= 1.0.4",
       "TocTinyPublic >= 1.0.0",
       "TocTinyServerCore >= 1.0.0"
     ]
@@ -142,6 +158,9 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
+            "C:\\Users\\Null\\source\\repos\\NullLib.EventedSocket\\NullLib.EventedSocket\\NullLib.EventedSocket.csproj": {
+              "projectPath": "C:\\Users\\Null\\source\\repos\\NullLib.EventedSocket\\NullLib.EventedSocket\\NullLib.EventedSocket.csproj"
+            },
             "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj": {
               "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj"
             },
@@ -168,7 +187,7 @@
             "target": "Package",
             "version": "[1.0.7, )"
           },
-          "NullLib.EventedSocket": {
+          "NullLib.DynamicScanner": {
             "target": "Package",
             "version": "[1.0.1, )"
           }

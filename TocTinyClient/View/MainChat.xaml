@@ -111,7 +111,7 @@
                         <Label Grid.Column="3" Padding="10,3" MouseDown="OnlineInfo_MouseDown" Content="OnlineInfo"/>
                     </Grid>
                 </Border>
-                <TextBox Grid.Row="1" Name="InputBox" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="True" 
+                <TextBox Grid.Row="1" Name="InputBox" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="True" UndoLimit="3"
                              TextWrapping="Wrap" Padding="3" BorderThickness="0" Background="#F5F6F7" PreviewDragEnter="InputBox_DragEnter" PreviewDrop="InputBox_Drop"
                              AcceptsReturn="True" AutoWordSelection="True" KeyDown="InputBox_KeyDown" BorderBrush="White"/>
             </Grid>

@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,8 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NullLib.EventedSocket, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NullLib.EventedSocket.1.0.1\lib\netstandard2.0\NullLib.EventedSocket.dll</HintPath>
+    <Reference Include="Null.ArgsParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Null.ArgsParser.1.0.7\lib\netstandard2.0\Null.ArgsParser.dll</HintPath>
+    </Reference>
+    <Reference Include="NullLib.DynamicScanner, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NullLib.DynamicScanner.1.0.1\lib\netstandard2.0\NullLib.DynamicScanner.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,12 +50,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\App.cs" />
+    <Compile Include="Core\ExecuteArgs.cs" />
+    <Compile Include="Core\StartupArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CHO.Json\CHO.Json.csproj">
+      <Project>{1bbb4d8c-905a-43a1-82e3-5b023e3e2f8a}</Project>
+      <Name>CHO.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TocTinyPublic\TocTinyPublic.csproj">
+      <Project>{b86664aa-c921-4ea5-b110-d4a9e3d565f6}</Project>
+      <Name>TocTinyPublic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TocTinyServerCore\TocTinyServerCore.csproj">
+      <Project>{86356356-9b7d-4b7f-b00e-7d903435a9b5}</Project>
+      <Name>TocTinyServerCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Null\source\repos\NullLib.EventedSocket\NullLib.EventedSocket\NullLib.EventedSocket.csproj">
+      <Project>{77101869-4bf5-4ebf-8dbb-09ef41766910}</Project>
+      <Name>NullLib.EventedSocket</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

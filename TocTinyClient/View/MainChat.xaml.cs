@@ -45,8 +45,12 @@ namespace TocTiny.View
         private void ClientSelf_Disconnected(object sender, EventArgs e)
         {
             MessageBox.Show("Connection lost.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            WindowParent.Show();
-            CloseSelf();
+
+            Dispatcher.Invoke(() =>
+            {
+                WindowParent.Show();
+                CloseSelf();
+            });
         }
 
         private void ClientSelf_PackageReceived(object sender, PackageReceivedEventArgs e)
@@ -75,11 +79,9 @@ namespace TocTiny.View
                             AppendTextMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Right);
                         else
                             AppendTextMessage(recvPackage.Name, recvPackage.Content, HorizontalAlignment.Left);
-                        Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     case ConstDef.Verification:
                         AppendAnnouncement(recvPackage.Content);
-                        Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     case ConstDef.ImageMessage:
                         if (recvPackage.ClientGuid == WindowParent.ClientSelf.ClientGuid)
@@ -95,16 +97,15 @@ namespace TocTiny.View
                         break;
                     case ConstDef.ChangeChannelName:
                         SetCurrentChannelName(recvPackage.Content);
-                        Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     case ConstDef.ReportChannelOnline:
                         AppendAnnouncement(recvPackage.Content);
-                        Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
                         break;
                     default:
                         // ( 在规定之外的消息 ) 以后再弄详细处理
                         break;
                 }
+                Dispatcher.Invoke(() => { ChatScroller.ScrollToBottom(); });
             }
         }
         private void SendInputtedText()
@@ -134,12 +135,6 @@ namespace TocTiny.View
         #region Functions
         private void AppendMsgControl(UIElement control)
         {
-            //Grid.SetRow(control, ChatMsgContainer.RowDefinitions.Count);
-            //ChatMsgContainer.RowDefinitions.Add(new RowDefinition()
-            //{
-            //    Height = GridLength.Auto
-            //});
-            //ChatMsgContainer.Children.Add(control);
             ChatMsgContainer.Children.Add(control);
         }
         private void AppendTextMessage(string name, string content, HorizontalAlignment align)
@@ -174,10 +169,6 @@ namespace TocTiny.View
         {
             ChannelName.Content = name;
             this.Title = $"{name} - TOC Tiny";
-        }
-        private void ChatPanelSrcollToEnd()
-        {
-            
         }
         #endregion
 
@@ -264,7 +255,7 @@ namespace TocTiny.View
         };
         private void SendPicture_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (ofd.ShowDialog().GetValueOrDefault(false))
+            if (ofd.ShowDialog().GetValueOrDefault(true))
             {
                 System.Drawing.Image imgForSending = null;
                 try

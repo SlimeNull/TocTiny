@@ -12,5 +12,6 @@ namespace TocTiny.Server.Core
         public int BufferTimeout;
         public int CleanInterval;
         public bool NoCommand;
+        public bool Help;
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Project\Source\Repository\Current\repos\TocTiny\TocTinyClient\App.xaml
-3-743193448
+4-872434868
 
-1295552773
+131596977474
 130-1136228975
-Resource\Style.xaml;View\MainChat.xaml;View\Login.xaml;
+Resource\Style.xaml;View\MainChatWindow.xaml;View\LoginWindow.xaml;View\MsgBox.xaml;
 
 True
 

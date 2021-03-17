@@ -94,7 +94,7 @@ namespace TocTiny
             }
             catch (Exception ex)
             {
-                SafePrintText($"Binding failed. Please check if the port {args.Port} was listened by another application.", true);
+                SafePrintText($"Binding failed. Please check if the port {args.Port} was listened by another application. Exception:{ex.Message}", true);
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace TocTiny
 
         private static void TocTinyServer_ClientDisconnected(object sender, ClientDisconnectedArgs args)
         {
-            SafePrintText($"Client: {args.Client.BaseSocket.RemoteEndPoint} disconnected.", true);
+            //SafePrintText($"Client: {args.Client.BaseSocket.RemoteEndPoint} disconnected.", true);
             onlineCount--;
         }
 
@@ -119,34 +119,38 @@ namespace TocTiny
             switch (args.Package.PackageType)
             {
                 case ConstDef.NormalMessage:
-                    SafePrintText($"{args.Package.Name}: {args.Package.Content}", true);
-                    args.Boardcast = true;
-                    return;
+                    args.Record = true;
+                    break;
+            }
+            switch (args.Package.PackageType)
+            {
+                case ConstDef.NormalMessage:
                 case ConstDef.Verification:
+                case ConstDef.ImageMessage:
+                case ConstDef.DrawAttention:
                     args.Boardcast = true;
-                    return;
+                    break;
+            }
+            switch (args.Package.PackageType)
+            {
+                case ConstDef.NormalMessage:
+                    SafePrintText($"{args.Package.Name}: {args.Package.Content}", true);
+                    break;
                 case ConstDef.ImageMessage:
                     SafePrintText($"{args.Package.Name}- Image (of size:{args.Package.Content.Length} base64 chars)", true);
-                    args.Boardcast = true;
-                    return;
+                    break;
                 case ConstDef.DrawAttention:
                     SafePrintText($"{args.Package.Name}- Attention", true);
-                    args.Boardcast = true;
-                    return;
-                case ConstDef.HeartPackage:
-                    return;
-                case ConstDef.ChangeChannelName:
-                    //to do: deal this message
-                    return;
+                    break;
                 case ConstDef.ReportChannelOnline:
-                    args.Sender.SendData(Encoding.UTF8.GetBytes(JsonData.ConvertToText(JsonData.Create(new TransPackage()
+                    args.Sender.BeginSendData(Encoding.UTF8.GetBytes(JsonData.ConvertToText(JsonData.Create(new TransPackage()
                     {
                         Name = "Server",
                         Content = $"Online: {onlineCount}; Your IP Address: {((IPEndPoint)args.Sender.BaseSocket.RemoteEndPoint).Address};",
                         ClientGuid = "Server",
                         PackageType = ConstDef.ReportChannelOnline
                     }))));
-                    return;
+                    break;
             }
         }
         private static TransPackage CreateChangeChannelPackage(string channelName)

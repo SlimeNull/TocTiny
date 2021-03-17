@@ -136,7 +136,16 @@ namespace TocTiny
                 OnPackageReceived(sender, package, out bool boardcast, out bool postback, out bool record);
                 if (boardcast)
                     foreach (var i in clients.Keys)
-                        i.SendData(buffer, 0, size);
+                    {
+                        try
+                        {
+                            i.SendData(buffer, 0, size);
+                        }
+                        catch
+                        {
+                            OnClientDisconnected(i);
+                        }
+                    }
                 if (postback)
                     sender.SendData(buffer, 0, size);
                 if (record)
@@ -298,6 +307,7 @@ namespace TocTiny
         }
         private void OnClientDisconnected(EventedClient client)
         {
+            SafeRemoveClient(client);
             if (ClientDisconnected != null)
             {
                 ClientDisconnected.Invoke(this, new ClientDisconnectedArgs(client));

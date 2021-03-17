@@ -124,6 +124,30 @@ namespace TocTiny.Client.ViewExFunc
             }
         }
 
+        public static bool TryGetImageSource(string base64img, out BitmapImage outSource)
+        {
+            try
+            {
+                byte[] imgData = Convert.FromBase64String(base64img);
+                MemoryStream stream = new MemoryStream(imgData);
+                BitmapImage imgSrc = new BitmapImage();
+                imgSrc.BeginInit();
+                imgSrc.CacheOption = BitmapCacheOption.OnLoad;
+                imgSrc.StreamSource = stream;
+                imgSrc.EndInit();
+                imgSrc.Freeze();
+
+                stream.Dispose();
+                outSource = imgSrc;
+                return true;
+            }
+            catch
+            {
+                outSource = null;
+                return false;
+            }
+        }
+
         #endregion
     }
 }

@@ -10,7 +10,7 @@
         "dependencies": {
           "CHO.Json": "1.0.0",
           "NullLib.ArgsParser": "1.0.9",
-          "NullLib.DynamicScanner": "1.0.1",
+          "NullLib.DynamicScanner": "1.0.3",
           "NullLib.EventedSocket": "1.0.4",
           "TocTinyPublic": "1.0.0",
           "TocTinyServerCore": "1.0.0"
@@ -27,11 +27,11 @@
           }
         }
       },
-      "NullLib.DynamicScanner/1.0.1": {
+      "NullLib.DynamicScanner/1.0.3": {
         "runtime": {
           "lib/netstandard2.0/NullLib.DynamicScanner.dll": {
-            "assemblyVersion": "1.0.1.0",
-            "fileVersion": "1.0.1.0"
+            "assemblyVersion": "1.0.3.0",
+            "fileVersion": "1.0.3.0"
           }
         }
       },
@@ -78,12 +78,12 @@
       "path": "nulllib.argsparser/1.0.9",
       "hashPath": "nulllib.argsparser.1.0.9.nupkg.sha512"
     },
-    "NullLib.DynamicScanner/1.0.1": {
+    "NullLib.DynamicScanner/1.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-7Pi4z36j0xQp3CcR7pgdvJj48BvnDaMWrnCroT1HbQjdCDacgEoXyeAlGRNCChTDm0QZ0ZiA5vmYNUb5oKEi9g==",
-      "path": "nulllib.dynamicscanner/1.0.1",
-      "hashPath": "nulllib.dynamicscanner.1.0.1.nupkg.sha512"
+      "sha512": "sha512-GT21Pj9dAXYkCxi+xVHY1l5pi9jPgzl7sF/t67LLIuj2F27zi9qMRoIgFxEBwL2bXkaJS26GmkNZCh7J3KXlyQ==",
+      "path": "nulllib.dynamicscanner/1.0.3",
+      "hashPath": "nulllib.dynamicscanner.1.0.3.nupkg.sha512"
     },
     "CHO.Json/1.0.0": {
       "type": "project",

@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="TocTiny.Client.View.MsgBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TocTiny.Client.View"
+             mc:Ignorable="d" x:Name="WS"
+             d:DesignHeight="450" d:DesignWidth="800"
+             TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
+    <UserControl.Resources>
+        <local:CornerRadiusConverter x:Key="CornerRadiusConverter"/>
+        <local:BorderThicknessConverter x:Key="BorderThicknessConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Name="BoxTitle" x:FieldModifier="private"
+               Content="{Binding Title}" Padding="0"
+               VerticalAlignment="Center"
+               HorizontalAlignment="{Binding HorizontalAlignment, ElementName=WS}"/>
+        <Border Grid.Row="1" Name="BoxBorder" x:FieldModifier="private"
+                Padding="5, 3" BorderBrush="#333"
+                BorderThickness="{Binding HorizontalAlignment, ElementName=WS, Converter={StaticResource BorderThicknessConverter}}"
+                CornerRadius="{Binding HorizontalAlignment, ElementName=WS, Converter={StaticResource CornerRadiusConverter}}"
+                VerticalAlignment="Top" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=WS}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Name="BoxText" x:FieldModifier="private" Padding="0"/>
+                <Image Grid.Row="1" Name="BoxImage" x:FieldModifier="private"
+                       MaxWidth="260" Stretch="Uniform" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=WS}"
+                       Cursor="Hand" MouseUp="BoxImage_MouseUp"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="NullLib.ArgsParser" Version="1.0.9" />
+    <PackageReference Include="NullLib.CommandLine" Version="1.0.1" />
     <PackageReference Include="NullLib.DynamicScanner" Version="1.0.3" />
   </ItemGroup>
 

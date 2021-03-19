@@ -11,7 +11,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition/>
             <RowDefinition Height="3"/>
-            <RowDefinition Height="130"/>
+            <RowDefinition Height="130" MaxHeight="250" MinHeight="100"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="0">
             <Label Name="ChannelName" Margin="15,3,0,3" VerticalAlignment="Center" HorizontalAlignment="Left" Content="TOC Tiny Chat Room" Width="250" BorderBrush="#000" BorderThickness="0,0,0,1" FontSize="20"/>
@@ -30,7 +30,7 @@
                     <Setter Property="HorizontalAlignment" Value="Left"/>
                     <Setter Property="Margin" Value="0"/>
                     <EventSetter Event="SelectionChanged" Handler="Sticker_Selected"/>
-                </Style> 
+                </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -82,8 +82,8 @@
                 <ListViewItem Content="(・ω・)"/>
             </ListView>
         </Grid>
-        <Border Grid.Row="2" Background="#000" Height="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-        <GridSplitter Grid.Column="2" ResizeDirection="Rows" Height="3"/>
+        <Border Grid.Row="2" Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="1"/>
+        <GridSplitter Grid.Row="2" Background="Transparent" HorizontalAlignment="Stretch" ResizeDirection="Rows" Height="3"/>
         <Grid Grid.Row="3">
             <Grid>
                 <Grid.RowDefinitions>
@@ -114,8 +114,9 @@
                     </Grid>
                 </Border>
                 <TextBox Grid.Row="1" Name="InputBox" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="True" UndoLimit="3"
-                             TextWrapping="Wrap" Padding="3" BorderThickness="0" Background="#F5F6F7" PreviewDragEnter="InputBox_DragEnter" PreviewDrop="InputBox_Drop"
-                             AcceptsReturn="True" AutoWordSelection="True" KeyDown="InputBox_KeyDown" BorderBrush="White"/>
+                         TextWrapping="Wrap" Padding="3" BorderThickness="0" Background="#F5F6F7"
+                         PreviewDragEnter="InputBox_DragEnter" PreviewDragOver="InputBox_DragEnter" PreviewDrop="InputBox_Drop"
+                         AcceptsReturn="True" AutoWordSelection="True" KeyDown="InputBox_KeyDown" BorderBrush="White"/>
             </Grid>
             <Button Margin="0,0,15,15" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="30" Width="90" Content="Send" Click="Send_Click"/>
         </Grid>

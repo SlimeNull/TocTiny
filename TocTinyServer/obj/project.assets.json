@@ -1,0 +1,261 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "NullLib.ArgsParser/1.0.9": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NullLib.ArgsParser.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NullLib.ArgsParser.dll": {}
+        }
+      },
+      "NullLib.CommandLine/1.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NullLib.CommandLine.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NullLib.CommandLine.dll": {}
+        }
+      },
+      "NullLib.DynamicScanner/1.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NullLib.DynamicScanner.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NullLib.DynamicScanner.dll": {}
+        }
+      },
+      "CHO.Json/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/CHO.Json.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CHO.Json.dll": {}
+        }
+      },
+      "NullLib.EventedSocket/1.0.4": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/NullLib.EventedSocket.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NullLib.EventedSocket.dll": {}
+        }
+      },
+      "TocTinyPublic/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "CHO.Json": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TocTinyPublic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TocTinyPublic.dll": {}
+        }
+      },
+      "TocTinyServerCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "CHO.Json": "1.0.0",
+          "NullLib.EventedSocket": "1.0.4",
+          "TocTinyPublic": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TocTinyServerCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TocTinyServerCore.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NullLib.ArgsParser/1.0.9": {
+      "sha512": "SeRRZMqbdiRI7UGIMeBRVCqgUJdEdX3vhO5kgfC4rKQsiqBd5IuEjsAj8YKfeyhD4qyrw2aS8UGfr6HGp6rcXw==",
+      "type": "package",
+      "path": "nulllib.argsparser/1.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NullLib.ArgsParser.dll",
+        "nulllib.argsparser.1.0.9.nupkg.sha512",
+        "nulllib.argsparser.nuspec"
+      ]
+    },
+    "NullLib.CommandLine/1.0.1": {
+      "sha512": "s4Omdc3FQkDXkp/2k+Ul2njgSkodGEGQkOz02o2PuaW7DsTDTtllEGLr3FvALLRQ0hIcWBnMRjgPCvW9UdiY4w==",
+      "type": "package",
+      "path": "nulllib.commandline/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NullLib.CommandLine.dll",
+        "nulllib.commandline.1.0.1.nupkg.sha512",
+        "nulllib.commandline.nuspec"
+      ]
+    },
+    "NullLib.DynamicScanner/1.0.3": {
+      "sha512": "GT21Pj9dAXYkCxi+xVHY1l5pi9jPgzl7sF/t67LLIuj2F27zi9qMRoIgFxEBwL2bXkaJS26GmkNZCh7J3KXlyQ==",
+      "type": "package",
+      "path": "nulllib.dynamicscanner/1.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NullLib.DynamicScanner.dll",
+        "nulllib.dynamicscanner.1.0.3.nupkg.sha512",
+        "nulllib.dynamicscanner.nuspec"
+      ]
+    },
+    "CHO.Json/1.0.0": {
+      "type": "project",
+      "path": "../CHO.Json/CHO.Json.csproj",
+      "msbuildProject": "../CHO.Json/CHO.Json.csproj"
+    },
+    "NullLib.EventedSocket/1.0.4": {
+      "type": "project",
+      "path": "C:\\Users\\Null\\source\\repos\\NullLib.EventedSocket\\NullLib.EventedSocket\\NullLib.EventedSocket.csproj",
+      "msbuildProject": "C:\\Users\\Null\\source\\repos\\NullLib.EventedSocket\\NullLib.EventedSocket\\NullLib.EventedSocket.csproj"
+    },
+    "TocTinyPublic/1.0.0": {
+      "type": "project",
+      "path": "../TocTinyPublic/TocTinyPublic.csproj",
+      "msbuildProject": "../TocTinyPublic/TocTinyPublic.csproj"
+    },
+    "TocTinyServerCore/1.0.0": {
+      "type": "project",
+      "path": "../TocTinyServerCore/TocTinyServerCore.csproj",
+      "msbuildProject": "../TocTinyServerCore/TocTinyServerCore.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.0": [
+      "CHO.Json >= 1.0.0",
+      "NullLib.ArgsParser >= 1.0.9",
+      "NullLib.CommandLine >= 1.0.1",
+      "NullLib.DynamicScanner >= 1.0.3",
+      "NullLib.EventedSocket >= 1.0.4",
+      "TocTinyPublic >= 1.0.0",
+      "TocTinyServerCore >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Null\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServer\\TocTinyServer.csproj",
+      "projectName": "TocTinyServer",
+      "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServer\\TocTinyServer.csproj",
+      "packagesPath": "C:\\Users\\Null\\.nuget\\packages\\",
+      "outputPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServer\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Null\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "targetAlias": "netcoreapp3.0",
+          "projectReferences": {
+            "C:\\Users\\Null\\source\\repos\\NullLib.EventedSocket\\NullLib.EventedSocket\\NullLib.EventedSocket.csproj": {
+              "projectPath": "C:\\Users\\Null\\source\\repos\\NullLib.EventedSocket\\NullLib.EventedSocket\\NullLib.EventedSocket.csproj"
+            },
+            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj": {
+              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj"
+            },
+            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyPublic\\TocTinyPublic.csproj": {
+              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyPublic\\TocTinyPublic.csproj"
+            },
+            "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServerCore\\TocTinyServerCore.csproj": {
+              "projectPath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\TocTinyServerCore\\TocTinyServerCore.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.0": {
+        "targetAlias": "netcoreapp3.0",
+        "dependencies": {
+          "NullLib.ArgsParser": {
+            "target": "Package",
+            "version": "[1.0.9, )"
+          },
+          "NullLib.CommandLine": {
+            "target": "Package",
+            "version": "[1.0.1, )"
+          },
+          "NullLib.DynamicScanner": {
+            "target": "Package",
+            "version": "[1.0.3, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.0.3, 3.0.3]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

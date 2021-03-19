@@ -37,6 +37,9 @@
     <Reference Include="NullLib.ArgsParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NullLib.ArgsParser.1.0.9\lib\netstandard2.0\NullLib.ArgsParser.dll</HintPath>
     </Reference>
+    <Reference Include="NullLib.CommandLine, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NullLib.CommandLine.1.0.1\lib\netstandard2.0\NullLib.CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="NullLib.DynamicScanner, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NullLib.DynamicScanner.1.0.3\lib\netstandard2.0\NullLib.DynamicScanner.dll</HintPath>
     </Reference>

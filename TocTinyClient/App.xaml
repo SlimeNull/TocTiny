@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:TocTiny"
              StartupUri="View/LoginWindow.xaml">
     <Application.Resources>
-        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resource/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

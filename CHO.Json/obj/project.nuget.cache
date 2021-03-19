@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "L05pFko57i1FxBE8KqYBZE3VczVnZPsI53AQEs3FV8I2DUsWxPfMurtuyfgu0TpuqBvjgvv5O6hcgMdFHwhuyA==",
+  "success": true,
+  "projectFilePath": "D:\\Project\\Source\\Repository\\Current\\repos\\TocTiny\\CHO.Json\\CHO.Json.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Null\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Null\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

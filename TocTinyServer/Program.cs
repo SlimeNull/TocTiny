@@ -104,7 +104,7 @@ namespace TocTiny
 
         private static void TocTinyServer_ClientDisconnected(object sender, ClientDisconnectedArgs args)
         {
-            //SafePrintText($"Client: {args.Client.BaseSocket.RemoteEndPoint} disconnected.", true);
+            SafePrintText($"Client: {args.Client.BaseSocket.RemoteEndPoint} disconnected.", true);
             onlineCount--;
         }
 
